@@ -3,37 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+//create the hexgrid for the map
 public class HexGridLayout : MonoBehaviour
 {
     [Header("Grid Settings")]
     [SerializeField]
-    Vector2Int gridSize;
+    Vector2Int gridSize; //size of map to generate
 
     [Header("Tile Settings")]
-    public float outerSize = 1;
-    public float innerSize = 0;
-    public float height = 0.5f;
-    public bool isFlatTopped;
+    public float outerSize = 1; // boder size for hex
+    public float innerSize = 0; // inner border e.g. hole
+    public float height = 0.5f; // height
+    public bool isFlatTopped; // is top flat or point e.g. north/up
 
     //temp
     [SerializeField]
-    List<BaseTile> baseTiless = new List<BaseTile>();
+    List<BaseTile> baseTiless = new List<BaseTile>(); //list of base tiles for random hex assignment
 
-    [SerializeField]
-    Camera mainCamera;
-
-    TileMaterials tileMaterials;
+    TileMaterials tileMaterials; //reference to script holding materials for use
 
     private void OnEnable()
     {
-        if (mainCamera == null)
-        {
-            mainCamera = Camera.main;
-        }
         tileMaterials = GameObject.FindObjectOfType<TileMaterials>();
-        LayoutGrid();
+
+        LayoutGrid(); //create grid
     }
 
+    //grid creation
     private void LayoutGrid()
     {
         foreach (Transform child in this.gameObject.transform)
@@ -48,6 +44,7 @@ public class HexGridLayout : MonoBehaviour
                 GameObject tile = new GameObject($"Hex {x},{y}", typeof(HexRenderer));
                 tile.transform.position = GetPositionForHexCoordinate(new Vector2Int(x, y));
 
+                //hex settings
                 HexRenderer hexRenderer = tile.GetComponent<HexRenderer>();
                 hexRenderer.isFlatTopped = isFlatTopped;
                 hexRenderer.outerSize = outerSize;
@@ -56,15 +53,19 @@ public class HexGridLayout : MonoBehaviour
                 hexRenderer.SetMaterial(tileMaterials.unAssigned);
                 hexRenderer.DrawMesh();
 
+                //set parent - keep clean
                 tile.transform.SetParent(transform, true);
 
+                //add collider - for raycast
                 tile.AddComponent<MeshCollider>();
 
+                //tile for tile details
                 Tile t = tile.AddComponent<Tile>();
-                t.baseTileType = baseTiless[Random.Range(0, baseTiless.Count)];
 
-                
+                //this is where id add some logic for terrain generation
+                t.baseTileType = baseTiless[Random.Range(0, baseTiless.Count)]; //random for now
 
+                //change material based on random basetile given
                 if (t.baseTileType.baseTileType == BaseTile.BaseTileTypes.grassland)
                 {
                     hexRenderer.SetMaterial(tileMaterials.grass);
@@ -78,26 +79,12 @@ public class HexGridLayout : MonoBehaviour
                     hexRenderer.SetMaterial(tileMaterials.ocean);
                 }
 
-                CreateFloatingText(tile, $"Hex {x},{y}\n<color=red>Type:</color> {t.baseTileType.baseTileType}");
             }
         }
 
     }
-    public void CreateFloatingText(GameObject parent, string textContent)
-    {
-        GameObject textObject = new GameObject("FloatingText");
-        textObject.transform.SetParent(parent.transform);
-        textObject.transform.localPosition = new Vector3(0, 0.5f, 0); // Position above hex
-        textObject.transform.rotation = Quaternion.Euler(90, 90, 0); // Align text upright in world space
 
-        TextMeshPro textMesh = textObject.AddComponent<TextMeshPro>();
-        textMesh.text = textContent;
-        textMesh.fontSize = 3;
-        textMesh.alignment = TextAlignmentOptions.Center;
-        textMesh.color = Color.white;
-        textMesh.richText = true; // Enables color formatting
-    }
-
+    //get hex position
     private Vector3 GetPositionForHexCoordinate(Vector2Int coordinate)
     {
         int collumn = coordinate.x;

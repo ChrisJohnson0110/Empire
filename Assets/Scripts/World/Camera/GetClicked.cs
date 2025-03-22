@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class GetClicked : MonoBehaviour
 {
@@ -16,12 +17,16 @@ public class GetClicked : MonoBehaviour
 
     GameObject clicked; //clicked tile outline
 
+    int layerMask; // ui layer
+
     private void Start()
     {
         hexGridLayout = GameObject.FindObjectOfType<HexGridLayout>();
         clicked = new GameObject("Clicked", typeof(HexRenderer));
         clicked.SetActive(false);
         clickedInfoBox.SetActive(false);
+
+        layerMask = ~LayerMask.GetMask("UI"); //get ui layer
 
         //create the tile that will be used for highlighting
         HexRenderer hexRenderer = clicked.GetComponent<HexRenderer>();
@@ -36,36 +41,40 @@ public class GetClicked : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            // Create a ray from the camera through the mouse position
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            // Perform the raycast
-            if (Physics.Raycast(ray, out hit))
+            if (Input.GetMouseButtonDown(0))
             {
-                // Get the object that was hit
-                GameObject hitObject = hit.collider.gameObject;
 
-                if(currentlySeleceted == hitObject.gameObject) //if clicked currently selected
-                {
-                    //remove selection
-                    clicked.SetActive(false);
-                    currentlySeleceted = null;
-                    clickedInfoBox.SetActive(false);
-                    
-                }
-                else
-                {
-                    currentlySeleceted = hitObject.gameObject;
-                    clicked.transform.position = hitObject.transform.position;
-                    clicked.SetActive(true);
-                    SetTileOptions();
-                    clickedInfoBox.SetActive(true);
-                }
+                // Create a ray from the camera through the mouse position
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
 
-                
+                // Perform the raycast
+                if (Physics.Raycast(ray, out hit))
+                {
+                    // Get the object that was hit
+                    GameObject hitObject = hit.collider.gameObject;
+
+                    if (currentlySeleceted == hitObject.gameObject) //if clicked currently selected
+                    {
+                        //remove selection
+                        clicked.SetActive(false);
+                        currentlySeleceted = null;
+                        clickedInfoBox.SetActive(false);
+
+                    }
+                    else
+                    {
+                        currentlySeleceted = hitObject.gameObject;
+                        clicked.transform.position = hitObject.transform.position;
+                        clicked.SetActive(true);
+                        SetTileOptions();
+                        clickedInfoBox.SetActive(true);
+                    }
+
+
+                }
             }
         }
     }

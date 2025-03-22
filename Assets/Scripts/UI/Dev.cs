@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Dev : MonoBehaviour
 {
+    private void Start()
+    {
+        ToggleText();
+    }
 
     public void ToggleText()
     {

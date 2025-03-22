@@ -845,6 +845,8 @@ GameObject:
   - component: {fileID: 431546663}
   - component: {fileID: 431546667}
   - component: {fileID: 431546668}
+  - component: {fileID: 431546669}
+  - component: {fileID: 431546670}
   m_Layer: 0
   m_Name: Hex
   m_TagString: Untagged
@@ -945,16 +947,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26009471713d21245a2f1f9a309847dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: {x: 25, y: 50}
+  gridSize: {x: 50, y: 25}
   outerSize: 1
   innerSize: 0
   height: 0.5
-  isFlatTopped: 0
+  isFlatTopped: 1
   baseTiless:
   - {fileID: 11400000, guid: 31c0fd2969b7bd44a99f58ea733cb537, type: 2}
   - {fileID: 11400000, guid: ac5698e2136831642acdb510a14b0740, type: 2}
   - {fileID: 11400000, guid: a5e6a30dde407694caed8c73912ac043, type: 2}
-  mainCamera: {fileID: 963194227}
 --- !u!114 &431546668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -971,6 +972,32 @@ MonoBehaviour:
   grass: {fileID: 2100000, guid: 1f53d81c368f1664e9937b280e14d340, type: 2}
   desert: {fileID: 2100000, guid: 9f97d8716febe3b469002dec6f7fece1, type: 2}
   ocean: {fileID: 2100000, guid: 3d196195ad96f52409629e32a3c43794, type: 2}
+--- !u!114 &431546669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431546662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cc70869f2a064e45a078ad9cfd677fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &431546670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431546662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 302c5f4ee2383a1458a8195c89f30bc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OffsetYields: {x: 0, y: 0.3, z: 0}
+  OffsetResources: {x: 0, y: 0.3, z: 0.4}
 --- !u!1 &518665476
 GameObject:
   m_ObjectHideFlags: 0
@@ -2400,14 +2427,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 24.6, y: 14.2, z: -39.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &963194229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2450,6 +2477,7 @@ GameObject:
   - component: {fileID: 1184012168}
   - component: {fileID: 1184012167}
   - component: {fileID: 1184012166}
+  - component: {fileID: 1184012169}
   m_Layer: 5
   m_Name: TL
   m_TagString: Untagged
@@ -2480,7 +2508,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 231.3, y: -13.158}
+  m_AnchoredPosition: {x: 231.30005, y: -13.157959}
   m_SizeDelta: {x: 462.596, y: 26.316}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1184012166
@@ -2545,6 +2573,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1184012164}
   m_CullTransparentMesh: 1
+--- !u!114 &1184012169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184012164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c48d8b73bf57c4bba194c15e9d4911, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WoodDisplay: {fileID: 528086881}
+  StoneDisplay: {fileID: 1814740607}
+  ClayDisplay: {fileID: 518665476}
+  SheepDisplay: {fileID: 761897029}
+  WheatDisplay: {fileID: 1833802747}
+  GoldDisplay: {fileID: 2146568003}
 --- !u!1 &1427436762
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraMovement : MonoBehaviour
 {
@@ -19,12 +20,14 @@ public class CameraMovement : MonoBehaviour
 
     void HandleDrag()
     {
-        if (Input.GetMouseButtonDown(0)) // Left mouse button pressed
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            dragOrigin = Input.mousePosition;
-            isDragging = true;
+            if (Input.GetMouseButtonDown(0)) // Left mouse button pressed
+            {
+                dragOrigin = Input.mousePosition;
+                isDragging = true;
+            }
         }
-
         if (Input.GetMouseButtonUp(0)) // Left mouse button released
         {
             isDragging = false;
