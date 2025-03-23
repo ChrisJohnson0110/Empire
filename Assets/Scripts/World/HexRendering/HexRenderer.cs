@@ -29,6 +29,12 @@ public class HexRenderer : MonoBehaviour
 
         meshFilter.mesh = mesh;
         meshRenderer.material = material;
+
+        //shadows
+        meshRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        meshRenderer.receiveShadows = false;
+
+
     }
 
     private void OnEnable()
