@@ -1869,7 +1869,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.084, y: -0.629}
+  m_AnchoredPosition: {x: 1.0839996, y: -0.6289978}
   m_SizeDelta: {x: 181.637, y: 116.369}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &825701974
@@ -2359,7 +2359,6 @@ GameObject:
   m_Component:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
-  - component: {fileID: 963194226}
   - component: {fileID: 963194229}
   - component: {fileID: 963194230}
   m_Layer: 0
@@ -2369,14 +2368,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &963194226
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
 --- !u!20 &963194227
 Camera:
   m_ObjectHideFlags: 0
@@ -2585,12 +2576,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9c48d8b73bf57c4bba194c15e9d4911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WoodDisplay: {fileID: 528086881}
-  StoneDisplay: {fileID: 1814740607}
-  ClayDisplay: {fileID: 518665476}
-  SheepDisplay: {fileID: 761897029}
-  WheatDisplay: {fileID: 1833802747}
-  GoldDisplay: {fileID: 2146568003}
+  WoodDisplay: {fileID: 528086883}
+  StoneDisplay: {fileID: 1814740609}
+  ClayDisplay: {fileID: 518665478}
+  SheepDisplay: {fileID: 761897031}
+  WheatDisplay: {fileID: 1833802749}
+  GoldDisplay: {fileID: 2146568005}
+  wood:
+    yieldType: 0
+    yieldAmount: 0
+  stone:
+    yieldType: 0
+    yieldAmount: 0
+  clay:
+    yieldType: 0
+    yieldAmount: 0
+  sheep:
+    yieldType: 0
+    yieldAmount: 0
+  wheat:
+    yieldType: 0
+    yieldAmount: 0
+  gold:
+    yieldType: 0
+    yieldAmount: 0
 --- !u!1 &1427436762
 GameObject:
   m_ObjectHideFlags: 0
