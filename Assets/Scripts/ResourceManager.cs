@@ -1,64 +1,169 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using TMPro;
 
 public class ResourceManager : MonoBehaviour
 {
     //display
     [SerializeField]
-    GameObject WoodDisplay;
+    TextMeshProUGUI WoodDisplay;
     [SerializeField]
-    GameObject StoneDisplay;
+    TextMeshProUGUI StoneDisplay;
     [SerializeField]
-    GameObject ClayDisplay;
+    TextMeshProUGUI ClayDisplay;
     [SerializeField]
-    GameObject SheepDisplay;
+    TextMeshProUGUI SheepDisplay;
     [SerializeField]
-    GameObject WheatDisplay;
+    TextMeshProUGUI WheatDisplay;
     [SerializeField]
-    GameObject GoldDisplay;
+    TextMeshProUGUI GoldDisplay;
 
-    //value
-    public int wood
+    //owned resources
+    public YieldTypes wood; //yeild type allows storeage of type and amount
+    public YieldTypes stone; 
+    public YieldTypes clay; 
+    public YieldTypes sheep; 
+    public YieldTypes wheat; 
+    public YieldTypes gold;
+
+    // Define delegate and event
+    public delegate void OnChanged(int value);
+
+    //events
+    public event OnChanged WoodChanged;
+    public event OnChanged StoneChanged;
+    public event OnChanged ClayChanged;
+    public event OnChanged SheepChanged;
+    public event OnChanged WheatChanged;
+    public event OnChanged GoldChanged;
+
+    //public variables
+    public int WoodOwned
     {
-        set { wood = value; WoodDisplay.GetComponent<TextMeshPro>().text = wood.ToString(); }
-        get { return wood; }
+        get { return wood.yieldAmount; }
+        set
+        {
+            if (wood.yieldAmount != value) // Only trigger if value actually changes
+            {
+                wood.yieldAmount = value;
+                WoodChanged?.Invoke(wood.yieldAmount); // Trigger event
+            }
+        }
     }
-    public int stone
+    public int StoneOwned
     {
-        set { stone = value; StoneDisplay.GetComponent<TextMeshPro>().text = stone.ToString(); }
-        get { return stone; }
+        get { return stone.yieldAmount; }
+        set
+        {
+            if (stone.yieldAmount != value) // Only trigger if value actually changes
+            {
+                stone.yieldAmount = value;
+                StoneChanged?.Invoke(stone.yieldAmount); // Trigger event
+            }
+        }
     }
-    public int clay
+    public int ClayOwned
     {
-        set { clay = value; ClayDisplay.GetComponent<TextMeshPro>().text = clay.ToString(); }
-        get { return clay; }
+        get { return clay.yieldAmount; }
+        set
+        {
+            if (clay.yieldAmount != value) // Only trigger if value actually changes
+            {
+                clay.yieldAmount = value;
+                ClayChanged?.Invoke(clay.yieldAmount); // Trigger event
+            }
+        }
     }
-    public int sheep
+    public int SheepOwned
     {
-        set { sheep = value; SheepDisplay.GetComponent<TextMeshPro>().text = sheep.ToString(); }
-        get { return sheep; }
+        get { return sheep.yieldAmount; }
+        set
+        {
+            if (sheep.yieldAmount != value) // Only trigger if value actually changes
+            {
+                sheep.yieldAmount = value;
+                SheepChanged?.Invoke(sheep.yieldAmount); // Trigger event
+            }
+        }
     }
-    public int wheat
+    public int WheatOwned
     {
-        set { wheat = value; WheatDisplay.GetComponent<TextMeshPro>().text = wheat.ToString(); }
-        get { return wheat; }
+        get { return wheat.yieldAmount; }
+        set
+        {
+            if (wheat.yieldAmount != value) // Only trigger if value actually changes
+            {
+                wheat.yieldAmount = value;
+                WheatChanged?.Invoke(wheat.yieldAmount); // Trigger event
+            }
+        }
     }
-    public int gold
+    public int GoldOwned
     {
-        set { gold = value; GoldDisplay.GetComponent<TextMeshPro>().text = gold.ToString(); }
-        get { return gold; }
+        get { return gold.yieldAmount; }
+        set
+        {
+            if (gold.yieldAmount != value) // Only trigger if value actually changes
+            {
+                gold.yieldAmount = value;
+                GoldChanged?.Invoke(gold.yieldAmount); // Trigger event
+            }
+        }
     }
 
     private void Start()
     {
-        //wood = 0;
-        //stone = 0;
-        //clay = 0;
-        //sheep = 0;
-        //wheat = 0;
-        //gold = 0;
+        wood.yieldType = YieldTypes.yieldTypes.gold;
+        stone.yieldType = YieldTypes.yieldTypes.gold;
+        clay.yieldType = YieldTypes.yieldTypes.gold;
+        sheep.yieldType = YieldTypes.yieldTypes.gold;
+        wheat.yieldType = YieldTypes.yieldTypes.gold;
+        gold.yieldType = YieldTypes.yieldTypes.gold;
+
+        WoodChanged += HandleWoodChanged;
+        StoneChanged += HandleStoneChanged;
+        ClayChanged += HandleClayChanged;
+        SheepChanged += HandleSheepChanged;
+        WheatChanged += HandleWheatChanged;
+        GoldChanged += HandleGoldChanged;
+
+        WoodOwned++;
+        StoneOwned++;
+        ClayOwned++;
+        SheepOwned++;
+        WheatOwned++;
+        GoldOwned++;
     }
 
+    private void Update()
+    {
+        StoneOwned++;
+    }
+
+    private void HandleWoodChanged(int value)
+    {
+        WoodDisplay.text = WoodOwned.ToString();
+    }
+    private void HandleStoneChanged(int value)
+    {
+        StoneDisplay.text = StoneOwned.ToString();
+    }
+    private void HandleClayChanged(int value)
+    {
+        ClayDisplay.text = ClayOwned.ToString();
+    }
+    private void HandleSheepChanged(int value)
+    {
+        SheepDisplay.text = SheepOwned.ToString();
+    }
+    private void HandleWheatChanged(int value)
+    {
+        WheatDisplay.text = WheatOwned.ToString();
+    }
+    private void HandleGoldChanged(int value)
+    {
+        GoldDisplay.text = GoldOwned.ToString();
+    }
 }
