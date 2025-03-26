@@ -11,13 +11,13 @@ public class GetClicked : MonoBehaviour
     [SerializeField]
     GameObject clickedInfoBox;
 
-    GameObject currentlySeleceted;
-
+    public GameObject currentlySeleceted;
     HexGridLayout hexGridLayout; //reference for the hex settings
-
     GameObject clicked; //clicked tile outline
-
     int layerMask; // ui layer
+
+    Settle settleRef; //
+
 
     private void Start()
     {
@@ -25,8 +25,9 @@ public class GetClicked : MonoBehaviour
         clicked = new GameObject("Clicked", typeof(HexRenderer));
         clicked.SetActive(false);
         clickedInfoBox.SetActive(false);
-
         layerMask = ~LayerMask.GetMask("UI"); //get ui layer
+
+        settleRef = GameObject.FindFirstObjectByType<Settle>();
 
         //create the tile that will be used for highlighting
         HexRenderer hexRenderer = clicked.GetComponent<HexRenderer>();
@@ -66,11 +67,15 @@ public class GetClicked : MonoBehaviour
                     }
                     else
                     {
+                        //show selection
                         currentlySeleceted = hitObject.gameObject;
                         clicked.transform.position = hitObject.transform.position;
                         clicked.SetActive(true);
                         SetTileOptions();
                         clickedInfoBox.SetActive(true);
+
+
+                        settleRef.DisplaySettleButton();
                     }
 
 

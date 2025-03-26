@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Empire
 {
-    //
+    public string empireName;
     List<City> cities = new List<City>();
     //score ?
 
