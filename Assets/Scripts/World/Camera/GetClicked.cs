@@ -74,8 +74,7 @@ public class GetClicked : MonoBehaviour
                         SetTileOptions();
                         clickedInfoBox.SetActive(true);
 
-
-                        settleRef.DisplaySettleButton();
+                        GameObject.FindAnyObjectByType<TileManager>().UpdateTile(currentlySeleceted.GetComponent<Tile>()); //update the clicked tile
                     }
 
 

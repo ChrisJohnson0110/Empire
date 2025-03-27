@@ -19,7 +19,7 @@ public class Tile : MonoBehaviour
     //is there a resource on the tile
     public Resource resourceOnTile;
 
-    public Empire ownedByXempire; //empire tile is owned by
+    public Empire ownedByXempire = null; //empire tile is owned by
     public City hasXcity = null; //if this tile is a city
 
     //types of terrain //classification of the above values
@@ -75,6 +75,9 @@ public class Tile : MonoBehaviour
                 resourceOnTile.tileYieldType.Add(randomYield);
             }
         }
-        
     }
+
+    
+
+
 }

@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dev : MonoBehaviour
+public class BLmenu : MonoBehaviour
 {
-    private void Start()
-    {
-        ToggleText();
-    }
+    [SerializeField]
+    GameObject settleButton;
 
-    public void ToggleText()
+    public void ToggleDevText()
     {
         //get all tiles children
         //set active/opo
@@ -25,4 +23,18 @@ public class Dev : MonoBehaviour
             }
         }
     }
+
+    public void settle()
+    {
+        Settle s = GameObject.FindAnyObjectByType<Settle>();
+        s.SettleCity();
+    }
+
+    //toggle settle button
+    public void ToggleSettleButton(bool active)
+    {
+        settleButton.SetActive(active);
+    }
+
+
 }

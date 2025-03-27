@@ -22,9 +22,12 @@ public class HexGridLayout : MonoBehaviour
 
     TileMaterials tileMaterials; //reference to script holding materials for use
 
+    TileManager tm;
+
     private void OnEnable()
     {
         tileMaterials = GameObject.FindObjectOfType<TileMaterials>();
+        tm = GameObject.FindObjectOfType<TileManager>();
 
         LayoutGrid(); //create grid
     }
@@ -61,6 +64,7 @@ public class HexGridLayout : MonoBehaviour
 
                 //tile for tile details
                 Tile t = tile.AddComponent<Tile>();
+                tm.allTiles.Add(t);
 
                 //this is where id add some logic for terrain generation
                 t.baseTileType = baseTiless[Random.Range(0, baseTiless.Count)]; //random for now

@@ -6,19 +6,25 @@ public class Settle : MonoBehaviour
 {
     //should the settle button be displayed
     //e.g. can you settle here
-    public void DisplaySettleButton()
+    public bool DisplaySettleButton(Tile tileToCheck)
     {
-        //is tile owned by city
+        TileManager tm = GameObject.FindAnyObjectByType<TileManager>();
+        BLmenu bl = GameObject.FindAnyObjectByType<BLmenu>();
 
+        //check all tiles adjacent to clicked tile
+        foreach (Tile t in tm.GetAdjacent(tileToCheck))
+        {
+            if (t.ownedByXempire != null) //if owned
+            {
+                //cant settle // hide button
+                bl.ToggleSettleButton(false);
+                return false; //early out
+            }
+        }
 
-        if (1 == 1)
-        {
-            //display
-        }
-        else
-        {
-            //dont
-        }
+        //can settle //show button
+        bl.ToggleSettleButton(true);
+        return true;
     }
 
     //function for the settle button
@@ -29,6 +35,10 @@ public class Settle : MonoBehaviour
         //
         //GetSelecetedTile().ownedByXempire = ;
         //GetSelecetedTile().hasXcity = ;
+        GetClicked gc = GameObject.FindAnyObjectByType<GetClicked>();
+        Empire e = gc.currentlySeleceted.GetComponent<Tile>().ownedByXempire = new Empire();
+        e.empireName = "new";
+        Debug.Log("now owned by new empire");
     }
 
     Tile GetSelecetedTile()
