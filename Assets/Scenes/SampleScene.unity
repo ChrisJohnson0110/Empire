@@ -659,6 +659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4981671b42cc0a349b59ced6db9a489e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settleButton: {fileID: 352200762}
 --- !u!114 &294586079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -709,6 +710,7 @@ GameObject:
   - component: {fileID: 352200766}
   - component: {fileID: 352200765}
   - component: {fileID: 352200764}
+  - component: {fileID: 352200767}
   m_Layer: 5
   m_Name: Settle
   m_TagString: Untagged
@@ -782,8 +784,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 294586078}
-        m_TargetAssemblyTypeName: Dev, Assembly-CSharp
-        m_MethodName: ToggleText
+        m_TargetAssemblyTypeName: BLmenu, Assembly-CSharp
+        m_MethodName: settle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -831,6 +833,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 352200762}
   m_CullTransparentMesh: 1
+--- !u!114 &352200767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352200762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2c861482c4e1db42b1ee02077cac41b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &431546662
 GameObject:
   m_ObjectHideFlags: 0
@@ -842,6 +856,7 @@ GameObject:
   - component: {fileID: 431546666}
   - component: {fileID: 431546665}
   - component: {fileID: 431546664}
+  - component: {fileID: 431546671}
   - component: {fileID: 431546663}
   - component: {fileID: 431546667}
   - component: {fileID: 431546668}
@@ -998,6 +1013,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OffsetYields: {x: 0, y: 0.3, z: 0}
   OffsetResources: {x: 0, y: 0.3, z: 0.4}
+--- !u!114 &431546671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431546662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb8dd4e5d360560419508bf12e2ebcc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allTiles: []
 --- !u!1 &518665476
 GameObject:
   m_ObjectHideFlags: 0
@@ -2456,6 +2484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 78b0620b62cadeb42987bd8f6b533f7f, type: 2}
   clickedInfoBox: {fileID: 853768347}
+  currentlySeleceted: {fileID: 0}
 --- !u!1 &1184012164
 GameObject:
   m_ObjectHideFlags: 0
