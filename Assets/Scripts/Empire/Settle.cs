@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Settle : MonoBehaviour
 {
+    [SerializeField]
+    Material mat;
     //should the settle button be displayed
     //e.g. can you settle here
     public bool DisplaySettleButton(Tile tileToCheck)
@@ -37,6 +39,9 @@ public class Settle : MonoBehaviour
         //GetSelecetedTile().hasXcity = ;
         GetClicked gc = GameObject.FindAnyObjectByType<GetClicked>();
         Empire e = gc.currentlySeleceted.GetComponent<Tile>().ownedByXempire = new Empire();
+
+        gc.currentlySeleceted.GetComponent<Tile>().gameObject.GetComponent<Renderer>().material = mat; //set mat for city
+
         e.empireName = "new";
         Debug.Log("now owned by new empire");
     }

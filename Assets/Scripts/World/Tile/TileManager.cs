@@ -5,8 +5,13 @@ using UnityEngine;
 public class TileManager : MonoBehaviour
 {
 
-    public List<Tile> allTiles = new List<Tile>();
+    public List<Tile> allTiles = new List<Tile>(); //all tiles generated
+    Settle settleReference; // settle reference
 
+    private void Start()
+    {
+        settleReference = GameObject.FindAnyObjectByType<Settle>(); //set settle reference
+    }
 
     public List<Tile> GetAdjacent(Tile tile)
     {
@@ -33,9 +38,15 @@ public class TileManager : MonoBehaviour
         {
             foreach (Vector2 coord in tiles)
             {
-                if (t.gameObject.name == $"Hex {tiles.ToString()}")
+                if (t.gameObject.name == $"Hex {coord.x.ToString()},{coord.y.ToString()}")
                 {
                     tilesAdjacent.Add(t);
+
+                    Debug.Log(t.gameObject.name);
+                    if (tilesAdjacent.Count == 6)
+                    {
+                        break;
+                    }
                 }
             }
             
@@ -57,7 +68,7 @@ public class TileManager : MonoBehaviour
     {
         //should maybe call function on the button scipt that handles all button checks ?
         //need to clean up this whole interaction
-        Settle s = GameObject.FindAnyObjectByType<Settle>();
-        s.DisplaySettleButton(tile);
+        
+        settleReference.DisplaySettleButton(tile);
     }
 }
