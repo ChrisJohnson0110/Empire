@@ -5,7 +5,13 @@ using UnityEngine;
 public class Settle : MonoBehaviour
 {
     [SerializeField]
-    Material mat;
+    Material ownedMat;
+    [SerializeField]
+    Material testingMat; //test
+    [SerializeField]
+    Material cityMat;
+
+
     //should the settle button be displayed
     //e.g. can you settle here
     public bool DisplaySettleButton(Tile tileToCheck)
@@ -14,7 +20,7 @@ public class Settle : MonoBehaviour
         BLmenu bl = GameObject.FindAnyObjectByType<BLmenu>();
 
         //check all tiles adjacent to clicked tile
-        foreach (Tile t in tm.GetAdjacent(tileToCheck))
+        foreach (Tile t in tm.GetAdjacentOfAdjacent(tileToCheck))
         {
             if (t.ownedByXempire != null) //if owned
             {
@@ -33,16 +39,32 @@ public class Settle : MonoBehaviour
     //establishes city
     public void SettleCity()
     {
-        //get empire
-        //
-        //GetSelecetedTile().ownedByXempire = ;
-        //GetSelecetedTile().hasXcity = ;
-        GetClicked gc = GameObject.FindAnyObjectByType<GetClicked>();
-        Empire e = gc.currentlySeleceted.GetComponent<Tile>().ownedByXempire = new Empire();
+        Tile targetTile = GameObject.FindAnyObjectByType<GetClicked>().currentlySeleceted.GetComponent<Tile>();
 
-        gc.currentlySeleceted.GetComponent<Tile>().gameObject.GetComponent<Renderer>().material = mat; //set mat for city
+        Empire empire = targetTile.ownedByXempire = new Empire(); //this needs to be the empire that is playing
+        empire.empireName = "new"; //not needed here
 
-        e.empireName = "new";
+        City c = targetTile.hasXcity = new City(targetTile); //create new city
+
+        targetTile.gameObject.GetComponent<Renderer>().material = cityMat; //set mat for city
+        TileManager tm = GameObject.FindAnyObjectByType<TileManager>();
+
+        
+        //test
+        foreach (Tile ta in tm.GetAdjacentOfAdjacent(targetTile)) //color all of the onwed tiles of this city
+        {
+            ta.gameObject.GetComponent<Renderer>().material = testingMat;
+        }
+
+        //color allm owned tiles
+        foreach (Tile t in tm.GetAdjacent(targetTile)) //color all of the onwed tiles of this city
+        {
+            t.ownedByXempire = empire;
+            t.gameObject.GetComponent<Renderer>().material = ownedMat;
+        }
+
+
+        
         Debug.Log("now owned by new empire");
     }
 

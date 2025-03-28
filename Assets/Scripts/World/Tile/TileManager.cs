@@ -26,14 +26,24 @@ public class TileManager : MonoBehaviour
 
         //ADD ALL COORDS
         List<Vector2> tiles = new List<Vector2>();
-        tiles.Add(new Vector2(x, y - 1));
-        tiles.Add(new Vector2(x - 1, y - 1));
-        tiles.Add(new Vector2(x - 1, y));
-        tiles.Add(new Vector2(x, y + 1));
-        tiles.Add(new Vector2(x + 1, y));
-        tiles.Add(new Vector2(x + 1, y - 1));
+        tiles.Add(new Vector2(x, y - 1)); //below
+        tiles.Add(new Vector2(x, y + 1)); //above
 
-
+        if (x % 2 != 0)
+        {
+            tiles.Add(new Vector2(x - 1, y));
+            tiles.Add(new Vector2(x - 1, y + 1));
+            tiles.Add(new Vector2(x + 1, y));
+            tiles.Add(new Vector2(x + 1, y + 1));
+        }
+        else
+        {
+            tiles.Add(new Vector2(x - 1, y));
+            tiles.Add(new Vector2(x - 1, y - 1));
+            tiles.Add(new Vector2(x + 1, y));
+            tiles.Add(new Vector2(x + 1, y - 1));
+        }
+        
         foreach (Tile t in allTiles)
         {
             foreach (Vector2 coord in tiles)
@@ -41,8 +51,6 @@ public class TileManager : MonoBehaviour
                 if (t.gameObject.name == $"Hex {coord.x.ToString()},{coord.y.ToString()}")
                 {
                     tilesAdjacent.Add(t);
-
-                    Debug.Log(t.gameObject.name);
                     if (tilesAdjacent.Count == 6)
                     {
                         break;
@@ -51,17 +59,39 @@ public class TileManager : MonoBehaviour
             }
             
         }
-        //Hex 16,20
-
-        //16 19
-        //15 19
-        //15 20
-        //16,21
-        //17,20
-        //17,19
-
 
         return tilesAdjacent;
+    }
+
+    public List<Tile> GetAdjacentOfAdjacent(Tile tile)
+    {
+        List<Tile> tilesAdj = new List<Tile>();
+        List<Tile> tilesAdjAdj = new List<Tile>();
+
+        foreach (Tile t in GetAdjacent(tile)) //get adjacent
+        {
+            tilesAdj.Add(t);
+            
+        }
+
+        foreach (Tile ta in tilesAdj) //all adj
+        {
+            foreach (Tile tileAdjAdj in GetAdjacent(ta))
+            {
+                if (tilesAdjAdj.Contains(tileAdjAdj) == false)
+                {
+                    tilesAdjAdj.Add(tileAdjAdj);
+                }
+            }
+        }
+
+        if (tilesAdjAdj.Contains(tile) == true)
+        {
+            tilesAdjAdj.Remove(tile);
+        }
+
+
+        return tilesAdjAdj;
     }
 
     public void UpdateTile(Tile tile)

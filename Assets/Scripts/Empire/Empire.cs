@@ -12,4 +12,9 @@ public class Empire
     //values from owned
     //number of worked resources
 
+    public Empire()
+    {
+
+    }
+
 }

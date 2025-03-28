@@ -209,7 +209,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 294586078}
         m_TargetAssemblyTypeName: Dev, Assembly-CSharp
-        m_MethodName: ToggleText
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -845,7 +845,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2c861482c4e1db42b1ee02077cac41b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mat: {fileID: 2100000, guid: 5ecb94390c97f914693b003d5457e800, type: 2}
+  ownedMat: {fileID: 2100000, guid: 95bedfb85d3e8de40b589def7eeac523, type: 2}
+  testingMat: {fileID: 2100000, guid: 2216f7341855cac4a8d873570525d7e1, type: 2}
+  cityMat: {fileID: 2100000, guid: 5ecb94390c97f914693b003d5457e800, type: 2}
 --- !u!1 &431546662
 GameObject:
   m_ObjectHideFlags: 0
@@ -1517,8 +1519,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 294586078}
-        m_TargetAssemblyTypeName: Dev, Assembly-CSharp
-        m_MethodName: ToggleText
+        m_TargetAssemblyTypeName: BLmenu, Assembly-CSharp
+        m_MethodName: ToggleDevText
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2716,7 +2718,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 294586078}
         m_TargetAssemblyTypeName: Dev, Assembly-CSharp
-        m_MethodName: ToggleText
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2916,7 +2918,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 294586078}
         m_TargetAssemblyTypeName: Dev, Assembly-CSharp
-        m_MethodName: ToggleText
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
