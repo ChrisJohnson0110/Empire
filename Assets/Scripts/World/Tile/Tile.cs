@@ -22,6 +22,10 @@ public class Tile : MonoBehaviour
     public Empire ownedByXempire = null; //empire tile is owned by
     public City hasXcity = null; //if this tile is a city
 
+    public Vector2Int offSetCoord;
+    public Vector3Int cubeCoord;
+    public List<Tile> neighbours;
+
     //types of terrain //classification of the above values
     //will have to calculate all of these
     //enum terrainTypes

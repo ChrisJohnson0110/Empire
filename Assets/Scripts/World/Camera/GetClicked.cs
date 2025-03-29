@@ -7,86 +7,79 @@ using UnityEngine.EventSystems;
 public class GetClicked : MonoBehaviour
 {
     [SerializeField]
-    Material highlightMaterial;
-    [SerializeField]
     GameObject clickedInfoBox;
 
     public GameObject currentlySeleceted;
-    HexGridLayout hexGridLayout; //reference for the hex settings
-    GameObject clicked; //clicked tile outline
-    int layerMask; // ui layer
 
     Settle settleRef; //
 
 
     private void Start()
     {
-        hexGridLayout = GameObject.FindObjectOfType<HexGridLayout>();
-        clicked = new GameObject("Clicked", typeof(HexRenderer));
-        clicked.SetActive(false);
+        currentlySeleceted = new GameObject();
         clickedInfoBox.SetActive(false);
-        layerMask = ~LayerMask.GetMask("UI"); //get ui layer
 
         settleRef = GameObject.FindFirstObjectByType<Settle>();
-
-        //create the tile that will be used for highlighting
-        HexRenderer hexRenderer = clicked.GetComponent<HexRenderer>();
-        hexRenderer.isFlatTopped = hexGridLayout.isFlatTopped;
-        hexRenderer.outerSize = hexGridLayout.outerSize;
-        hexRenderer.innerSize = hexGridLayout.innerSize;
-        hexRenderer.height = hexGridLayout.height;
-        hexRenderer.SetMaterial(highlightMaterial);
-        hexRenderer.DrawMesh();
-
     }
 
     private void Update()
     {
         if (!EventSystem.current.IsPointerOverGameObject())
         {
+            // Create a ray from the camera through the mouse position
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
             if (Input.GetMouseButtonDown(0))
             {
-
-                // Create a ray from the camera through the mouse position
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-
                 // Perform the raycast
                 if (Physics.Raycast(ray, out hit))
                 {
                     // Get the object that was hit
                     GameObject hitObject = hit.collider.gameObject;
 
-                    if (currentlySeleceted == hitObject.gameObject) //if clicked currently selected
+                    if (hitObject.TryGetComponent<Tile>(out Tile tile))
                     {
-                        //remove selection
-                        clicked.SetActive(false);
-                        currentlySeleceted = null;
-                        clickedInfoBox.SetActive(false);
-
-                    }
-                    else
-                    {
-                        //show selection
-                        currentlySeleceted = hitObject.gameObject;
-                        clicked.transform.position = hitObject.transform.position;
-                        clicked.SetActive(true);
-                        SetTileOptions();
-                        clickedInfoBox.SetActive(true);
-
-                        GameObject.FindAnyObjectByType<TileManager>().UpdateTile(currentlySeleceted.GetComponent<Tile>()); //update the clicked tile
+                        currentlySeleceted = hitObject;
                     }
 
+                    //update tile
+                    //e.g. if the settle button should be clickable
+                    if (hitObject.TryGetComponent<TileManager>(out TileManager tm))
+                    {
+                        tm.UpdateTile(hitObject.GetComponent<Tile>());
+                    }
 
+                    //highlight the clicked tile
+                    if (hitObject.TryGetComponent<HexRenderer>(out HexRenderer target))
+                    {
+                        target.OnClickTile();
+
+                        SetTileOptions(target.gameObject.GetComponent<Tile>()); //move this func to tile manager //IMPORTANT
+                    }
+
+                }
+            }
+
+            //highlight the hovered tile
+            if (Physics.Raycast(ray, out hit))
+            {
+                //alternative highlight
+                if (hit.collider.gameObject.TryGetComponent<HexRenderer>(out HexRenderer target))
+                {
+                    target.OnHoverTile();
                 }
             }
         }
     }
 
+
+    //need to refine this info box display
+
+
     //options for the clicked tile
-    void SetTileOptions()
+    void SetTileOptions(Tile tile)
     {
-        Tile selectedTile = currentlySeleceted.GetComponent<Tile>();
+        Tile selectedTile = tile.GetComponent<Tile>();
 
         TextMeshProUGUI InfoBoxOne = clickedInfoBox.transform.Find("1").gameObject.GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI InfoBoxTwo = clickedInfoBox.transform.Find("2").gameObject.GetComponent<TextMeshProUGUI>();
