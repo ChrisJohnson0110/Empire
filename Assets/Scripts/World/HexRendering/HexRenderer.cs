@@ -134,4 +134,15 @@ public class HexRenderer : MonoBehaviour
     {
         meshRenderer.material = a_material;
     }
+
+    public void OnClickTile()
+    {
+        TileManager.instance.OnClickTile(this);
+    }
+
+    public void OnHoverTile()
+    {
+        TileManager.instance.OnHoverTile(this);
+    }
+
 }

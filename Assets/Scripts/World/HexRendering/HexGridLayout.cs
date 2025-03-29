@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 
 //create the hexgrid for the map
+//great reading material on hex grids https://www.redblobgames.com/grids/hexagons/
 public class HexGridLayout : MonoBehaviour
 {
     [Header("Grid Settings")]
@@ -30,6 +31,7 @@ public class HexGridLayout : MonoBehaviour
         tm = GameObject.FindObjectOfType<TileManager>();
 
         LayoutGrid(); //create grid
+        tm.CreateHexDic();
     }
 
     //grid creation
@@ -66,7 +68,15 @@ public class HexGridLayout : MonoBehaviour
                 Tile t = tile.AddComponent<Tile>();
                 tm.allTiles.Add(t);
 
-                //this is where id add some logic for terrain generation
+                //coord
+                t.offSetCoord = new Vector2Int(x,y);
+                t.cubeCoord = OffsetCube(t.offSetCoord);
+
+
+                //need to move out of this //IMPORTANT
+
+
+                //visuals
                 t.baseTileType = baseTiless[Random.Range(0, baseTiless.Count)]; //random for now
 
                 //change material based on random basetile given
@@ -136,5 +146,13 @@ public class HexGridLayout : MonoBehaviour
         }
 
         return new Vector3(xPosition, 0, -yPosition);
+    }
+
+
+    static Vector3Int OffsetCube(Vector2Int offsSet)
+    {
+        var q = offsSet.x - (offsSet.y + (offsSet.y % 2)) / 2;
+        var r = offsSet.y;
+        return new Vector3Int(q, r, -q-r);
     }
 }
