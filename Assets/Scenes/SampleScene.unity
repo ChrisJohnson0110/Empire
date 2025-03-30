@@ -765,7 +765,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.9811321, g: 0, b: 0, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1029,7 +1029,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb8dd4e5d360560419508bf12e2ebcc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allTiles: []
   highlightObject: {fileID: 727482647}
   selectorObject: {fileID: 668998946}
   currentlySelectedTile: {fileID: 0}
@@ -2341,6 +2340,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ed4f86a989e90444a38366d5a511947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerOne: {fileID: 2100000, guid: 1f53d81c368f1664e9937b280e14d340, type: 2}
+  playerTwo: {fileID: 2100000, guid: 95bedfb85d3e8de40b589def7eeac523, type: 2}
+  playerThree: {fileID: 2100000, guid: 95bedfb85d3e8de40b589def7eeac523, type: 2}
+  playerFour: {fileID: 2100000, guid: 95bedfb85d3e8de40b589def7eeac523, type: 2}
 --- !u!4 &871353772
 Transform:
   m_ObjectHideFlags: 0
