@@ -112,14 +112,16 @@ public class TileManager : MonoBehaviour
 
         Vector3Int[] neighbourCoords = new Vector3Int[]
         {
+            new Vector3Int(0,-1,1),
             new Vector3Int(1,-1,0),
             new Vector3Int(1,0,-1),
             new Vector3Int(0,1,-1),
             new Vector3Int(-1,1,0),
             new Vector3Int(-1,0,1),
-            new Vector3Int(0,-1,1),
         };
 
+
+        //check dic for if cube coord exists
         foreach (Vector3Int nc in neighbourCoords)
         {
             Vector3Int tileCoord = tile.cubeCoord;

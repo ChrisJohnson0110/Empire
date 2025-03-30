@@ -153,8 +153,8 @@ public class HexGridLayout : MonoBehaviour
 
     static Vector3Int OffsetCube(Vector2Int offsSet)
     {
-        var q = offsSet.x - (offsSet.y + (offsSet.y % 2)) / 2;
-        var r = offsSet.y;
+        var r = offsSet.y - (offsSet.x - (offsSet.x % 2)) / 2;
+        var q = offsSet.x;
         return new Vector3Int(q, r, -q-r);
     }
 }
