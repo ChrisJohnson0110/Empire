@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BLmenu : MonoBehaviour
 {
     [SerializeField]
-    GameObject settleButton;
+    Button settleButton;
+    [SerializeField]
+    Settle settleReference;
+
 
     public void ToggleDevText()
     {
@@ -24,17 +28,20 @@ public class BLmenu : MonoBehaviour
         }
     }
 
-    public void settle()
+    public void Settle()
     {
-        Settle s = GameObject.FindAnyObjectByType<Settle>();
-        s.SettleCity();
+        settleReference.SettleCity();
     }
 
     //toggle settle button
     public void ToggleSettleButton(bool active)
     {
-        settleButton.SetActive(active);
+        settleButton.interactable = active;
     }
 
 
+    public void UpdateMenu(Tile tile)
+    {
+        settleButton.interactable = settleReference.DisplaySettleButton(tile);
+    }
 }

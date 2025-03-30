@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class City
 {
+    public Empire OwnedByEmpire;
     public string CityName;
     public Tile CityTile; //tile that the city is on
     public List<Tile> claimedTiles = new List<Tile>(); //claimed tiles that belong to the city
@@ -12,15 +13,32 @@ public class City
     private static string[] cityNames = { "Metropolis", "New Haven", "Skyview", "Rivertown", "Evergreen", "Sunset Bay", "Stormhold" };
 
 
-    public City(Tile tile)
+    public City(Tile tile, Empire a_ownedByEmpire)
     {
+        OwnedByEmpire = a_ownedByEmpire;
+        a_ownedByEmpire.cities.Add(this);
         CityTile = tile;
-        TileManager tm = GameObject.FindAnyObjectByType<TileManager>();
-        foreach (Tile t in tm.GetAdjacent(tile))
+        ClaimNeigbours(tile);
+        CityName = cityNames[Random.Range(0, cityNames.Length)];
+    }
+
+    void ClaimNeigbours(Tile tile)
+    {
+        foreach (Tile t in tile.neighbours)
         {
             claimedTiles.Add(t);
-        }
+            t.ownedByXempire = OwnedByEmpire;
 
-        CityName = cityNames[Random.Range(0, cityNames.Length)];
+            HighlightTile(tile);
+        }
+    }
+
+    void HighlightTile(Tile tile)
+    {
+
+        foreach (Tile ta in tile.neighbours) //color all of the onwed tiles of this city
+        {
+            ta.gameObject.GetComponent<Renderer>().material = OwnedByEmpire.OwnedMaterial;
+        }
     }
 }

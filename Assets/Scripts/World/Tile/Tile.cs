@@ -19,8 +19,8 @@ public class Tile : MonoBehaviour
     //is there a resource on the tile
     public Resource resourceOnTile;
 
-    public Empire ownedByXempire = null; //empire tile is owned by
-    public City hasXcity = null; //if this tile is a city
+    public Empire ownedByXempire; //empire tile is owned by
+    public City hasXcity; //if this tile is a city
 
     public Vector2Int offSetCoord;
     public Vector3Int cubeCoord;

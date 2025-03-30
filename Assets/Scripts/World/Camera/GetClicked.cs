@@ -42,12 +42,8 @@ public class GetClicked : MonoBehaviour
                         currentlySeleceted = hitObject;
                     }
 
-                    //update tile
-                    //e.g. if the settle button should be clickable
-                    if (hitObject.TryGetComponent<TileManager>(out TileManager tm))
-                    {
-                        tm.UpdateTile(hitObject.GetComponent<Tile>());
-                    }
+                    //update the menu options for the tile
+                    GameObject.FindAnyObjectByType<BLmenu>().UpdateMenu(hitObject.GetComponent<Tile>());
 
                     //highlight the clicked tile
                     if (hitObject.TryGetComponent<HexRenderer>(out HexRenderer target))

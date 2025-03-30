@@ -47,55 +47,58 @@ public class HexGridLayout : MonoBehaviour
             for (int x = 0; x < gridSize.x; x++)
             {
                 GameObject tile = new GameObject($"Hex {x},{y}", typeof(HexRenderer));
-                tile.transform.position = GetPositionForHexCoordinate(new Vector2Int(x, y));
-
-                //hex settings
-                HexRenderer hexRenderer = tile.GetComponent<HexRenderer>();
-                hexRenderer.isFlatTopped = isFlatTopped;
-                hexRenderer.outerSize = outerSize;
-                hexRenderer.innerSize = innerSize;
-                hexRenderer.height = height;
-                hexRenderer.SetMaterial(tileMaterials.unAssigned);
-                hexRenderer.DrawMesh();
-
-                //set parent - keep clean
                 tile.transform.SetParent(transform, true);
 
+                tile.transform.position = GetPositionForHexCoordinate(new Vector2Int(x, y));
+                HexRenderer hr = GenerateHex(tile);
+       
                 //add collider - for raycast
                 tile.AddComponent<MeshCollider>();
 
                 //tile for tile details
                 Tile t = tile.AddComponent<Tile>();
-                tm.allTiles.Add(t);
-
-                //coord
                 t.offSetCoord = new Vector2Int(x,y);
                 t.cubeCoord = OffsetCube(t.offSetCoord);
 
-
-                //need to move out of this //IMPORTANT
-
-
                 //visuals
-                t.baseTileType = baseTiless[Random.Range(0, baseTiless.Count)]; //random for now
-
-                //change material based on random basetile given
-                if (t.baseTileType.baseTileType == BaseTile.BaseTileTypes.grassland)
-                {
-                    hexRenderer.SetMaterial(tileMaterials.grass);
-                }
-                else if (t.baseTileType.baseTileType == BaseTile.BaseTileTypes.desert)
-                {
-                    hexRenderer.SetMaterial(tileMaterials.desert);
-                }
-                else if (t.baseTileType.baseTileType == BaseTile.BaseTileTypes.ocean)
-                {
-                    hexRenderer.SetMaterial(tileMaterials.ocean);
-                }
-
+                RandomiseMaterials(t, hr);
             }
         }
 
+    }
+
+    //generate the visual hex
+    HexRenderer GenerateHex(GameObject tile)
+    {
+        //hex settings
+        HexRenderer hexRenderer = tile.GetComponent<HexRenderer>();
+        hexRenderer.isFlatTopped = isFlatTopped;
+        hexRenderer.outerSize = outerSize;
+        hexRenderer.innerSize = innerSize;
+        hexRenderer.height = height;
+        hexRenderer.SetMaterial(tileMaterials.unAssigned);
+        hexRenderer.DrawMesh();
+
+        return hexRenderer;
+    }
+
+    void RandomiseMaterials(Tile tile, HexRenderer hexRenderer)
+    {
+        tile.baseTileType = baseTiless[Random.Range(0, baseTiless.Count)]; //random for now
+
+        //change material based on random basetile given
+        if (tile.baseTileType.baseTileType == BaseTile.BaseTileTypes.grassland)
+        {
+            hexRenderer.SetMaterial(tileMaterials.grass);
+        }
+        else if (tile.baseTileType.baseTileType == BaseTile.BaseTileTypes.desert)
+        {
+            hexRenderer.SetMaterial(tileMaterials.desert);
+        }
+        else if (tile.baseTileType.baseTileType == BaseTile.BaseTileTypes.ocean)
+        {
+            hexRenderer.SetMaterial(tileMaterials.ocean);
+        }
     }
 
     //get hex position
@@ -147,7 +150,6 @@ public class HexGridLayout : MonoBehaviour
 
         return new Vector3(xPosition, 0, -yPosition);
     }
-
 
     static Vector3Int OffsetCube(Vector2Int offsSet)
     {
