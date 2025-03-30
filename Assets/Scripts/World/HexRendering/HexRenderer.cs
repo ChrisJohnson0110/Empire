@@ -17,7 +17,6 @@ public class HexRenderer : MonoBehaviour
     public float innerSize = 1;
     public float outerSize = 1;
     public float height = 1;
-    public bool isFlatTopped;
 
     private void Awake()
     {
@@ -125,7 +124,7 @@ public class HexRenderer : MonoBehaviour
 
     protected Vector3 GetPoint(float size, float height, int index)
     {
-        float angle_deg = isFlatTopped ? 60 * index : 60 * index - 30;
+        float angle_deg = 60 * index;
         float angle_rad = Mathf.PI / 180f * angle_deg;
         return new Vector3((size * Mathf.Cos(angle_rad)), height, size * Mathf.Sin(angle_rad));
     }

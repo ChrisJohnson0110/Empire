@@ -15,7 +15,6 @@ public class HexGridLayout : MonoBehaviour
     public float outerSize = 1; // boder size for hex
     public float innerSize = 0; // inner border e.g. hole
     public float height = 0.5f; // height
-    public bool isFlatTopped; // is top flat or point e.g. north/up
 
     //temp
     [SerializeField]
@@ -72,7 +71,6 @@ public class HexGridLayout : MonoBehaviour
     {
         //hex settings
         HexRenderer hexRenderer = tile.GetComponent<HexRenderer>();
-        hexRenderer.isFlatTopped = isFlatTopped;
         hexRenderer.outerSize = outerSize;
         hexRenderer.innerSize = innerSize;
         hexRenderer.height = height;
@@ -119,22 +117,7 @@ public class HexGridLayout : MonoBehaviour
         float offset;
         float size = outerSize;
 
-        if (!isFlatTopped)
-        {
-            shouldOffset = (row % 2) == 0;
-            width = Mathf.Sqrt(3) * size;
-            height = 2f * size;
 
-            horizontalDistance = width;
-            verticalDistance = height * (3f/4f);
-
-            offset = (shouldOffset) ? width / 2 : 0;
-
-            xPosition = (collumn * horizontalDistance) + offset;
-            yPosition = (row * verticalDistance);
-        }
-        else
-        {
             shouldOffset = (collumn % 2) == 0;
             width = 2f * size;
             height = Mathf.Sqrt(3) * size;
@@ -146,7 +129,7 @@ public class HexGridLayout : MonoBehaviour
 
             xPosition = (collumn * horizontalDistance);
             yPosition = (row * verticalDistance) - offset;
-        }
+ 
 
         return new Vector3(xPosition, 0, -yPosition);
     }
