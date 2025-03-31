@@ -39,6 +39,7 @@ public class TileManager : MonoBehaviour
     private void Start()
     {
         settleReference = GameObject.FindAnyObjectByType<Settle>(); //set settle reference
+        GameObject.FindAnyObjectByType<BLmenu>().ToggleDevText();
     }
 
     public List<Tile> GetAdjacentOfAdjacent(Tile tile)
