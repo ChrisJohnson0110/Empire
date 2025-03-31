@@ -4,27 +4,27 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
+
+    public Tile()
+    {
+
+    }
+
     // tile display data
 
     List<YieldTypes> yieldTypes;
 
-    // tile data
 
-    //type of base tile
-    public BaseTile baseTileType;
-
-    //is the tile obstructed
-    public ObstructionTypes.roughTypes roughType;
-
-    //is there a resource on the tile
-    public Resource resourceOnTile;
+    public BaseTile baseTileType; //water, grass desert
+    public ObstructionTypes.roughTypes roughType;  //hills, marsh, jungle
+    public Resource resourceOnTile; //is there a workable resource
 
     public Empire ownedByXempire; //empire tile is owned by
     public City hasXcity; //if this tile is a city
 
-    public Vector2Int offSetCoord;
-    public Vector3Int cubeCoord;
-    public List<Tile> neighbours;
+    public Vector2Int offSetCoord; //hex grid pos
+    public Vector3Int cubeCoord; //cube pos
+    public List<Tile> neighbours; //hex that are bordering
 
     //types of terrain //classification of the above values
     //will have to calculate all of these
@@ -38,7 +38,7 @@ public class Tile : MonoBehaviour
     //    fresh_water //tiles around lakes/oasis
     //}
 
-    //CalculateTerrainTypes.calc();
+    TerrainTypes terrainType = new TerrainTypes();
 
     TileImprovements.improvements improvement;
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CalculateTerrainTypes : MonoBehaviour
+public class TerrainTypes : MonoBehaviour
 {
     enum terrainTypes
     {
@@ -14,15 +14,19 @@ public class CalculateTerrainTypes : MonoBehaviour
         fresh_water //tiles around lakes/oasis
     }
 
+    terrainTypes terrainType;
+
+    public TerrainTypes(Tile tile)
+    {
+        calc(tile);
+    }
 
     //is flood plain //flat river tile in desert  
     bool isTouchingRiver;
 
-
-    void calc(Tile a_tileToUpdate)
+    terrainTypes calc(Tile a_tileToUpdate)
     {
-
-
+        return terrainTypes.open_terrain;
     }
 
 

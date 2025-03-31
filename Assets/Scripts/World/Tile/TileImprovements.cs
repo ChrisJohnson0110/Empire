@@ -10,4 +10,9 @@ public class TileImprovements : MonoBehaviour
         quarry,
 
     }
+
+    public improvements resourceType;
+
+    public List<YieldTypes> improvementYieldType = new List<YieldTypes>();
+
 }
