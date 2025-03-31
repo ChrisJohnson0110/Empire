@@ -65,17 +65,6 @@ public class BLmenu : MonoBehaviour
 
         foreach (Tile t in tileToCheck.neighbours)
         {
-            foreach (Tile tn in t.neighbours)
-            {
-                if (t.ownedByXempire != null) //if owned
-                {
-                    return false;
-                }
-            }
-        }
-
-        foreach (Tile t in tileToCheck.neighbours)
-        {
             if (t.ownedByXempire != null) //if owned
             {
                 return false;
@@ -86,13 +75,6 @@ public class BLmenu : MonoBehaviour
                 {
                     return false;
                 }
-                //foreach (Tile tnn in tn.neighbours)
-                //{
-                //    if (tnn.ownedByXempire != null) //if owned
-                //    {
-                //        return false;
-                //    }
-                //}
             }
         }
 

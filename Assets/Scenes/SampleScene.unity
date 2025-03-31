@@ -660,7 +660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settleButton: {fileID: 352200764}
-  outpostButton: {fileID: 0}
+  outpostButton: {fileID: 1462958791}
 --- !u!114 &294586079
 MonoBehaviour:
   m_ObjectHideFlags: 0
