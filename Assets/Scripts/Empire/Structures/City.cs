@@ -2,24 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class City
+public class City : Structure
 {
-    public Empire OwnedByEmpire;
     public string CityName;
-    public Tile CityTile; //tile that the city is on
     public List<Tile> claimedTiles = new List<Tile>(); //claimed tiles that belong to the city
     public List<Resource> workedResources = new List<Resource>(); //resources within the city that are being worked
 
     private static string[] cityNames = { "Metropolis", "New Haven", "Skyview", "Rivertown", "Evergreen", "Sunset Bay", "Stormhold" };
 
-
-    public City(Tile tile, Empire a_ownedByEmpire)
+    public City(Tile tile, Empire a_ownedByEmpire) : base(a_ownedByEmpire, tile)
     {
-        OwnedByEmpire = a_ownedByEmpire;
-        a_ownedByEmpire.cities.Add(this);
-        CityTile = tile;
+        a_ownedByEmpire.structures.Add(this); //add this structure to the empire
         ClaimNeigbours(tile);
-        CityName = cityNames[Random.Range(0, cityNames.Length)];
+        tile.gameObject.GetComponent<Renderer>().material = a_ownedByEmpire.BuildingMaterial; //set mat for city
+        CityName = cityNames[Random.Range(0, cityNames.Length)]; //assign random name
     }
 
     void ClaimNeigbours(Tile tile)
@@ -28,17 +24,8 @@ public class City
         {
             claimedTiles.Add(t);
             t.ownedByXempire = OwnedByEmpire;
-
-            HighlightTile(tile);
-        }
-    }
-
-    void HighlightTile(Tile tile)
-    {
-
-        foreach (Tile ta in tile.neighbours) //color all of the onwed tiles of this city
-        {
-            ta.gameObject.GetComponent<Renderer>().material = OwnedByEmpire.OwnedMaterial;
+            
+            t.gameObject.GetComponent<Renderer>().material = OwnedByEmpire.OwnedMaterial; //change materials
         }
     }
 }

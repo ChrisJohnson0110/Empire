@@ -11,7 +11,7 @@ public class GetClicked : MonoBehaviour
 
     public GameObject currentlySeleceted;
 
-    Settle settleRef; //
+    CitySettle settleRef; //
 
 
     private void Start()
@@ -19,7 +19,7 @@ public class GetClicked : MonoBehaviour
         currentlySeleceted = new GameObject();
         clickedInfoBox.SetActive(false);
 
-        settleRef = GameObject.FindFirstObjectByType<Settle>();
+        settleRef = GameObject.FindFirstObjectByType<CitySettle>();
     }
 
     private void Update()

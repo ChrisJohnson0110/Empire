@@ -12,6 +12,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] Material playerThree;
     [SerializeField] Material playerFour;
 
+    [SerializeField] Material BuildingMaterial;
+
     private void Awake()
     {
         // Ensure only one instance exists
@@ -34,6 +36,12 @@ public class PlayerManager : MonoBehaviour
         allEmpires.Add(new Empire("PlayerTwo", playerTwo));
         allEmpires.Add(new Empire("PlayerThree", playerThree));
         allEmpires.Add(new Empire("PlayerFour", playerFour));
+         
+        //temp adding city material
+        foreach (Empire e in allEmpires)
+        {
+            e.BuildingMaterial = BuildingMaterial;
+        }
 
         GameObject.FindAnyObjectByType<Player>().playersEmprie = allEmpires[0];
 

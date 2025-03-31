@@ -20,25 +20,13 @@ public class Tile : MonoBehaviour
     public Resource resourceOnTile; //is there a workable resource
 
     public Empire ownedByXempire; //empire tile is owned by
-    public City hasXcity; //if this tile is a city
+    public Structure hasStructure; //if this tile is a structure
 
     public Vector2Int offSetCoord; //hex grid pos
     public Vector3Int cubeCoord; //cube pos
     public List<Tile> neighbours; //hex that are bordering
 
-    //types of terrain //classification of the above values
-    //will have to calculate all of these
-    //enum terrainTypes
-    //{
-    //    open_terrain, //flat / level terrain (marsh counts)
-    //    rough_terrain, //hilly, forst or jungle
-    //    lake, //small collection of in land water 
-    //    coast, //tiles that border land
-    //    ocean, //deep sea tiles
-    //    fresh_water //tiles around lakes/oasis
-    //}
-
-    TerrainTypes terrainType = new TerrainTypes();
+    TerrainTypes terrainType;
 
     TileImprovements.improvements improvement;
 

@@ -7,9 +7,16 @@ public class BLmenu : MonoBehaviour
 {
     [SerializeField]
     Button settleButton;
+    CitySettle settleReference;
     [SerializeField]
-    Settle settleReference;
+    Button outpostButton;
+    OutpostSettle outpostReference;
 
+    private void Start()
+    {
+        settleReference = GameObject.FindAnyObjectByType<CitySettle>();
+        outpostReference = GameObject.FindAnyObjectByType<OutpostSettle>();
+    }
 
     public void ToggleDevText()
     {
@@ -32,16 +39,64 @@ public class BLmenu : MonoBehaviour
     {
         settleReference.SettleCity();
     }
-
-    //toggle settle button
-    public void ToggleSettleButton(bool active)
+    public void Outpost()
     {
-        settleButton.interactable = active;
+        outpostReference.SettleOutPost();
     }
-
 
     public void UpdateMenu(Tile tile)
     {
-        settleButton.interactable = settleReference.DisplaySettleButton(tile);
+        settleButton.interactable = CheckForNearByCiv(tile);
+        outpostButton.interactable = CheckForNearByCiv(tile);
     }
+
+    //should the settle button be displayed
+    //e.g. can you settle here
+    public bool CheckForNearByCiv(Tile tileToCheck)
+    {
+        //check all tiles adjacent to clicked tile
+        foreach (Tile t in tileToCheck.neighbours)
+        {
+            if (t.ownedByXempire != null) //if owned
+            {
+                return false;
+            }
+        }
+
+        foreach (Tile t in tileToCheck.neighbours)
+        {
+            foreach (Tile tn in t.neighbours)
+            {
+                if (t.ownedByXempire != null) //if owned
+                {
+                    return false;
+                }
+            }
+        }
+
+        foreach (Tile t in tileToCheck.neighbours)
+        {
+            if (t.ownedByXempire != null) //if owned
+            {
+                return false;
+            }
+            foreach (Tile tn in t.neighbours)
+            {
+                if (tn.ownedByXempire != null) //if owned
+                {
+                    return false;
+                }
+                //foreach (Tile tnn in tn.neighbours)
+                //{
+                //    if (tnn.ownedByXempire != null) //if owned
+                //    {
+                //        return false;
+                //    }
+                //}
+            }
+        }
+
+        return true; // if not owned
+    }
+
 }

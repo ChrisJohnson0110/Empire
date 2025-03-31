@@ -6,7 +6,9 @@ public class Empire
 {
     public string empireName;
     public Material OwnedMaterial; //material for land owned by this empire
-    public List<City> cities = new List<City>();
+    public Material BuildingMaterial; //material for building owned by this empire
+    public List<Structure> structures = new List<Structure>();
+
     //score ?
 
 

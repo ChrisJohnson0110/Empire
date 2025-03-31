@@ -6,15 +6,15 @@ public class TileManager : MonoBehaviour
 {
     Dictionary<Vector3Int, Tile> tiles;
 
-    Settle settleReference; // settle reference
+    CitySettle settleReference; // settle reference
 
     public static TileManager instance; // Singleton instance
 
-    [SerializeField]
-    GameObject highlightObject;
+    [SerializeField] GameObject clickPrefab;
+    [SerializeField] GameObject hoverPrefab;
 
-    [SerializeField]
-    GameObject selectorObject;
+    GameObject clickObject;
+    GameObject hoverObject;
 
     public GameObject currentlySelectedTile;
 
@@ -38,8 +38,11 @@ public class TileManager : MonoBehaviour
 
     private void Start()
     {
-        settleReference = GameObject.FindAnyObjectByType<Settle>(); //set settle reference
+        settleReference = GameObject.FindAnyObjectByType<CitySettle>(); //set settle reference
         GameObject.FindAnyObjectByType<BLmenu>().ToggleDevText();
+
+        clickObject = Instantiate(clickPrefab, new Vector3(-5,-5,-5), gameObject.transform.rotation);
+        hoverObject = Instantiate(hoverPrefab, new Vector3(-5,-5,-5), gameObject.transform.rotation);
     }
 
     public List<Tile> GetAdjacentOfAdjacent(Tile tile)
@@ -138,13 +141,13 @@ public class TileManager : MonoBehaviour
 
     public void OnClickTile(HexRenderer hr)
     {
-        highlightObject.transform.position = hr.transform.position; //move the hightlight
+        clickObject.transform.position = hr.transform.position; //move the hightlight
 
         currentlySelectedTile = hr.gameObject; //store the clicked object
     }
     
     public void OnHoverTile(HexRenderer hr)
     {
-        selectorObject.transform.position = hr.transform.position; //move the select
+        hoverObject.transform.position = hr.transform.position; //move the select
     }
 }
