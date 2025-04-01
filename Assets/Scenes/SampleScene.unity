@@ -967,11 +967,12 @@ MonoBehaviour:
   innerSize: 0
   height: 0.5
   baseTiless:
+  - {fileID: 11400000, guid: 162830b2c7f45e64db545c31c03aeadc, type: 2}
   - {fileID: 11400000, guid: 31c0fd2969b7bd44a99f58ea733cb537, type: 2}
-  - {fileID: 11400000, guid: ac5698e2136831642acdb510a14b0740, type: 2}
   - {fileID: 11400000, guid: a5e6a30dde407694caed8c73912ac043, type: 2}
   noiseFrequency: 5
   noiseThreshhold: 0.3
+  treePrefab: {fileID: 3588819246144012278, guid: a6993eb3c8302c141b2dd47619755454, type: 3}
 --- !u!114 &431546668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -986,6 +987,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unAssigned: {fileID: 2100000, guid: c6c2d8e6ad0bdc14d8c1b474ccd06e4f, type: 2}
   grass: {fileID: 2100000, guid: 1f53d81c368f1664e9937b280e14d340, type: 2}
+  plains: {fileID: 2100000, guid: 7be71c755ed915640b9341e4aa598a6b, type: 2}
   desert: {fileID: 2100000, guid: 9f97d8716febe3b469002dec6f7fece1, type: 2}
   ocean: {fileID: 2100000, guid: 3d196195ad96f52409629e32a3c43794, type: 2}
 --- !u!114 &431546669

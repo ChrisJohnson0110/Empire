@@ -37,6 +37,7 @@ public class Tile : MonoBehaviour
     bool isPillaged; //on pillage edit value
 
 
+    public GameObject ObjectOnTileModel;
 
 
     // base modifier list
@@ -68,8 +69,4 @@ public class Tile : MonoBehaviour
             }
         }
     }
-
-    
-
-
 }

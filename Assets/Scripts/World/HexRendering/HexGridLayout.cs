@@ -25,6 +25,8 @@ public class HexGridLayout : MonoBehaviour
     [SerializeField] float noiseFrequency = 100f;
     [SerializeField] float noiseThreshhold = 0.5f;
 
+    [SerializeField] GameObject treePrefab;
+
 
     private void OnEnable()
     {
@@ -98,20 +100,32 @@ public class HexGridLayout : MonoBehaviour
             if (tile.baseTileType.baseTileType == BaseTile.BaseTileTypes.grassland)
             {
                 hexRenderer.SetMaterial(tileMaterials.grass);
+                AddObjectToTile(tile, treePrefab);
             }
-            else if (tile.baseTileType.baseTileType == BaseTile.BaseTileTypes.desert)
+            else if (tile.baseTileType.baseTileType == BaseTile.BaseTileTypes.plains)
             {
-                hexRenderer.SetMaterial(tileMaterials.desert);
+                hexRenderer.SetMaterial(tileMaterials.plains);
+            }
+            else
+            {
+                hexRenderer.SetMaterial(tileMaterials.unAssigned);
             }
 
         }
+    }
 
 
-        
-        //else if (tile.baseTileType.baseTileType == BaseTile.BaseTileTypes.ocean)
-        //{
-        //    hexRenderer.SetMaterial(tileMaterials.ocean);
-        //}
+    public void AddObjectToTile(Tile tile, GameObject modelPrefab)
+    {
+        tile.ObjectOnTileModel = Instantiate(modelPrefab, tile.gameObject.transform.position + new Vector3(0,1,0), tile.gameObject.transform.rotation);
+    }
+
+    public void RemoveObjectOnTile(Tile tile)
+    {
+        if (tile.ObjectOnTileModel)
+        {
+            Destroy(tile.ObjectOnTileModel);
+        }
     }
 
     //get hex position
