@@ -137,9 +137,22 @@ public class ResourceManager : MonoBehaviour
         GoldOwned++;
     }
 
-    private void Update()
+    /// <summary>
+    /// temp
+    /// </summary>
+    public void IncreaseResources()
     {
+        WoodOwned++;
+        WoodOwned++;
         StoneOwned++;
+        ClayOwned++;
+        ClayOwned++;
+        SheepOwned++;
+        WheatOwned++;
+        WheatOwned++;
+        GoldOwned++;
+        GoldOwned++;
+        GoldOwned++;
     }
 
     private void HandleWoodChanged(int value)
