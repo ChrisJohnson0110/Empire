@@ -25,25 +25,17 @@ public class HexGridLayout : MonoBehaviour
     [SerializeField] float noiseFrequency = 100f;
     [SerializeField] float noiseThreshhold = 0.5f;
 
-    [SerializeField] GameObject treePrefab;
-
-
     private void OnEnable()
     {
         tileMaterials = GameObject.FindObjectOfType<TileMaterials>();
 
         LayoutGrid(); //create grid
-        GameObject.FindObjectOfType<TileManager>().CreateHexDic(); //create dic of tiles
+        GameObject.FindObjectOfType<TileManager>().SetupTileManager(); //create dic of tiles
     }
 
     //grid creation
     private void LayoutGrid()
     {
-        foreach (Transform child in this.gameObject.transform)
-        {
-            Destroy(child.gameObject);
-        }
-
         for (int y = 0; y < gridSize.y; y++)
         {
             for (int x = 0; x < gridSize.x; x++)
@@ -66,7 +58,6 @@ public class HexGridLayout : MonoBehaviour
                 RandomiseMaterials(t, hr);
             }
         }
-
     }
 
     //generate the visual hex
@@ -100,7 +91,6 @@ public class HexGridLayout : MonoBehaviour
             if (tile.baseTileType.baseTileType == BaseTile.BaseTileTypes.grassland)
             {
                 hexRenderer.SetMaterial(tileMaterials.grass);
-                AddObjectToTile(tile, treePrefab);
             }
             else if (tile.baseTileType.baseTileType == BaseTile.BaseTileTypes.plains)
             {
@@ -115,18 +105,7 @@ public class HexGridLayout : MonoBehaviour
     }
 
 
-    public void AddObjectToTile(Tile tile, GameObject modelPrefab)
-    {
-        tile.ObjectOnTileModel = Instantiate(modelPrefab, tile.gameObject.transform.position + new Vector3(0,1,0), tile.gameObject.transform.rotation);
-    }
-
-    public void RemoveObjectOnTile(Tile tile)
-    {
-        if (tile.ObjectOnTileModel)
-        {
-            Destroy(tile.ObjectOnTileModel);
-        }
-    }
+    
 
     //get hex position
     private Vector3 GetPositionForHexCoordinate(Vector2Int coordinate)

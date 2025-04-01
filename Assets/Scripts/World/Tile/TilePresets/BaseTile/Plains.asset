@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: Plains
   m_EditorClassIdentifier: 
   baseTileType: 2
-  foodYieldModifier: 0
-  productionYieldModifier: 0
-  goldYieldModifier: 0
-  faithYieldModifier: 0
-  scienceYieldModifier: 0
-  cultureYieldModifier: 0
+  isHilly: 0
+  tileYield:
+  - yieldType: 2
+    yieldAmount: 1
+  cannotTraverse: 0

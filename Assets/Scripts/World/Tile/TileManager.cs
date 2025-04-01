@@ -10,14 +10,14 @@ public class TileManager : MonoBehaviour
 
     public static TileManager instance; // Singleton instance
 
+    [Header("MouseObjects")]
     [SerializeField] GameObject clickPrefab;
     [SerializeField] GameObject hoverPrefab;
-
     GameObject clickObject;
     GameObject hoverObject;
 
-    public GameObject currentlySelectedTile;
-
+    [Header("Prefabs")]
+    [SerializeField] GameObject treePrefab;
 
     private void Awake()
     {
@@ -34,7 +34,6 @@ public class TileManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject); // Optional: persist across scenes
     }
-
 
     private void Start()
     {
@@ -81,10 +80,32 @@ public class TileManager : MonoBehaviour
 
     }
 
-    public void CreateHexDic()
+    public void SetupTileManager()
     {
         tiles = new Dictionary<Vector3Int, Tile>();
+        CreateDictionary();
+        CreateTileModels();
 
+
+        //https://www.youtube.com/watch?v=wxVgIH0j8Wg
+        //8:35
+        //adding a player to add pathfinding //dont need but want to finish video for potential better optimisation 
+
+    }
+
+    void CreateTileModels()
+    {
+        foreach (Tile t in tiles.Values)
+        {
+            if (t.baseTileType.baseTileType == BaseTile.BaseTileTypes.grassland)
+            {
+                AddObjectToTile(t, treePrefab);
+            }
+        }
+    }
+
+    void CreateDictionary()
+    {
         Tile[] hextiles = gameObject.GetComponentsInChildren<Tile>();
 
         foreach (Tile t in hextiles)
@@ -97,12 +118,6 @@ public class TileManager : MonoBehaviour
             List<Tile> neighbours = GetNeighbours(t);
             t.neighbours = neighbours;
         }
-
-        //
-        //https://www.youtube.com/watch?v=wxVgIH0j8Wg
-        //8:35
-        //adding a player to add pathfinding //dont need but want to finish video for better optimisation
-
     }
 
     void RegisterTile(Tile tile)
@@ -142,12 +157,23 @@ public class TileManager : MonoBehaviour
     public void OnClickTile(HexRenderer hr)
     {
         clickObject.transform.position = hr.transform.position; //move the hightlight
-
-        currentlySelectedTile = hr.gameObject; //store the clicked object
     }
     
     public void OnHoverTile(HexRenderer hr)
     {
         hoverObject.transform.position = hr.transform.position; //move the select
+    }
+
+    public void AddObjectToTile(Tile tile, GameObject modelPrefab)
+    {
+        tile.ObjectOnTileModel = Instantiate(modelPrefab, tile.gameObject.transform.position + new Vector3(-0.2f, 0.7f, 0.5f), tile.gameObject.transform.rotation);
+    }
+
+    public void RemoveObjectOnTile(Tile tile)
+    {
+        if (tile.ObjectOnTileModel)
+        {
+            Destroy(tile.ObjectOnTileModel);
+        }
     }
 }
