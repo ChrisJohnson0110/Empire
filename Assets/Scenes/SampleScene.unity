@@ -954,6 +954,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 162830b2c7f45e64db545c31c03aeadc, type: 2}
   - {fileID: 11400000, guid: 31c0fd2969b7bd44a99f58ea733cb537, type: 2}
   - {fileID: 11400000, guid: a5e6a30dde407694caed8c73912ac043, type: 2}
+  noiseSeed: -1
   noiseFrequency: 5
   noiseThreshhold: 0.3
 --- !u!114 &431546668

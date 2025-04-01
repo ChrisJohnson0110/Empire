@@ -22,6 +22,8 @@ public class HexGridLayout : MonoBehaviour
     List<BaseTile> baseTiless = new List<BaseTile>(); //list of base tiles for random hex assignment
     TileMaterials tileMaterials; //reference to script holding materials for use
 
+    [Header("Perlin Noise Settings")]
+    [SerializeField] float noiseSeed = -1;
     [SerializeField] float noiseFrequency = 100f;
     [SerializeField] float noiseThreshhold = 0.5f;
 
@@ -76,7 +78,13 @@ public class HexGridLayout : MonoBehaviour
 
     void RandomiseMaterials(Tile tile, HexRenderer hexRenderer)
     {
-        float waterValue = Mathf.PerlinNoise(tile.offSetCoord.x/noiseFrequency,tile.offSetCoord.y/noiseFrequency);
+        if (noiseSeed == -1)
+        {
+            noiseSeed = Random.Range(0, 1000000);
+        }
+
+        float waterValue = Mathf.PerlinNoise((tile.offSetCoord.x + noiseSeed) / noiseFrequency, (tile.offSetCoord.y + noiseSeed) / noiseFrequency);
+
         bool isWater = waterValue < noiseThreshhold;
         if (isWater)
         {
