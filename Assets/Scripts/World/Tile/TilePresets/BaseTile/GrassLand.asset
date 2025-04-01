@@ -16,5 +16,5 @@ MonoBehaviour:
   isHilly: 0
   tileYield:
   - yieldType: 0
-    yieldAmount: 1
+    yieldAmount: 2
   cannotTraverse: 0
