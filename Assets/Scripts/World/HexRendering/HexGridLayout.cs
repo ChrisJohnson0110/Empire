@@ -16,21 +16,22 @@ public class HexGridLayout : MonoBehaviour
     public float innerSize = 0; // inner border e.g. hole
     public float height = 0.5f; // height
 
-    //temp
+    //Tile material generation
+    [Header("Tile Material Generation")]
     [SerializeField]
     List<BaseTile> baseTiless = new List<BaseTile>(); //list of base tiles for random hex assignment
-
     TileMaterials tileMaterials; //reference to script holding materials for use
 
-    TileManager tm;
+    [SerializeField] float noiseFrequency = 100f;
+    [SerializeField] float noiseThreshhold = 0.5f;
+
 
     private void OnEnable()
     {
         tileMaterials = GameObject.FindObjectOfType<TileMaterials>();
-        tm = GameObject.FindObjectOfType<TileManager>();
 
         LayoutGrid(); //create grid
-        tm.CreateHexDic();
+        GameObject.FindObjectOfType<TileManager>().CreateHexDic(); //create dic of tiles
     }
 
     //grid creation
@@ -82,21 +83,35 @@ public class HexGridLayout : MonoBehaviour
 
     void RandomiseMaterials(Tile tile, HexRenderer hexRenderer)
     {
-        tile.baseTileType = baseTiless[Random.Range(0, baseTiless.Count)]; //random for now
-
-        //change material based on random basetile given
-        if (tile.baseTileType.baseTileType == BaseTile.BaseTileTypes.grassland)
+        float waterValue = Mathf.PerlinNoise(tile.offSetCoord.x/noiseFrequency,tile.offSetCoord.y/noiseFrequency);
+        bool isWater = waterValue < noiseThreshhold;
+        if (isWater)
         {
-            hexRenderer.SetMaterial(tileMaterials.grass);
-        }
-        else if (tile.baseTileType.baseTileType == BaseTile.BaseTileTypes.desert)
-        {
-            hexRenderer.SetMaterial(tileMaterials.desert);
-        }
-        else if (tile.baseTileType.baseTileType == BaseTile.BaseTileTypes.ocean)
-        {
+            tile.baseTileType = baseTiless[2];
             hexRenderer.SetMaterial(tileMaterials.ocean);
         }
+        else
+        {
+            tile.baseTileType = baseTiless[Random.Range(0, baseTiless.Count - 1)]; //random for now
+
+            //change material based on random basetile given
+            if (tile.baseTileType.baseTileType == BaseTile.BaseTileTypes.grassland)
+            {
+                hexRenderer.SetMaterial(tileMaterials.grass);
+            }
+            else if (tile.baseTileType.baseTileType == BaseTile.BaseTileTypes.desert)
+            {
+                hexRenderer.SetMaterial(tileMaterials.desert);
+            }
+
+        }
+
+
+        
+        //else if (tile.baseTileType.baseTileType == BaseTile.BaseTileTypes.ocean)
+        //{
+        //    hexRenderer.SetMaterial(tileMaterials.ocean);
+        //}
     }
 
     //get hex position

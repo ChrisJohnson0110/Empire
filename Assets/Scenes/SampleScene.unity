@@ -970,6 +970,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 31c0fd2969b7bd44a99f58ea733cb537, type: 2}
   - {fileID: 11400000, guid: ac5698e2136831642acdb510a14b0740, type: 2}
   - {fileID: 11400000, guid: a5e6a30dde407694caed8c73912ac043, type: 2}
+  noiseFrequency: 5
+  noiseThreshhold: 0.3
 --- !u!114 &431546668
 MonoBehaviour:
   m_ObjectHideFlags: 0
