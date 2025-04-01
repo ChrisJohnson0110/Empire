@@ -91,6 +91,7 @@ public class TileManager : MonoBehaviour
         }
 
         DrawBorder();
+        ShowBorderOfSelected(GetTilesXDistanceAway(tile, 5));
     }
 
     public void SetupTileManager()
@@ -167,6 +168,46 @@ public class TileManager : MonoBehaviour
         return neighbours;
     }
 
+    List<Tile> GetTilesXDistanceAway(Tile tile, int distance)
+    {
+        List<Tile> tilesToReturn = new List<Tile>();
+        List<Tile> tilesToIgnore = new List<Tile>();
+
+        tilesToIgnore.Add(tile);
+
+        if (distance == 0)
+        {
+            return tilesToReturn;
+        }
+        
+        for (int i = 0; i < distance; i++)
+        {
+            foreach (Tile tileToIgnore in tilesToIgnore)
+            {
+                foreach (Tile t in tileToIgnore.neighbours)
+                {
+                    if (tilesToIgnore.Contains(t) == false)
+                    {
+                        tilesToIgnore.Add(t);
+                    }
+                }
+            }
+        }
+
+        foreach (Tile t in tilesToIgnore)
+        {
+            foreach (Tile tn in t.neighbours)
+            {
+                if (tilesToIgnore.Contains(tn) == false)
+                {
+                    tilesToReturn.Add(tn);
+                }
+            }
+        }
+
+        return tilesToReturn;
+    }
+
     public void OnClickTile(HexRenderer hr)
     {
         clickObject.transform.position = hr.transform.position; //move the hightlight
@@ -237,5 +278,47 @@ public class TileManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    List<GameObject> ShowBorderOfSelected(List<Tile> tiles)
+    {
+        List<GameObject> VisonRange = new List<GameObject>();
+        foreach (Tile tile in tiles)
+        {
+            foreach (Tile t in tile.neighbours)
+            {
+                Vector3 point1 = tile.transform.position;
+                Vector3 point2 = t.transform.position;
+
+                // Step 1: Midpoint between point1 and point2
+                Vector3 midpoint = (point1 + point2) / 2f;
+
+                // Step 2: Direction vector of the line
+                Vector3 direction = (point2 - point1).normalized;
+
+                // Step 3: Find a perpendicular vector in 3D
+                Vector3 arbitraryVector = Vector3.up; // Choose an arbitrary vector
+                if (Vector3.Dot(arbitraryVector, direction) > 0.99f)
+                {
+                    arbitraryVector = Vector3.right; // Change if too aligned
+                }
+
+                // Step 4: Get a perpendicular vector using cross product
+                Vector3 perpendicular = Vector3.Cross(direction, arbitraryVector).normalized;
+
+                // Step 5: Offset midpoint by the perpendicular vector scaled to the given distance and add to line renderer
+                GameObject g = Instantiate(lineRendererPrefab, tile.transform.position, tile.transform.rotation);
+                g.GetComponent<LineRenderer>().SetWidth(0.1f, 0.1f);
+
+
+                g.GetComponent<LineRenderer>().material = GameObject.FindAnyObjectByType<Player>().playersEmprie.OwnedMaterial; // TODO need to get current player
+
+
+                g.GetComponent<LineRenderer>().SetPosition(0, midpoint + (perpendicular * 0.5f) + lineBorderOffset);
+                g.GetComponent<LineRenderer>().SetPosition(1, midpoint + (perpendicular * -0.5f) + lineBorderOffset);
+                VisonRange.Add(g);
+            }
+        }
+        return VisonRange;
     }
 }
