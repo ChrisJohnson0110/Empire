@@ -8,6 +8,7 @@ public class Empire
     public Material OwnedMaterial; //material for land owned by this empire
     public Material BuildingMaterial; //material for building owned by this empire
     public List<Structure> structures = new List<Structure>();
+    public List<Tile> ownedTiles = new List<Tile>();
 
     //score ?
 

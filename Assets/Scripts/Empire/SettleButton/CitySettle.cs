@@ -13,7 +13,10 @@ public class CitySettle : MonoBehaviour
         Empire empire = targetTile.ownedByXempire = GameObject.FindAnyObjectByType<Player>().playersEmprie;  //assign empire
         
         targetTile.hasStructure = new City(targetTile, empire); //create new city
-        
+
+        TileManager tm = GameObject.FindAnyObjectByType<TileManager>();
+        tm.UpdateTile(targetTile);
+
         Debug.Log($"now owned by{empire.empireName}");
     }
 }

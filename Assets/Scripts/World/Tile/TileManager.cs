@@ -18,7 +18,12 @@ public class TileManager : MonoBehaviour
 
     [Header("Prefabs")]
     [SerializeField] GameObject treePrefab;
+    [SerializeField] GameObject cityPrefab;
 
+    [Header("Line Renderer")]
+    [SerializeField] GameObject lineRendererPrefab;
+    List<GameObject> lines = new List<GameObject>();
+    [SerializeField] Vector3 lineBorderOffset = new Vector3(0,0.5f,0);
     private void Awake()
     {
         // Ensure only one instance exists
@@ -31,8 +36,6 @@ public class TileManager : MonoBehaviour
             Destroy(gameObject); // Destroy extra instances
             return;
         }
-
-        DontDestroyOnLoad(gameObject); // Optional: persist across scenes
     }
 
     private void Start()
@@ -77,7 +80,17 @@ public class TileManager : MonoBehaviour
 
     public void UpdateTile(Tile tile)
     {
+        //check for and add city
+        if (tile.hasStructure.GetType() == typeof(City))
+        {
+            if (tile.ObjectOnTileModel)
+            {
+                RemoveObjectOnTile(tile);
+            }
+            AddObjectToTile(tile, cityPrefab);
+        }
 
+        DrawBorder();
     }
 
     public void SetupTileManager()
@@ -167,6 +180,7 @@ public class TileManager : MonoBehaviour
     public void AddObjectToTile(Tile tile, GameObject modelPrefab)
     {
         tile.ObjectOnTileModel = Instantiate(modelPrefab, tile.gameObject.transform.position + new Vector3(-0.2f, 0.7f, 0.5f), tile.gameObject.transform.rotation);
+        tile.ObjectOnTileModel.transform.SetParent(this.transform);
     }
 
     public void RemoveObjectOnTile(Tile tile)
@@ -174,6 +188,54 @@ public class TileManager : MonoBehaviour
         if (tile.ObjectOnTileModel)
         {
             Destroy(tile.ObjectOnTileModel);
+        }
+    }
+
+
+    void DrawBorder()
+    {
+        foreach (GameObject line in lines) //TODO probably able to reuse lines to avoid destroying all // not sure if it would be more efficient to check them agaisnt/with-- existing
+        {
+            Destroy(line);
+        }
+
+        foreach (Player p in GameObject.FindObjectsOfType<Player>())
+        {
+            foreach (Tile tile in p.playersEmprie.ownedTiles)
+            {
+                foreach (Tile t in tile.neighbours)
+                {
+                    if (t.ownedByXempire == null)
+                    {
+                        Vector3 point1 = tile.transform.position;
+                        Vector3 point2 = t.transform.position;
+
+                        // Step 1: Midpoint between point1 and point2
+                        Vector3 midpoint = (point1 + point2) / 2f;
+
+                        // Step 2: Direction vector of the line
+                        Vector3 direction = (point2 - point1).normalized;
+
+                        // Step 3: Find a perpendicular vector in 3D
+                        Vector3 arbitraryVector = Vector3.up; // Choose an arbitrary vector
+                        if (Vector3.Dot(arbitraryVector, direction) > 0.99f)
+                        {
+                            arbitraryVector = Vector3.right; // Change if too aligned
+                        }
+
+                        // Step 4: Get a perpendicular vector using cross product
+                        Vector3 perpendicular = Vector3.Cross(direction, arbitraryVector).normalized;
+
+                        // Step 5: Offset midpoint by the perpendicular vector scaled to the given distance and add to line renderer
+                        GameObject g = Instantiate(lineRendererPrefab, tile.transform.position, tile.transform.rotation);
+                        g.GetComponent<LineRenderer>().SetWidth(0.1f, 0.1f);
+                        g.GetComponent<LineRenderer>().material = p.playersEmprie.OwnedMaterial;
+                        g.GetComponent<LineRenderer>().SetPosition(0, midpoint + (perpendicular * 0.5f) + lineBorderOffset);
+                        g.GetComponent<LineRenderer>().SetPosition(1, midpoint + (perpendicular * -0.5f) + lineBorderOffset);
+                        lines.Add(g);
+                    }
+                }
+            }
         }
     }
 }

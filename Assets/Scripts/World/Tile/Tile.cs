@@ -5,11 +5,6 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
 
-    public Tile()
-    {
-
-    }
-
     // tile display data
 
     List<YieldTypes> yieldTypes;

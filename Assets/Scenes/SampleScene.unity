@@ -1015,6 +1015,8 @@ MonoBehaviour:
   clickPrefab: {fileID: 4840135705639248468, guid: decad97ef1091084e9f447a1dbac6a3c, type: 3}
   hoverPrefab: {fileID: 4910095541606138761, guid: ed2a7c8cea51c30429f582c9356239f2, type: 3}
   treePrefab: {fileID: 3588819246144012278, guid: a6993eb3c8302c141b2dd47619755454, type: 3}
+  cityPrefab: {fileID: 2383300950308339794, guid: ec58e2c32720de741b3d5452c23bc300, type: 3}
+  lineRendererPrefab: {fileID: 6677192600035215608, guid: cd8e227bcf121944b96aee31d9b3241c, type: 3}
 --- !u!1 &518665476
 GameObject:
   m_ObjectHideFlags: 0
