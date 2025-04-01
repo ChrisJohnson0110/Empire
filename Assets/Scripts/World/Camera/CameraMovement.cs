@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+[RequireComponent(typeof(Camera))]
 public class CameraMovement : MonoBehaviour
 {
     public float dragSpeed = 2.0f;
     public float zoomSpeed = 5.0f;
+
     public float minZoom = 5.0f;
     public float maxZoom = 50.0f;
+
     private Vector3 dragOrigin;
     private bool isDragging = false;
 
@@ -26,6 +29,7 @@ public class CameraMovement : MonoBehaviour
             {
                 dragOrigin = Input.mousePosition;
                 isDragging = true;
+
             }
         }
         if (Input.GetMouseButtonUp(0)) // Left mouse button released
@@ -37,7 +41,8 @@ public class CameraMovement : MonoBehaviour
         {
             Vector3 difference = Input.mousePosition - dragOrigin;
             Vector3 move = Quaternion.Euler(0, transform.eulerAngles.y, 0) * new Vector3(-difference.x, 0, -difference.y);
-            transform.Translate(move * dragSpeed * Time.deltaTime, Space.World);
+            //transform.Translate(move * dragSpeed * Time.deltaTime, Space.World);
+            transform.position += (move * dragSpeed * Time.deltaTime);
             dragOrigin = Input.mousePosition;
         }
     }
