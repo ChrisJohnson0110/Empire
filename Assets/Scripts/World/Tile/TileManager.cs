@@ -91,7 +91,6 @@ public class TileManager : MonoBehaviour
         }
 
         DrawBorder();
-        ShowBorderOfSelected(GetTilesXDistanceAway(tile, 5));
     }
 
     public void SetupTileManager()
@@ -166,46 +165,6 @@ public class TileManager : MonoBehaviour
         }
 
         return neighbours;
-    }
-
-    List<Tile> GetTilesXDistanceAway(Tile tile, int distance)
-    {
-        List<Tile> tilesToReturn = new List<Tile>();
-        List<Tile> tilesToIgnore = new List<Tile>();
-
-        tilesToIgnore.Add(tile);
-
-        if (distance == 0)
-        {
-            return tilesToReturn;
-        }
-        
-        for (int i = 0; i < distance; i++)
-        {
-            foreach (Tile tileToIgnore in tilesToIgnore)
-            {
-                foreach (Tile t in tileToIgnore.neighbours)
-                {
-                    if (tilesToIgnore.Contains(t) == false)
-                    {
-                        tilesToIgnore.Add(t);
-                    }
-                }
-            }
-        }
-
-        foreach (Tile t in tilesToIgnore)
-        {
-            foreach (Tile tn in t.neighbours)
-            {
-                if (tilesToIgnore.Contains(tn) == false)
-                {
-                    tilesToReturn.Add(tn);
-                }
-            }
-        }
-
-        return tilesToReturn;
     }
 
     public void OnClickTile(HexRenderer hr)
