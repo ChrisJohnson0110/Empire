@@ -6,6 +6,4 @@ public class Player : MonoBehaviour
 {
     public string playerName;
     public Empire playersEmprie;
-
-
 }
