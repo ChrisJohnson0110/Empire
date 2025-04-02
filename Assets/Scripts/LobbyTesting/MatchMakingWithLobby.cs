@@ -16,7 +16,7 @@ using UnityEngine;
 using ParrelSync;
 #endif
 
-public class SimpleMatchmaking : MonoBehaviour
+public class MatchMakingWithLobby : MonoBehaviour
 {
     [SerializeField] private GameObject _buttons;
 
@@ -81,16 +81,16 @@ public class SimpleMatchmaking : MonoBehaviour
     {
         try
         {
-            const int maxPlayers = 100;
+            const int maxPlayers = 5;
 
             // Create a relay allocation and generate a join code to share with the lobby
-            var a = await RelayService.Instance.CreateAllocationAsync(maxPlayers);
+            var a = await RelayService.Instance.CreateAllocationAsync(maxPlayers, "europe-west4");
             var joinCode = await RelayService.Instance.GetJoinCodeAsync(a.AllocationId);
 
             // Create a lobby, adding the relay join code to the lobby data
             var options = new CreateLobbyOptions
             {
-                Data = new Dictionary<string, DataObject> { { JoinCodeKey, new DataObject(DataObject.VisibilityOptions.Public, joinCode) } }
+                Data = new Dictionary<string, DataObject> { { JoinCodeKey, new DataObject(DataObject.VisibilityOptions.Public, joinCode)} }
             };
             var lobby = await Lobbies.Instance.CreateLobbyAsync("Useless Lobby Name", maxPlayers, options);
 
