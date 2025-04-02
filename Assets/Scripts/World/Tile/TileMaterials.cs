@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// list of materials that the tiles use
+/// </summary>
 public class TileMaterials : MonoBehaviour
 {
     public Material unAssigned;

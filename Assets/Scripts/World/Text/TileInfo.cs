@@ -4,17 +4,23 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+/// <summary>
+/// floating text display
+/// used to display tile info within the game such as:
+/// yeild tpyes and amount, resources the tile has
+/// </summary>
 public class TileInfo : MonoBehaviour
 {
     [Header("Offsets")]
-    [SerializeField] Vector3 OffsetYields = new Vector3(0, 2f, 0);
-    [SerializeField] Vector3 OffsetResources = new Vector3(0, 2f, 0);
+    [SerializeField] private Vector3 _offsetYields = new Vector3(0, 2f, 0);
+    [SerializeField] private Vector3 _offsetResources = new Vector3(0, 2f, 0);
 
     private void Start()
     {
-        Invoke(nameof(CreateTileInfo), 0.01f); // Delayed execution
+        Invoke(nameof(CreateTileInfo), 0.01f); // Delayed execution to ensure runs after terrain generation
     }
 
+    //generate the tile infomation needed for the display box
     void CreateTileInfo()
     {
         foreach (Tile tile in FindObjectsOfType<Tile>())
@@ -23,7 +29,7 @@ public class TileInfo : MonoBehaviour
             // Create a Parent Object
             GameObject yo = new GameObject("r");
             yo.transform.SetParent(tile.transform);
-            yo.transform.localPosition = OffsetResources;
+            yo.transform.localPosition = _offsetResources;
             yo.transform.localRotation = Quaternion.Euler(90, 0, 0); // Rotate for proper world alignment
 
             // Add RectTransform for Correct Alignment
@@ -42,7 +48,7 @@ public class TileInfo : MonoBehaviour
             // Create a Parent Object
             GameObject yieldObject = new GameObject("TileInfo");
             yieldObject.transform.SetParent(tile.transform);
-            yieldObject.transform.localPosition = OffsetYields;
+            yieldObject.transform.localPosition = _offsetYields;
             yieldObject.transform.localRotation = Quaternion.Euler(90, 0, 0); // Rotate for proper world alignment
 
             // Add RectTransform for Correct Alignment
@@ -100,12 +106,12 @@ public class TileInfo : MonoBehaviour
                     textColor = Color.black;
                 }
 
-                CreateFloatingText(yieldObject, $" {yt.yieldAmount} ", OffsetYields, textColor, 5);
+                CreateFloatingText(yieldObject, $" {yt.yieldAmount} ", _offsetYields, textColor, 5);
             }
         }
     }
 
-
+    //create the tile info box above the tile
     public void CreateFloatingText(GameObject parent, string textContent, Vector3 offset, Color color, float fontSize)
     {
         GameObject textObject = new GameObject("TileInfoText");

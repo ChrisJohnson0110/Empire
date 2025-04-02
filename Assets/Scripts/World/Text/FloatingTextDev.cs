@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// flaoting text display for dev mode
+/// dispaly technical tile info
+/// </summary>
 public class FloatingTextDev : MonoBehaviour
 {
     private void Start()
@@ -10,10 +14,11 @@ public class FloatingTextDev : MonoBehaviour
         foreach (Tile tile in GameObject.FindObjectsOfType<Tile>()) // cycle though each tile in grid
         {
             //add text above tile to help debugging
-            CreateFloatingText(tile.gameObject, $"{tile.gameObject.name}\n<color=red>Type:</color> {tile.baseTileType.baseTileType}");
+            CreateFloatingText(tile.gameObject, $"{tile.gameObject.name}\n<color=red>Type:</color> {tile.offSetCoord} \n {tile.hasStructure.ToString()}");
         }
     }
 
+    //create the text box
     public void CreateFloatingText(GameObject parent, string textContent)
     {
         GameObject textObject = new GameObject("FloatingText");

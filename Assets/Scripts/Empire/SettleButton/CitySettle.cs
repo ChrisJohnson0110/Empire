@@ -2,21 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// this script is responsible for the function of creating a city
+/// it creates the city and provideds in the needed perameters
+/// it also assigns it to the needed empire
+/// 
+/// this script and the other buildings could inherit from a general building script
+/// the only changes between scripts is the type of building that is created
+/// has to be some optimiseation made
+/// 
+/// might be better to move all of this to the bottom left menu script
+/// </summary>
 public class CitySettle : MonoBehaviour
 {
-    //function for the settle button
-    //establishes city
-    public void SettleCity()
+    public void SettleCity(Tile a_targetTile)
     {
-        Tile targetTile = GameObject.FindAnyObjectByType<GetClicked>().currentlySeleceted.GetComponent<Tile>(); //the clicked tile that will be settled
-
-        Empire empire = targetTile.ownedByXempire = GameObject.FindAnyObjectByType<Player>().playersEmprie;  //assign empire
+        Empire _empire = a_targetTile.ownedByXempire = GameObject.FindAnyObjectByType<Player>().playersEmprie;  // assign empire //TODO replace with getting the correct player
         
-        targetTile.hasStructure = new City(targetTile, empire); //create new city
+        a_targetTile.hasStructure = new City(a_targetTile, _empire); // create new city
 
-        TileManager tm = GameObject.FindAnyObjectByType<TileManager>();
-        tm.UpdateTile(targetTile);
+        TileManager _tileManagerReference = GameObject.FindAnyObjectByType<TileManager>();
+        _tileManagerReference.UpdateTile(a_targetTile);
 
-        Debug.Log($"now owned by{empire.empireName}");
+        Debug.Log($"now owned by{_empire.empireName}"); //temp
     }
 }

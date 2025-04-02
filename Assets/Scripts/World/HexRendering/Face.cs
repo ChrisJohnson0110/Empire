@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// customm hexagon creation face definition
+/// </summary>
 public struct Face
 {
     public List<Vector3> vertices { get; private set; }

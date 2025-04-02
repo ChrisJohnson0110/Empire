@@ -1,25 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class GetClicked : MonoBehaviour
+/// <summary>
+/// script for clicking a tile on the grid
+/// handles mouse clicks and updates the tiles
+/// </summary>
+public class MouseClick : MonoBehaviour
 {
-    [SerializeField]
-    GameObject clickedInfoBox;
+    [SerializeField] private GameObject _clickedInfoBox;
+    [HideInInspector] public GameObject currentlySeleceted { get; private set; }
 
-    public GameObject currentlySeleceted;
-
-    CitySettle settleRef; //
+    private CitySettle _settleRef; 
 
 
     private void Start()
     {
         currentlySeleceted = new GameObject();
-        clickedInfoBox.SetActive(false);
+        _clickedInfoBox.SetActive(false);
 
-        settleRef = GameObject.FindFirstObjectByType<CitySettle>();
+        _settleRef = GameObject.FindFirstObjectByType<CitySettle>();
     }
 
     private void Update()
@@ -43,7 +43,7 @@ public class GetClicked : MonoBehaviour
                     }
 
                     //update the menu options for the tile
-                    GameObject.FindAnyObjectByType<BLmenu>().UpdateMenu(hitObject.GetComponent<Tile>());
+                    GameObject.FindAnyObjectByType<BottomLeftMenu>().UpdateMenu(hitObject.GetComponent<Tile>());
 
                     //highlight the clicked tile
                     if (hitObject.TryGetComponent<HexRenderer>(out HexRenderer target))
@@ -69,17 +69,17 @@ public class GetClicked : MonoBehaviour
     }
 
 
-    //need to refine this info box display
+    // TODO need to refine this info box display
 
 
-    //options for the clicked tile
+    //info of the clicked tile
     void SetTileOptions(Tile tile)
     {
         Tile selectedTile = tile.GetComponent<Tile>();
 
-        TextMeshProUGUI InfoBoxOne = clickedInfoBox.transform.Find("1").gameObject.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI InfoBoxTwo = clickedInfoBox.transform.Find("2").gameObject.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI InfoBoxThree = clickedInfoBox.transform.Find("3").gameObject.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI InfoBoxOne = _clickedInfoBox.transform.Find("1").gameObject.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI InfoBoxTwo = _clickedInfoBox.transform.Find("2").gameObject.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI InfoBoxThree = _clickedInfoBox.transform.Find("3").gameObject.GetComponent<TextMeshProUGUI>();
 
         string stringOne = "";
         string stringTwo = "";

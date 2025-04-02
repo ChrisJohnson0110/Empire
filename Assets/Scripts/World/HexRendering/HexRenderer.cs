@@ -2,17 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// script for creating a hexagon mesh
+/// generation of all verticies, faces
+/// 
+/// will likey swap to premade tiles later on
+/// </summary>
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
 public class HexRenderer : MonoBehaviour
 {
-    Mesh mesh;
-    MeshFilter meshFilter;
-    MeshRenderer meshRenderer;
+    private Mesh _mesh;
+    private MeshFilter _meshFilter;
+    private MeshRenderer _meshRenderer;
 
-    List<Face> faces;
+    private List<Face> _faces;
 
-    Material material;
+    private Material _material;
 
     public float innerSize = 1;
     public float outerSize = 1;
@@ -20,18 +26,18 @@ public class HexRenderer : MonoBehaviour
 
     private void Awake()
     {
-        meshFilter = GetComponent<MeshFilter>();
-        meshRenderer = GetComponent<MeshRenderer>();
+        _meshFilter = GetComponent<MeshFilter>();
+        _meshRenderer = GetComponent<MeshRenderer>();
 
-        mesh = new Mesh();
-        mesh.name = "Hex";
+        _mesh = new Mesh();
+        _mesh.name = "Hex";
 
-        meshFilter.mesh = mesh;
-        meshRenderer.material = material;
+        _meshFilter.mesh = _mesh;
+        _meshRenderer.material = _material;
 
         //shadows
-        meshRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-        meshRenderer.receiveShadows = false;
+        _meshRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        _meshRenderer.receiveShadows = false;
 
 
     }
@@ -49,12 +55,12 @@ public class HexRenderer : MonoBehaviour
 
     public void DrawFaces()
     {
-        faces = new List<Face>();
+        _faces = new List<Face>();
 
         //top faces
         for (int point = 0; point < 6; point++)
         {
-            faces.Add(CreateFace(innerSize, outerSize, height / 2f, height / 2f, point));
+            _faces.Add(CreateFace(innerSize, outerSize, height / 2f, height / 2f, point));
         }
 
         ////bottom faces
@@ -85,22 +91,22 @@ public class HexRenderer : MonoBehaviour
         List<int> triangles = new List<int>();
         List<Vector2> uvs = new List<Vector2>();
 
-        for (int i = 0; i < faces.Count; i++)
+        for (int i = 0; i < _faces.Count; i++)
         {
-            vertices.AddRange(faces[i].vertices);
-            uvs.AddRange(faces[i].uvs);
+            vertices.AddRange(_faces[i].vertices);
+            uvs.AddRange(_faces[i].uvs);
 
             int offset = (4 * i);
-            foreach (int triangle in faces[i].triangles)
+            foreach (int triangle in _faces[i].triangles)
             {
                 triangles.Add(triangle + offset);
             }
         }
 
-        mesh.vertices = vertices.ToArray();
-        mesh.triangles = triangles.ToArray();
-        mesh.uv = uvs.ToArray();
-        mesh.RecalculateNormals();
+        _mesh.vertices = vertices.ToArray();
+        _mesh.triangles = triangles.ToArray();
+        _mesh.uv = uvs.ToArray();
+        _mesh.RecalculateNormals();
     }
 
     private Face CreateFace(float innerRad, float outerRad, float heightA, float heightB, int point, bool reverse = false)
@@ -131,7 +137,7 @@ public class HexRenderer : MonoBehaviour
 
     public void SetMaterial(Material a_material)
     {
-        meshRenderer.material = a_material;
+        _meshRenderer.material = a_material;
     }
 
     public void OnClickTile()

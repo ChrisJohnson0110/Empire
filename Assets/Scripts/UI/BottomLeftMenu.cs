@@ -3,25 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BLmenu : MonoBehaviour
+/// <summary>
+/// this script has all of the needed functions for the bottom left menu within the UI
+/// holding functions for all of the buttons 
+/// </summary>
+public class BottomLeftMenu : MonoBehaviour
 {
-    [SerializeField]
-    Button settleButton;
-    CitySettle settleReference;
-    [SerializeField]
-    Button outpostButton;
-    OutpostSettle outpostReference;
+    [SerializeField] private Button _settleButton; 
+    [SerializeField] private Button _outpostButton;
+
+    private CitySettle _settleReference;
+    private OutpostSettle _outpostReference;
 
     private void Start()
     {
-        settleReference = GameObject.FindAnyObjectByType<CitySettle>();
-        outpostReference = GameObject.FindAnyObjectByType<OutpostSettle>();
+        _settleReference = GameObject.FindAnyObjectByType<CitySettle>();
+        _outpostReference = GameObject.FindAnyObjectByType<OutpostSettle>();
     }
 
+    //toggle the display for dev text on the tiles
     public void ToggleDevText()
     {
-        //get all tiles children
-        //set active/opo
         List<Tile> tiles = new List<Tile>();
         tiles.AddRange(FindObjectsOfType<Tile>());
 
@@ -35,25 +37,32 @@ public class BLmenu : MonoBehaviour
         }
     }
 
+    //settle button
     public void Settle()
     {
-        settleReference.SettleCity();
+        Tile _targetTile = GameObject.FindAnyObjectByType<MouseClick>().currentlySeleceted.GetComponent<Tile>();
+        _settleReference.SettleCity(_targetTile);
+        UpdateMenu(_targetTile);
     }
+    //outpost button
     public void Outpost()
     {
-        outpostReference.SettleOutPost();
+        Tile _targetTile = GameObject.FindAnyObjectByType<MouseClick>().currentlySeleceted.GetComponent<Tile>();
+        _outpostReference.SettleOutPost(_targetTile);
+        UpdateMenu(_targetTile);
     }
-
+    //update the bottom left menu
+    //are the buttons clickable
     public void UpdateMenu(Tile tile)
     {
-        settleButton.interactable = CheckForNearByCiv(tile);
-        outpostButton.interactable = CheckForNearByCiv(tile);
+        _settleButton.interactable = CheckForNearByCiv(tile);
+        _outpostButton.interactable = CheckForNearByCiv(tile);
     }
 
-    //should the settle button be displayed
-    //e.g. can you settle here
+    //check tiles surrounding the given tile
+    //if any are owned return false
     public bool CheckForNearByCiv(Tile tileToCheck)
-    {
+    { 
         //check all tiles adjacent to clicked tile
         foreach (Tile t in tileToCheck.neighbours)
         {

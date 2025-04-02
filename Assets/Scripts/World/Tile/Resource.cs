@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// data tpye to store resource types and yield
+/// along with any other specific infomation to do with a resource
+/// </summary>
 public class Resource
 {
     //bool isHidden; //is the resource shown //client side later maybe

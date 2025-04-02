@@ -4,137 +4,139 @@ using UnityEngine;
 using System;
 using TMPro;
 
+/// <summary>
+/// script that is responsible for the resources owned
+/// and for displayig the infomation
+/// </summary>
 public class ResourceManager : MonoBehaviour
 {
+    //TODO
+    //make sure infomation is somwhow tied to correct player
+
     //display
-    [SerializeField]
-    TextMeshProUGUI WoodDisplay;
-    [SerializeField]
-    TextMeshProUGUI StoneDisplay;
-    [SerializeField]
-    TextMeshProUGUI ClayDisplay;
-    [SerializeField]
-    TextMeshProUGUI SheepDisplay;
-    [SerializeField]
-    TextMeshProUGUI WheatDisplay;
-    [SerializeField]
-    TextMeshProUGUI GoldDisplay;
+    [SerializeField] private TextMeshProUGUI _woodDisplay;
+    [SerializeField] private TextMeshProUGUI _stoneDisplay;
+    [SerializeField] private TextMeshProUGUI _clayDisplay;
+    [SerializeField] private TextMeshProUGUI _sheepDisplay;
+    [SerializeField] private TextMeshProUGUI _wheatDisplay;
+    [SerializeField] private TextMeshProUGUI _goldDisplay;
 
     //owned resources
-    public YieldTypes wood; //yeild type allows storeage of type and amount
-    public YieldTypes stone; 
-    public YieldTypes clay; 
-    public YieldTypes sheep; 
-    public YieldTypes wheat; 
-    public YieldTypes gold;
+    //yeild type allows storeage of type and amount
+    public YieldTypes _wood;
+    public YieldTypes _stone; 
+    public YieldTypes _clay; 
+    public YieldTypes _sheep; 
+    public YieldTypes _wheat; 
+    public YieldTypes _gold;
 
     // Define delegate and event
     public delegate void OnChanged(int value);
 
     //events
-    public event OnChanged WoodChanged;
-    public event OnChanged StoneChanged;
-    public event OnChanged ClayChanged;
-    public event OnChanged SheepChanged;
-    public event OnChanged WheatChanged;
-    public event OnChanged GoldChanged;
+    public event OnChanged woodChanged;
+    public event OnChanged stoneChanged;
+    public event OnChanged clayChanged;
+    public event OnChanged sheepChanged;
+    public event OnChanged wheatChanged;
+    public event OnChanged goldChanged;
 
     //public variables
-    public int WoodOwned
+    public int woodOwned
     {
-        get { return wood.yieldAmount; }
+        get { return _wood.yieldAmount; }
         set
         {
-            if (wood.yieldAmount != value) // Only trigger if value actually changes
+            if (_wood.yieldAmount != value) // Only trigger if value actually changes
             {
-                wood.yieldAmount = value;
-                WoodChanged?.Invoke(wood.yieldAmount); // Trigger event
+                _wood.yieldAmount = value;
+                woodChanged?.Invoke(_wood.yieldAmount); // Trigger event
             }
         }
     }
-    public int StoneOwned
+    public int stoneOwned
     {
-        get { return stone.yieldAmount; }
+        get { return _stone.yieldAmount; }
         set
         {
-            if (stone.yieldAmount != value) // Only trigger if value actually changes
+            if (_stone.yieldAmount != value) // Only trigger if value actually changes
             {
-                stone.yieldAmount = value;
-                StoneChanged?.Invoke(stone.yieldAmount); // Trigger event
+                _stone.yieldAmount = value;
+                stoneChanged?.Invoke(_stone.yieldAmount); // Trigger event
             }
         }
     }
-    public int ClayOwned
+    public int clayOwned
     {
-        get { return clay.yieldAmount; }
+        get { return _clay.yieldAmount; }
         set
         {
-            if (clay.yieldAmount != value) // Only trigger if value actually changes
+            if (_clay.yieldAmount != value) // Only trigger if value actually changes
             {
-                clay.yieldAmount = value;
-                ClayChanged?.Invoke(clay.yieldAmount); // Trigger event
+                _clay.yieldAmount = value;
+                clayChanged?.Invoke(_clay.yieldAmount); // Trigger event
             }
         }
     }
-    public int SheepOwned
+    public int sheepOwned
     {
-        get { return sheep.yieldAmount; }
+        get { return _sheep.yieldAmount; }
         set
         {
-            if (sheep.yieldAmount != value) // Only trigger if value actually changes
+            if (_sheep.yieldAmount != value) // Only trigger if value actually changes
             {
-                sheep.yieldAmount = value;
-                SheepChanged?.Invoke(sheep.yieldAmount); // Trigger event
+                _sheep.yieldAmount = value;
+                sheepChanged?.Invoke(_sheep.yieldAmount); // Trigger event
             }
         }
     }
-    public int WheatOwned
+    public int wheatOwned
     {
-        get { return wheat.yieldAmount; }
+        get { return _wheat.yieldAmount; }
         set
         {
-            if (wheat.yieldAmount != value) // Only trigger if value actually changes
+            if (_wheat.yieldAmount != value) // Only trigger if value actually changes
             {
-                wheat.yieldAmount = value;
-                WheatChanged?.Invoke(wheat.yieldAmount); // Trigger event
+                _wheat.yieldAmount = value;
+                wheatChanged?.Invoke(_wheat.yieldAmount); // Trigger event
             }
         }
     }
-    public int GoldOwned
+    public int goldOwned
     {
-        get { return gold.yieldAmount; }
+        get { return _gold.yieldAmount; }
         set
         {
-            if (gold.yieldAmount != value) // Only trigger if value actually changes
+            if (_gold.yieldAmount != value) // Only trigger if value actually changes
             {
-                gold.yieldAmount = value;
-                GoldChanged?.Invoke(gold.yieldAmount); // Trigger event
+                _gold.yieldAmount = value;
+                goldChanged?.Invoke(_gold.yieldAmount); // Trigger event
             }
         }
     }
 
     private void Start()
     {
-        wood.yieldType = YieldTypes.yieldTypes.gold;
-        stone.yieldType = YieldTypes.yieldTypes.gold;
-        clay.yieldType = YieldTypes.yieldTypes.gold;
-        sheep.yieldType = YieldTypes.yieldTypes.gold;
-        wheat.yieldType = YieldTypes.yieldTypes.gold;
-        gold.yieldType = YieldTypes.yieldTypes.gold;
+        _wood.yieldType = YieldTypes.yieldTypes.gold;
+        _stone.yieldType = YieldTypes.yieldTypes.gold;
+        _clay.yieldType = YieldTypes.yieldTypes.gold;
+        _sheep.yieldType = YieldTypes.yieldTypes.gold;
+        _wheat.yieldType = YieldTypes.yieldTypes.gold;
+        _gold.yieldType = YieldTypes.yieldTypes.gold;
 
-        WoodChanged += HandleWoodChanged;
-        StoneChanged += HandleStoneChanged;
-        ClayChanged += HandleClayChanged;
-        SheepChanged += HandleSheepChanged;
-        WheatChanged += HandleWheatChanged;
-        GoldChanged += HandleGoldChanged;
+        woodChanged += HandleWoodChanged;
+        stoneChanged += HandleStoneChanged;
+        clayChanged += HandleClayChanged;
+        sheepChanged += HandleSheepChanged;
+        wheatChanged += HandleWheatChanged;
+        goldChanged += HandleGoldChanged;
 
-        WoodOwned++;
-        StoneOwned++;
-        ClayOwned++;
-        SheepOwned++;
-        WheatOwned++;
-        GoldOwned++;
+        woodOwned++;
+        stoneOwned++;
+        clayOwned++;
+        sheepOwned++;
+        wheatOwned++;
+        goldOwned++;
     }
 
     /// <summary>
@@ -142,41 +144,41 @@ public class ResourceManager : MonoBehaviour
     /// </summary>
     public void IncreaseResources()
     {
-        WoodOwned++;
-        WoodOwned++;
-        StoneOwned++;
-        ClayOwned++;
-        ClayOwned++;
-        SheepOwned++;
-        WheatOwned++;
-        WheatOwned++;
-        GoldOwned++;
-        GoldOwned++;
-        GoldOwned++;
+        woodOwned++;
+        woodOwned++;
+        stoneOwned++;
+        clayOwned++;
+        clayOwned++;
+        sheepOwned++;
+        wheatOwned++;
+        wheatOwned++;
+        goldOwned++;
+        goldOwned++;
+        goldOwned++;
     }
 
     private void HandleWoodChanged(int value)
     {
-        WoodDisplay.text = WoodOwned.ToString();
+        _woodDisplay.text = woodOwned.ToString();
     }
     private void HandleStoneChanged(int value)
     {
-        StoneDisplay.text = StoneOwned.ToString();
+        _stoneDisplay.text = stoneOwned.ToString();
     }
     private void HandleClayChanged(int value)
     {
-        ClayDisplay.text = ClayOwned.ToString();
+        _clayDisplay.text = clayOwned.ToString();
     }
     private void HandleSheepChanged(int value)
     {
-        SheepDisplay.text = SheepOwned.ToString();
+        _sheepDisplay.text = sheepOwned.ToString();
     }
     private void HandleWheatChanged(int value)
     {
-        WheatDisplay.text = WheatOwned.ToString();
+        _wheatDisplay.text = wheatOwned.ToString();
     }
     private void HandleGoldChanged(int value)
     {
-        GoldDisplay.text = GoldOwned.ToString();
+        _goldDisplay.text = goldOwned.ToString();
     }
 }

@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// script for managing and assigning empires to players
+/// will be built on more when netcode added
+/// </summary>
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance; // Singleton instance
-    List<Empire> allEmpires = new List<Empire>();
+    private List<Empire> _allEmpires = new List<Empire>(); //all empires in the game
 
-    [SerializeField] Material playerOne;
-    [SerializeField] Material playerTwo;
-    [SerializeField] Material playerThree;
-    [SerializeField] Material playerFour;
+    [SerializeField] private Material _playerOne;
+    [SerializeField] private Material _playerTwo;
+    [SerializeField] private Material _playerThree;
+    [SerializeField] private Material _playerFour;
 
-    [SerializeField] Material BuildingMaterial;
+    [SerializeField] private Material _buildingMaterial;
 
     private void Awake()
     {
@@ -32,18 +36,18 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
-        allEmpires.Add(new Empire("PlayerOne", playerOne));
-        allEmpires.Add(new Empire("PlayerTwo", playerTwo));
-        allEmpires.Add(new Empire("PlayerThree", playerThree));
-        allEmpires.Add(new Empire("PlayerFour", playerFour));
+        _allEmpires.Add(new Empire("PlayerOne", _playerOne));
+        _allEmpires.Add(new Empire("PlayerTwo", _playerTwo));
+        _allEmpires.Add(new Empire("PlayerThree", _playerThree));
+        _allEmpires.Add(new Empire("PlayerFour", _playerFour));
          
         //temp adding city material
-        foreach (Empire e in allEmpires)
+        foreach (Empire empire in _allEmpires)
         {
-            e.BuildingMaterial = BuildingMaterial;
+            empire.buildingMaterial = _buildingMaterial;
         }
 
-        GameObject.FindAnyObjectByType<Player>().playersEmprie = allEmpires[0];
+        GameObject.FindAnyObjectByType<Player>().playersEmprie = _allEmpires[0];
 
     }
 

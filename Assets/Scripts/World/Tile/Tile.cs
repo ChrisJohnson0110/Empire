@@ -6,10 +6,6 @@ public class Tile : MonoBehaviour
 {
 
     // tile display data
-
-    List<YieldTypes> yieldTypes;
-
-
     public BaseTile baseTileType; //water, grass desert
     public ObstructionTypes.roughTypes roughType;  //hills, marsh, jungle
     public Resource resourceOnTile; //is there a workable resource

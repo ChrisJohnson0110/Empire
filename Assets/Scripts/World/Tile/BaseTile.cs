@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// store the base tile infomation
+/// </summary>
 [CreateAssetMenu(fileName = "Types", menuName = "ScriptableObjects/Tiles/BaseTile", order = 1)]
 public class BaseTile : ScriptableObject
 {
-    [SerializeField]
     public BaseTileTypes baseTileType;
-    [SerializeField]
-    bool isHilly;
-    [SerializeField]
     public List<YieldTypes> tileYield = new List<YieldTypes>();
-    [SerializeField]
-    bool cannotTraverse;
+    public bool isHilly;
+    public bool cannotTraverse;
+
     public enum BaseTileTypes
     {
         grassland,
@@ -30,6 +30,4 @@ public class BaseTile : ScriptableObject
 
         naturalwonder
     }
-
-
 }

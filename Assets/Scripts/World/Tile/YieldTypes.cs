@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+/// <summary>
+/// format for the yield types storing the type of yield and the amount
+/// </summary>
 [Serializable]
 public class YieldTypes
 {

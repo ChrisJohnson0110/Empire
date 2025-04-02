@@ -4,26 +4,23 @@ using UnityEngine;
 
 public class TileManager : MonoBehaviour
 {
-    Dictionary<Vector3Int, Tile> tiles;
-
-    CitySettle settleReference; // settle reference
-
+    private Dictionary<Vector3Int, Tile> _tiles;
     public static TileManager instance; // Singleton instance
 
     [Header("MouseObjects")]
-    [SerializeField] GameObject clickPrefab;
-    [SerializeField] GameObject hoverPrefab;
-    GameObject clickObject;
-    GameObject hoverObject;
+    [SerializeField] private GameObject _clickPrefab;
+    [SerializeField] private GameObject _hoverPrefab;
+    private GameObject _clickObject;
+    private GameObject _hoverObject;
 
     [Header("Prefabs")]
-    [SerializeField] GameObject treePrefab;
-    [SerializeField] GameObject cityPrefab;
+    [SerializeField] private GameObject _treePrefab;
+    [SerializeField] private GameObject _cityPrefab;
 
     [Header("Line Renderer")]
-    [SerializeField] GameObject lineRendererPrefab;
-    List<GameObject> lines = new List<GameObject>();
-    [SerializeField] Vector3 lineBorderOffset = new Vector3(0,0.5f,0);
+    [SerializeField] private GameObject _lineRendererPrefab;
+    [SerializeField] private Vector3 _lineBorderOffset = new Vector3(0,0.5f,0);
+    private List<GameObject> _lines = new List<GameObject>();
     private void Awake()
     {
         // Ensure only one instance exists
@@ -40,19 +37,18 @@ public class TileManager : MonoBehaviour
 
     private void Start()
     {
-        settleReference = GameObject.FindAnyObjectByType<CitySettle>(); //set settle reference
-        GameObject.FindAnyObjectByType<BLmenu>().ToggleDevText();
+        GameObject.FindAnyObjectByType<BottomLeftMenu>().ToggleDevText();
 
-        clickObject = Instantiate(clickPrefab, new Vector3(-5,-5,-5), gameObject.transform.rotation);
-        hoverObject = Instantiate(hoverPrefab, new Vector3(-5,-5,-5), gameObject.transform.rotation);
+        _clickObject = Instantiate(_clickPrefab, new Vector3(-5,-5,-5), gameObject.transform.rotation);
+        _hoverObject = Instantiate(_hoverPrefab, new Vector3(-5,-5,-5), gameObject.transform.rotation);
     }
 
-    public List<Tile> GetAdjacentOfAdjacent(Tile tile)
+    public List<Tile> GetAdjacentOfAdjacent(Tile a_tile)
     {
         List<Tile> tilesAdj = new List<Tile>();
         List<Tile> tilesAdjAdj = new List<Tile>();
 
-        foreach (Tile t in tile.neighbours) //get adjacent
+        foreach (Tile t in a_tile.neighbours) //get adjacent
         {
             tilesAdj.Add(t);
             
@@ -69,9 +65,9 @@ public class TileManager : MonoBehaviour
             }
         }
 
-        if (tilesAdjAdj.Contains(tile) == true)
+        if (tilesAdjAdj.Contains(a_tile) == true)
         {
-            tilesAdjAdj.Remove(tile);
+            tilesAdjAdj.Remove(a_tile);
         }
 
 
@@ -87,7 +83,7 @@ public class TileManager : MonoBehaviour
             {
                 RemoveObjectOnTile(tile);
             }
-            AddObjectToTile(tile, cityPrefab);
+            AddObjectToTile(tile, _cityPrefab);
         }
 
         DrawBorder();
@@ -95,7 +91,7 @@ public class TileManager : MonoBehaviour
 
     public void SetupTileManager()
     {
-        tiles = new Dictionary<Vector3Int, Tile>();
+        _tiles = new Dictionary<Vector3Int, Tile>();
         CreateDictionary();
         CreateTileModels();
 
@@ -108,11 +104,11 @@ public class TileManager : MonoBehaviour
 
     void CreateTileModels()
     {
-        foreach (Tile t in tiles.Values)
+        foreach (Tile t in _tiles.Values)
         {
             if (t.baseTileType.baseTileType == BaseTile.BaseTileTypes.grassland)
             {
-                AddObjectToTile(t, treePrefab);
+                AddObjectToTile(t, _treePrefab);
             }
         }
     }
@@ -121,24 +117,24 @@ public class TileManager : MonoBehaviour
     {
         Tile[] hextiles = gameObject.GetComponentsInChildren<Tile>();
 
-        foreach (Tile t in hextiles)
+        foreach (Tile tile in hextiles)
         {
-            RegisterTile(t);
+            RegisterTile(tile);
         }
 
-        foreach (Tile t in hextiles)
+        foreach (Tile tile in hextiles)
         {
-            List<Tile> neighbours = GetNeighbours(t);
-            t.neighbours = neighbours;
+            List<Tile> neighbours = GetNeighbours(tile);
+            tile.neighbours = neighbours;
         }
     }
 
-    void RegisterTile(Tile tile)
+    void RegisterTile(Tile a_tile)
     {
-        tiles.Add(tile.cubeCoord, tile);
+        _tiles.Add(a_tile.cubeCoord, a_tile);
     }
 
-    List<Tile> GetNeighbours(Tile tile)
+    List<Tile> GetNeighbours(Tile a_tile)
     {
         List<Tile> neighbours = new List<Tile>();
 
@@ -156,9 +152,9 @@ public class TileManager : MonoBehaviour
         //check dic for if cube coord exists
         foreach (Vector3Int nc in neighbourCoords)
         {
-            Vector3Int tileCoord = tile.cubeCoord;
+            Vector3Int tileCoord = a_tile.cubeCoord;
 
-            if (tiles.TryGetValue(tileCoord + nc, out Tile neighbour))
+            if (_tiles.TryGetValue(tileCoord + nc, out Tile neighbour))
             {
                 neighbours.Add(neighbour);
             }
@@ -167,34 +163,34 @@ public class TileManager : MonoBehaviour
         return neighbours;
     }
 
-    public void OnClickTile(HexRenderer hr)
+    public void OnClickTile(HexRenderer a_hexRenderer)
     {
-        clickObject.transform.position = hr.transform.position; //move the hightlight
+        _clickObject.transform.position = a_hexRenderer.transform.position; //move the hightlight
     }
     
-    public void OnHoverTile(HexRenderer hr)
+    public void OnHoverTile(HexRenderer a_hexRenderer)
     {
-        hoverObject.transform.position = hr.transform.position; //move the select
+        _hoverObject.transform.position = a_hexRenderer.transform.position; //move the select
     }
 
-    public void AddObjectToTile(Tile tile, GameObject modelPrefab)
+    public void AddObjectToTile(Tile a_tile, GameObject a_modelPrefab)
     {
-        tile.ObjectOnTileModel = Instantiate(modelPrefab, tile.gameObject.transform.position + new Vector3(-0.2f, 0.7f, 0.5f), tile.gameObject.transform.rotation);
-        tile.ObjectOnTileModel.transform.SetParent(this.transform);
+        a_tile.ObjectOnTileModel = Instantiate(a_modelPrefab, a_tile.gameObject.transform.position + new Vector3(-0.2f, 0.7f, 0.5f), a_tile.gameObject.transform.rotation);
+        a_tile.ObjectOnTileModel.transform.SetParent(this.transform);
     }
 
-    public void RemoveObjectOnTile(Tile tile)
+    public void RemoveObjectOnTile(Tile a_tile)
     {
-        if (tile.ObjectOnTileModel)
+        if (a_tile.ObjectOnTileModel)
         {
-            Destroy(tile.ObjectOnTileModel);
+            Destroy(a_tile.ObjectOnTileModel);
         }
     }
 
 
     void DrawBorder()
     {
-        foreach (GameObject line in lines) //TODO probably able to reuse lines to avoid destroying all // not sure if it would be more efficient to check them agaisnt/with-- existing
+        foreach (GameObject line in _lines) //TODO probably able to reuse lines to avoid destroying all // not sure if it would be more efficient to check them agaisnt/with-- existing
         {
             Destroy(line);
         }
@@ -227,22 +223,22 @@ public class TileManager : MonoBehaviour
                         Vector3 perpendicular = Vector3.Cross(direction, arbitraryVector).normalized;
 
                         // Step 5: Offset midpoint by the perpendicular vector scaled to the given distance and add to line renderer
-                        GameObject g = Instantiate(lineRendererPrefab, tile.transform.position, tile.transform.rotation);
+                        GameObject g = Instantiate(_lineRendererPrefab, tile.transform.position, tile.transform.rotation);
                         g.GetComponent<LineRenderer>().SetWidth(0.1f, 0.1f);
-                        g.GetComponent<LineRenderer>().material = p.playersEmprie.OwnedMaterial;
-                        g.GetComponent<LineRenderer>().SetPosition(0, midpoint + (perpendicular * 0.5f) + lineBorderOffset);
-                        g.GetComponent<LineRenderer>().SetPosition(1, midpoint + (perpendicular * -0.5f) + lineBorderOffset);
-                        lines.Add(g);
+                        g.GetComponent<LineRenderer>().material = p.playersEmprie.ownedMaterial;
+                        g.GetComponent<LineRenderer>().SetPosition(0, midpoint + (perpendicular * 0.5f) + _lineBorderOffset);
+                        g.GetComponent<LineRenderer>().SetPosition(1, midpoint + (perpendicular * -0.5f) + _lineBorderOffset);
+                        _lines.Add(g);
                     }
                 }
             }
         }
     }
 
-    List<GameObject> ShowBorderOfSelected(List<Tile> tiles)
+    List<GameObject> ShowBorderOfSelected(List<Tile> a_tiles)
     {
         List<GameObject> VisonRange = new List<GameObject>();
-        foreach (Tile tile in tiles)
+        foreach (Tile tile in a_tiles)
         {
             foreach (Tile t in tile.neighbours)
             {
@@ -266,15 +262,15 @@ public class TileManager : MonoBehaviour
                 Vector3 perpendicular = Vector3.Cross(direction, arbitraryVector).normalized;
 
                 // Step 5: Offset midpoint by the perpendicular vector scaled to the given distance and add to line renderer
-                GameObject g = Instantiate(lineRendererPrefab, tile.transform.position, tile.transform.rotation);
+                GameObject g = Instantiate(_lineRendererPrefab, tile.transform.position, tile.transform.rotation);
                 g.GetComponent<LineRenderer>().SetWidth(0.1f, 0.1f);
 
 
-                g.GetComponent<LineRenderer>().material = GameObject.FindAnyObjectByType<Player>().playersEmprie.OwnedMaterial; // TODO need to get current player
+                g.GetComponent<LineRenderer>().material = GameObject.FindAnyObjectByType<Player>().playersEmprie.ownedMaterial; // TODO need to get current player
 
 
-                g.GetComponent<LineRenderer>().SetPosition(0, midpoint + (perpendicular * 0.5f) + lineBorderOffset);
-                g.GetComponent<LineRenderer>().SetPosition(1, midpoint + (perpendicular * -0.5f) + lineBorderOffset);
+                g.GetComponent<LineRenderer>().SetPosition(0, midpoint + (perpendicular * 0.5f) + _lineBorderOffset);
+                g.GetComponent<LineRenderer>().SetPosition(1, midpoint + (perpendicular * -0.5f) + _lineBorderOffset);
                 VisonRange.Add(g);
             }
         }

@@ -1,35 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
-//create the hexgrid for the map
-//great reading material on hex grids https://www.redblobgames.com/grids/hexagons/
+/// <summary>
+/// create the hexagon grid that is the map
+/// NOTE: Reading material for hexagon grids : https://www.redblobgames.com/grids/hexagons/
+/// </summary>
 public class HexGridLayout : MonoBehaviour
 {
     [Header("Grid Settings")]
-    [SerializeField]
-    Vector2Int gridSize; //size of map to generate
+    [SerializeField] private Vector2Int _gridSize; //size of map to generate
 
     [Header("Tile Settings")]
-    public float outerSize = 1; // boder size for hex
-    public float innerSize = 0; // inner border e.g. hole
-    public float height = 0.5f; // height
+    private float _outerSize = 1; // boder size for hex
+    private float _innerSize = 0; // inner border e.g. hole
+    private float _height = 0.5f; // height
 
     //Tile material generation
     [Header("Tile Material Generation")]
-    [SerializeField]
-    List<BaseTile> baseTiless = new List<BaseTile>(); //list of base tiles for random hex assignment
-    TileMaterials tileMaterials; //reference to script holding materials for use
+    [SerializeField] private List<BaseTile> _baseTiless = new List<BaseTile>(); //list of base tiles for random hex assignment
+    private TileMaterials _tileMaterials; //reference to script holding materials for use
 
     [Header("Perlin Noise Settings")]
-    [SerializeField] float noiseSeed = -1;
-    [SerializeField] float noiseFrequency = 100f;
-    [SerializeField] float noiseThreshhold = 0.5f;
+    [SerializeField] private float _noiseSeed = -1;
+    [SerializeField] private float _noiseFrequency = 100f;
+    [SerializeField] private float _noiseThreshhold = 0.5f;
 
     private void OnEnable()
     {
-        tileMaterials = GameObject.FindObjectOfType<TileMaterials>();
+        _tileMaterials = GameObject.FindObjectOfType<TileMaterials>();
 
         LayoutGrid(); //create grid
         GameObject.FindObjectOfType<TileManager>().SetupTileManager(); //create dic of tiles
@@ -38,9 +37,9 @@ public class HexGridLayout : MonoBehaviour
     //grid creation
     private void LayoutGrid()
     {
-        for (int y = 0; y < gridSize.y; y++)
+        for (int y = 0; y < _gridSize.y; y++)
         {
-            for (int x = 0; x < gridSize.x; x++)
+            for (int x = 0; x < _gridSize.x; x++)
             {
                 GameObject tile = new GameObject($"Hex {x},{y}", typeof(HexRenderer));
                 tile.transform.SetParent(transform, true);
@@ -67,53 +66,51 @@ public class HexGridLayout : MonoBehaviour
     {
         //hex settings
         HexRenderer hexRenderer = tile.GetComponent<HexRenderer>();
-        hexRenderer.outerSize = outerSize;
-        hexRenderer.innerSize = innerSize;
-        hexRenderer.height = height;
-        hexRenderer.SetMaterial(tileMaterials.unAssigned);
+        hexRenderer.outerSize = _outerSize;
+        hexRenderer.innerSize = _innerSize;
+        hexRenderer.height = _height;
+        hexRenderer.SetMaterial(_tileMaterials.unAssigned);
         hexRenderer.DrawMesh();
 
         return hexRenderer;
     }
 
+    //assign tile types and materials to all of the tiles
     void RandomiseMaterials(Tile tile, HexRenderer hexRenderer)
     {
-        if (noiseSeed == -1)
+        if (_noiseSeed == -1)
         {
-            noiseSeed = Random.Range(0, 1000000);
+            _noiseSeed = Random.Range(0, 1000000);
         }
 
-        float waterValue = Mathf.PerlinNoise((tile.offSetCoord.x + noiseSeed) / noiseFrequency, (tile.offSetCoord.y + noiseSeed) / noiseFrequency);
+        float waterValue = Mathf.PerlinNoise((tile.offSetCoord.x + _noiseSeed) / _noiseFrequency, (tile.offSetCoord.y + _noiseSeed) / _noiseFrequency);
 
-        bool isWater = waterValue < noiseThreshhold;
+        bool isWater = waterValue < _noiseThreshhold;
         if (isWater)
         {
-            tile.baseTileType = baseTiless[2];
-            hexRenderer.SetMaterial(tileMaterials.ocean);
+            tile.baseTileType = _baseTiless[2];
+            hexRenderer.SetMaterial(_tileMaterials.ocean);
         }
         else
         {
-            tile.baseTileType = baseTiless[Random.Range(0, baseTiless.Count - 1)]; //random for now
+            tile.baseTileType = _baseTiless[Random.Range(0, _baseTiless.Count - 1)]; //random for now
 
             //change material based on random basetile given
             if (tile.baseTileType.baseTileType == BaseTile.BaseTileTypes.grassland)
             {
-                hexRenderer.SetMaterial(tileMaterials.grass);
+                hexRenderer.SetMaterial(_tileMaterials.grass);
             }
             else if (tile.baseTileType.baseTileType == BaseTile.BaseTileTypes.plains)
             {
-                hexRenderer.SetMaterial(tileMaterials.plains);
+                hexRenderer.SetMaterial(_tileMaterials.plains);
             }
             else
             {
-                hexRenderer.SetMaterial(tileMaterials.unAssigned);
+                hexRenderer.SetMaterial(_tileMaterials.unAssigned);
             }
 
         }
     }
-
-
-    
 
     //get hex position
     private Vector3 GetPositionForHexCoordinate(Vector2Int coordinate)
@@ -131,7 +128,7 @@ public class HexGridLayout : MonoBehaviour
         float horizontalDistance;
         float verticalDistance;
         float offset;
-        float size = outerSize;
+        float size = _outerSize;
 
 
             shouldOffset = (collumn % 2) == 0;

@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// store a tiles terrian type
+/// this is calculated on the type of tile it is
+/// </summary>
 public class TerrainTypes : MonoBehaviour
 {
     enum terrainTypes
@@ -28,7 +32,4 @@ public class TerrainTypes : MonoBehaviour
     {
         return terrainTypes.open_terrain;
     }
-
-
-
 }

@@ -659,8 +659,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4981671b42cc0a349b59ced6db9a489e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settleButton: {fileID: 352200764}
-  outpostButton: {fileID: 1462958791}
+  _settleButton: {fileID: 352200764}
+  _outpostButton: {fileID: 1462958791}
 --- !u!114 &294586079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -946,17 +946,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26009471713d21245a2f1f9a309847dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: {x: 60, y: 30}
-  outerSize: 1
-  innerSize: 0
-  height: 0.5
-  baseTiless:
+  _gridSize: {x: 100, y: 50}
+  _baseTiless:
   - {fileID: 11400000, guid: 162830b2c7f45e64db545c31c03aeadc, type: 2}
   - {fileID: 11400000, guid: 31c0fd2969b7bd44a99f58ea733cb537, type: 2}
   - {fileID: 11400000, guid: a5e6a30dde407694caed8c73912ac043, type: 2}
-  noiseSeed: -1
-  noiseFrequency: 5
-  noiseThreshhold: 0.3
+  _noiseSeed: -1
+  _noiseFrequency: 5
+  _noiseThreshhold: 0.28
 --- !u!114 &431546668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2205,11 +2202,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ed4f86a989e90444a38366d5a511947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerOne: {fileID: 2100000, guid: 9ab1aa78afcfd3c48845b09451777687, type: 2}
-  playerTwo: {fileID: 2100000, guid: aa48772e302518343977a74ef43e682e, type: 2}
-  playerThree: {fileID: 2100000, guid: d5351e4a7ea502541bc333764118d63f, type: 2}
-  playerFour: {fileID: 2100000, guid: 32f6325804f83f7449b98b9012c3ba7b, type: 2}
-  BuildingMaterial: {fileID: 2100000, guid: 72f1b2517f840a54a95398750c65c8f5, type: 2}
+  _playerOne: {fileID: 2100000, guid: 9ab1aa78afcfd3c48845b09451777687, type: 2}
+  _playerTwo: {fileID: 2100000, guid: aa48772e302518343977a74ef43e682e, type: 2}
+  _playerThree: {fileID: 2100000, guid: d5351e4a7ea502541bc333764118d63f, type: 2}
+  _playerFour: {fileID: 2100000, guid: 32f6325804f83f7449b98b9012c3ba7b, type: 2}
+  _buildingMaterial: {fileID: 2100000, guid: 72f1b2517f840a54a95398750c65c8f5, type: 2}
 --- !u!4 &871353772
 Transform:
   m_ObjectHideFlags: 0
@@ -2597,10 +2594,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c58379985b9a0b1418827dd5b911cee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dragSpeed: 5
-  zoomSpeed: 5
-  minZoom: 5
-  maxZoom: 50
+  _dragSpeed: 2
+  _zoomSpeed: 5
+  _minZoom: 3
+  _maxZoom: 50
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2610,11 +2607,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dbed8d388b2a0f47a04f6e0a402a979, type: 3}
+  m_Script: {fileID: 11500000, guid: a5fbaf211d3ee8c4ea71820457e2059b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickedInfoBox: {fileID: 853768347}
-  currentlySeleceted: {fileID: 0}
+  _clickedInfoBox: {fileID: 853768347}
 --- !u!1 &1184012164
 GameObject:
   m_ObjectHideFlags: 0
@@ -2735,28 +2731,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9c48d8b73bf57c4bba194c15e9d4911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WoodDisplay: {fileID: 528086883}
-  StoneDisplay: {fileID: 1814740609}
-  ClayDisplay: {fileID: 518665478}
-  SheepDisplay: {fileID: 761897031}
-  WheatDisplay: {fileID: 1833802749}
-  GoldDisplay: {fileID: 2146568005}
-  wood:
+  _woodDisplay: {fileID: 528086883}
+  _stoneDisplay: {fileID: 1814740609}
+  _clayDisplay: {fileID: 518665478}
+  _sheepDisplay: {fileID: 761897031}
+  _wheatDisplay: {fileID: 1833802749}
+  _goldDisplay: {fileID: 2146568005}
+  _wood:
     yieldType: 0
     yieldAmount: 0
-  stone:
+  _stone:
     yieldType: 0
     yieldAmount: 0
-  clay:
+  _clay:
     yieldType: 0
     yieldAmount: 0
-  sheep:
+  _sheep:
     yieldType: 0
     yieldAmount: 0
-  wheat:
+  _wheat:
     yieldType: 0
     yieldAmount: 0
-  gold:
+  _gold:
     yieldType: 0
     yieldAmount: 0
 --- !u!1 &1427436762
