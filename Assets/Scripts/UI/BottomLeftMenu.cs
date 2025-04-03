@@ -45,7 +45,6 @@ public class BottomLeftMenu : MonoBehaviour
         _researchButton.gameObject.SetActive(false);
         _explorationButton.gameObject.SetActive(false);
     }
-
     public void ToggleBuildingsButton()
     {
         DisplayButton(_buildingsButton);
@@ -66,7 +65,6 @@ public class BottomLeftMenu : MonoBehaviour
     {
         DisplayButton(_explorationButton);
     }
-
     private void DisplayButton(GameObject a_buttonToShow)
     {
         if (_lastButton != null)

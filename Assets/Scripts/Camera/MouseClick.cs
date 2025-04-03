@@ -8,16 +8,17 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class MouseClick : MonoBehaviour
 {
-    [SerializeField] private GameObject _clickedInfoBox;
+    [SerializeField] private TextMeshProUGUI _clickedInfoBox;
     [HideInInspector] public GameObject currentlySeleceted { get; private set; }
 
-    private CitySettle _settleRef; 
+    private CitySettle _settleRef;
 
+    
 
     private void Start()
     {
         currentlySeleceted = new GameObject();
-        _clickedInfoBox.SetActive(false);
+        _clickedInfoBox.text = "";
 
         _settleRef = GameObject.FindFirstObjectByType<CitySettle>();
     }
@@ -76,48 +77,41 @@ public class MouseClick : MonoBehaviour
     //info of the clicked tile
     void SetTileOptions(Tile tile)
     {
-        Tile selectedTile = tile.GetComponent<Tile>();
-
-        TextMeshProUGUI InfoBoxOne = _clickedInfoBox.transform.Find("1").gameObject.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI InfoBoxTwo = _clickedInfoBox.transform.Find("2").gameObject.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI InfoBoxThree = _clickedInfoBox.transform.Find("3").gameObject.GetComponent<TextMeshProUGUI>();
-
         string stringOne = "";
-        string stringTwo = "";
-        string stringThree = "";
 
         //base tile info
+
         stringOne += "BT: ";
-        stringOne += selectedTile.baseTileType.baseTileType.ToString(); //BASE TILE TYPE
+        stringOne += tile.baseTileType.baseTileType.ToString();
 
         //tile yield info
-        stringTwo += "YT: ";
-        foreach (YieldTypes yt in selectedTile.baseTileType.tileYield) //yiled types
+
+        stringOne += "YT: ";
+        foreach (YieldTypes yt in tile.baseTileType.tileYield)
         {
-            stringTwo += yt.yieldType;
-            stringTwo += yt.yieldAmount;
-            stringTwo += ". ";
+            stringOne += yt.yieldType;
+            stringOne += yt.yieldAmount;
+            stringOne += ". ";
         }
 
         //resource on tile info
-        stringThree += "RT: ";
-        if (selectedTile.resourceOnTile != null)
+
+        stringOne += "RT: ";
+        if (tile.resourceOnTile != null)
         {
-            stringThree += selectedTile.resourceOnTile.resourceType.ToString();
-            foreach (YieldTypes rt in selectedTile.resourceOnTile.tileYieldType)
+            stringOne += tile.resourceOnTile.resourceType.ToString();
+            foreach (YieldTypes rt in tile.resourceOnTile.tileYieldType)
             {
-                stringThree += rt.yieldType;
-                stringThree += rt.yieldAmount;
-                stringThree += ". ";
+                stringOne += rt.yieldType;
+                stringOne += rt.yieldAmount;
+                stringOne += ". ";
             }
         }
         else
         {
-            stringThree += "none";
+            stringOne += "none";
         }
 
-        InfoBoxOne.text = stringOne;
-        InfoBoxTwo.text = stringTwo;
-        InfoBoxThree.text = stringThree;
+        _clickedInfoBox.text = stringOne;
     }
 }
