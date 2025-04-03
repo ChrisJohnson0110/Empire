@@ -12,8 +12,8 @@ using UnityEngine.UI;
 public class TileInfo : MonoBehaviour
 {
     [Header("Offsets")]
-    [SerializeField] private Vector3 _offsetYields = new Vector3(0, 2f, 0);
-    [SerializeField] private Vector3 _offsetResources = new Vector3(0, 2f, 0);
+    [SerializeField] private Vector3 _offsetYields = new Vector3(0, 0.3f, 0);
+    [SerializeField] private Vector3 _offsetResources = new Vector3(0, 0.3f, 0.3f);
 
     private void Start()
     {
