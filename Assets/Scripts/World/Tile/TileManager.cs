@@ -21,6 +21,7 @@ public class TileManager : MonoBehaviour
     [SerializeField] private GameObject _lineRendererPrefab;
     [SerializeField] private Vector3 _lineBorderOffset = new Vector3(0,0.5f,0);
     private List<GameObject> _lines = new List<GameObject>();
+
     private void Awake()
     {
         // Ensure only one instance exists
@@ -222,7 +223,11 @@ public class TileManager : MonoBehaviour
 
                         // Step 5: Offset midpoint by the perpendicular vector scaled to the given distance and add to line renderer
                         GameObject g = Instantiate(_lineRendererPrefab, tile.transform.position, tile.transform.rotation);
-                        g.GetComponent<LineRenderer>().SetWidth(0.1f, 0.1f);
+                        g.layer = LayerMask.NameToLayer("Tiles");
+                        g.GetComponent<LineRenderer>().startWidth= 0.1f;
+                        g.GetComponent<LineRenderer>().endWidth= 0.1f;
+
+
                         g.GetComponent<LineRenderer>().material = p.playersEmprie.ownedMaterial;
                         g.GetComponent<LineRenderer>().SetPosition(0, midpoint + (perpendicular * 0.5f) + _lineBorderOffset);
                         g.GetComponent<LineRenderer>().SetPosition(1, midpoint + (perpendicular * -0.5f) + _lineBorderOffset);
