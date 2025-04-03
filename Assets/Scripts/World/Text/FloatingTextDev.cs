@@ -9,12 +9,22 @@ using TMPro;
 /// </summary>
 public class FloatingTextDev : MonoBehaviour
 {
+    [SerializeField] private bool _isEnabled = false;
+
     private void Start()
+    {
+        if (_isEnabled)
+        {
+            Invoke(nameof(FloatingText), 0.5f);
+        }
+    }
+
+    private void FloatingText()
     {
         foreach (Tile tile in GameObject.FindObjectsOfType<Tile>()) // cycle though each tile in grid
         {
             //add text above tile to help debugging
-            CreateFloatingText(tile.gameObject, $"{tile.gameObject.name}\n<color=red>Type:</color> {tile.offSetCoord} \n {tile.hasStructure.ToString()}");
+            CreateFloatingText(tile.gameObject, $"{tile.gameObject.name}\n<color=red>Type:</color> {tile.offSetCoord}");
         }
     }
 
