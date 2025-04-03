@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// controls for all of the buildings buttons
+/// </summary>
 public class BuildingsButtons : MonoBehaviour
 {
     [SerializeField] private Button _settleButton;
@@ -18,22 +21,31 @@ public class BuildingsButtons : MonoBehaviour
     }
 
     //settle button
-    public void Settle()
+    public void CreateACity()
     {
         Tile _targetTile = GameObject.FindAnyObjectByType<MouseClick>().currentlySeleceted.GetComponent<Tile>();
         _settleReference.SettleCity(_targetTile);
-        UpdateMenu(_targetTile);
+        UpdateButtonsToIfCanBuild(_targetTile);
     }
+
     //outpost button
-    public void Outpost()
+    public void CreateAnOutpost()
     {
         Tile _targetTile = GameObject.FindAnyObjectByType<MouseClick>().currentlySeleceted.GetComponent<Tile>();
         _outpostReference.SettleOutPost(_targetTile);
-        UpdateMenu(_targetTile);
+        UpdateButtonsToIfCanBuild(_targetTile);
     }
+
+    //farm button
+    public void CreateAFarm()
+    {
+        Debug.Log("farm created");
+    }
+
+
     //update the bottom left menu
     //are the buttons clickable
-    public void UpdateMenu(Tile tile)
+    public void UpdateButtonsToIfCanBuild(Tile tile)
     {
         _settleButton.interactable = TileManager.CheckForNearByEmpiresLand(tile);
         _outpostButton.interactable = TileManager.CheckForNearByEmpiresLand(tile);
