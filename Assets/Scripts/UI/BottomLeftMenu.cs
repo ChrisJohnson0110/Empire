@@ -9,85 +9,34 @@ using UnityEngine.UI;
 /// </summary>
 public class BottomLeftMenu : MonoBehaviour
 {
-    [SerializeField] private Button _settleButton; 
-    [SerializeField] private Button _outpostButton;
+    [SerializeField] private Button _buildingsButton;
+    [SerializeField] private Button _explorationButton;
+    [SerializeField] private Button _combatButton;
+    [SerializeField] private Button _researchButton;
 
-    private CitySettle _settleReference;
-    private OutpostSettle _outpostReference;
-
-    private void Start()
+    public void HideMenus()
     {
-        _settleReference = GameObject.FindAnyObjectByType<CitySettle>();
-        _outpostReference = GameObject.FindAnyObjectByType<OutpostSettle>();
+        _buildingsButton.gameObject.SetActive(false);
+        _explorationButton.gameObject.SetActive(false);
+        _combatButton.gameObject.SetActive(false);
+        _researchButton.gameObject.SetActive(false);
     }
 
-    //toggle the display for dev text on the tiles
-    public void ToggleDevText()
+    public void ToggleBuildingsButton()
     {
-        List<Tile> tiles = new List<Tile>();
-        tiles.AddRange(FindObjectsOfType<Tile>());
-
-        foreach (Tile tile in tiles)
-        {
-            if (tile.transform.childCount > 0)
-            {
-                Transform child = tile.transform.GetChild(0); // Assuming we toggle the first child
-                child.gameObject.SetActive(!child.gameObject.activeSelf);
-            }
-        }
+        _buildingsButton.gameObject.SetActive(!_buildingsButton);
     }
-
-    //settle button
-    public void Settle()
+    public void ToggleExplorationButton()
     {
-        Tile _targetTile = GameObject.FindAnyObjectByType<MouseClick>().currentlySeleceted.GetComponent<Tile>();
-        _settleReference.SettleCity(_targetTile);
-        UpdateMenu(_targetTile);
+        _explorationButton.gameObject.SetActive(!_explorationButton);
     }
-    //outpost button
-    public void Outpost()
+    public void ToggleCombatButton()
     {
-        Tile _targetTile = GameObject.FindAnyObjectByType<MouseClick>().currentlySeleceted.GetComponent<Tile>();
-        _outpostReference.SettleOutPost(_targetTile);
-        UpdateMenu(_targetTile);
+        _combatButton.gameObject.SetActive(!_combatButton);
     }
-    //update the bottom left menu
-    //are the buttons clickable
-    public void UpdateMenu(Tile tile)
+    public void ToggleResearchButton()
     {
-        _settleButton.interactable = CheckForNearByCiv(tile);
-        _outpostButton.interactable = CheckForNearByCiv(tile);
-    }
-
-    //check tiles surrounding the given tile
-    //if any are owned return false
-    public bool CheckForNearByCiv(Tile tileToCheck)
-    { 
-        //check all tiles adjacent to clicked tile
-        foreach (Tile t in tileToCheck.neighbours)
-        {
-            if (t.ownedByXempire != null) //if owned
-            {
-                return false;
-            }
-        }
-
-        foreach (Tile t in tileToCheck.neighbours)
-        {
-            if (t.ownedByXempire != null) //if owned
-            {
-                return false;
-            }
-            foreach (Tile tn in t.neighbours)
-            {
-                if (tn.ownedByXempire != null) //if owned
-                {
-                    return false;
-                }
-            }
-        }
-
-        return true; // if not owned
+        _researchButton.gameObject.SetActive(!_researchButton);
     }
 
 }
