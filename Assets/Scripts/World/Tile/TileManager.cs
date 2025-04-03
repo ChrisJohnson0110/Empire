@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +13,7 @@ public class TileManager : MonoBehaviour
     private GameObject _hoverObject;
 
     [Header("Prefabs")]
+    [SerializeField] private Vector3 _objectOffset = new Vector3(5,3.5f,0);
     [SerializeField] private GameObject _treePrefab;
     [SerializeField] private GameObject _cityPrefab;
 
@@ -37,10 +37,8 @@ public class TileManager : MonoBehaviour
 
     private void Start()
     {
-        GameObject.FindAnyObjectByType<BottomLeftMenu>().ToggleDevText();
-
-        _clickObject = Instantiate(_clickPrefab, new Vector3(-5,-5,-5), gameObject.transform.rotation);
-        _hoverObject = Instantiate(_hoverPrefab, new Vector3(-5,-5,-5), gameObject.transform.rotation);
+        _clickObject = Instantiate(_clickPrefab, new Vector3(0,-10,0), gameObject.transform.rotation);
+        _hoverObject = Instantiate(_hoverPrefab, new Vector3(0, -10, 0), gameObject.transform.rotation);
     }
 
     public List<Tile> GetAdjacentOfAdjacent(Tile a_tile)
@@ -175,8 +173,8 @@ public class TileManager : MonoBehaviour
 
     public void AddObjectToTile(Tile a_tile, GameObject a_modelPrefab)
     {
-        a_tile.ObjectOnTileModel = Instantiate(a_modelPrefab, a_tile.gameObject.transform.position + new Vector3(-0.2f, 0.7f, 0.5f), a_tile.gameObject.transform.rotation);
-        a_tile.ObjectOnTileModel.transform.SetParent(this.transform);
+        a_tile.ObjectOnTileModel = Instantiate(a_modelPrefab, a_tile.gameObject.transform.position + _objectOffset, a_tile.gameObject.transform.rotation);
+        a_tile.ObjectOnTileModel.transform.SetParent(a_tile.gameObject.transform);
     }
 
     public void RemoveObjectOnTile(Tile a_tile)
@@ -263,7 +261,8 @@ public class TileManager : MonoBehaviour
 
                 // Step 5: Offset midpoint by the perpendicular vector scaled to the given distance and add to line renderer
                 GameObject g = Instantiate(_lineRendererPrefab, tile.transform.position, tile.transform.rotation);
-                g.GetComponent<LineRenderer>().SetWidth(0.1f, 0.1f);
+                g.GetComponent<LineRenderer>().startWidth = 0.1f;
+                g.GetComponent<LineRenderer>().endWidth = 0.1f;
 
 
                 g.GetComponent<LineRenderer>().material = GameObject.FindAnyObjectByType<Player>().playersEmprie.ownedMaterial; // TODO need to get current player
@@ -275,5 +274,68 @@ public class TileManager : MonoBehaviour
             }
         }
         return VisonRange;
+    }
+
+    //check tiles surrounding the given tile
+    //if any are owned return false
+    public static bool CheckForNearByEmpiresLand(Tile a_tileToCheck)
+    {
+        //check all tiles adjacent to clicked tile
+        foreach (Tile t in a_tileToCheck.neighbours)
+        {
+            if (t.ownedByXempire != null) //if owned
+            {
+                return false;
+            }
+        }
+
+        foreach (Tile t in a_tileToCheck.neighbours)
+        {
+            if (t.ownedByXempire != null) //if owned
+            {
+                return false;
+            }
+            foreach (Tile tn in t.neighbours)
+            {
+                if (tn.ownedByXempire != null) //if owned
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true; // if not owned
+    }
+    //check tiles surrounding the given tile
+    //if any are owned return false
+    public static bool CheckForNearByEmpiresLand()
+    {
+        MouseClick mouseClickRef = GameObject.FindAnyObjectByType<MouseClick>();
+
+        //check all tiles adjacent to clicked tile
+        foreach (Tile t in mouseClickRef.currentlySeleceted.gameObject.GetComponent<Tile>().neighbours)
+        {
+            if (t.ownedByXempire != null) //if owned
+            {
+                return false;
+            }
+        }
+
+        foreach (Tile t in mouseClickRef.currentlySeleceted.gameObject.GetComponent<Tile>().neighbours)
+        {
+            if (t.ownedByXempire != null) //if owned
+            {
+                return false;
+            }
+            foreach (Tile tn in t.neighbours)
+            {
+                if (tn.ownedByXempire != null) //if owned
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true; // if not owned
     }
 }
