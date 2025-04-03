@@ -43,6 +43,7 @@ public class HexGridLayout : MonoBehaviour
             {
                 GameObject tile = new GameObject($"Hex {x},{y}", typeof(HexRenderer));
                 tile.transform.SetParent(transform, true);
+                tile.layer = LayerMask.NameToLayer("Tiles");
 
                 tile.transform.position = GetPositionForHexCoordinate(new Vector2Int(x, y));
                 HexRenderer hr = GenerateHex(tile);
