@@ -72,7 +72,7 @@ public class MatchMakingWithLobby : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.Log($"No lobbies available via quick join");
+            Debug.Log($"No lobbies available via quick join {e}");
             return null;
         }
     }
@@ -106,7 +106,7 @@ public class MatchMakingWithLobby : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogFormat("Failed creating a lobby");
+            Debug.LogFormat($"Failed creating a lobby {e}");
             return null;
         }
     }
