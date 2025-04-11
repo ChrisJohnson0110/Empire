@@ -9,6 +9,11 @@ using System;
 [Serializable]
 public class YieldTypes
 {
+    public YieldTypes(yieldTypes a_yieldType, int a_yeildAmount)
+    {
+        yieldType = a_yieldType;
+        yieldAmount = a_yeildAmount;
+    }
     public enum yieldTypes
     {
         food,

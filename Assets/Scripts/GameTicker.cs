@@ -11,7 +11,7 @@ using UnityEngine;
 /// </summary>
 public class GameTicker : MonoBehaviour
 {
-    [SerializeField] float tickRate = 0.5f; // Tick time
+    [SerializeField] float tickRate = 1f; // Tick time
     ResourceManager rm;
 
     void Start()
@@ -23,5 +23,10 @@ public class GameTicker : MonoBehaviour
     void GameTickUpdate()
     {
         rm.IncreaseResources();
+
+
+        //resources
+        //border expansion
+        //unit movement
     }
 }

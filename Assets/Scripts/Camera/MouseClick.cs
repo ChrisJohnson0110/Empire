@@ -45,7 +45,7 @@ public class MouseClick : MonoBehaviour
 
                     //update the menu options for the tile
                     GameObject.FindAnyObjectByType<BuildingsButtons>().UpdateButtonsToIfCanBuild(hitObject.GetComponent<Tile>());
-                    GameObject.FindAnyObjectByType<BottomLeftMenu>().HideMenus();
+                    GameObject.FindAnyObjectByType<BottomLeftMenu>().HideMenus(true);
 
                     //highlight the clicked tile
                     if (hitObject.TryGetComponent<HexRenderer>(out HexRenderer target))

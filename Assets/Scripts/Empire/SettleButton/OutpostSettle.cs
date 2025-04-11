@@ -9,12 +9,11 @@ using UnityEngine;
 /// </summary>
 public class OutpostSettle : MonoBehaviour
 {
-    public void SettleOutPost(Tile a_targetTile)
+    public void SettleOutPost(Tile a_targetTile, Empire a_empire)
     {
-        Empire empire = a_targetTile.ownedByXempire = GameObject.FindAnyObjectByType<Player>().playersEmprie;  //assign empire //TODO get correctplayer
+        a_targetTile.ownedByXempire = a_empire;
+        a_targetTile.hasStructure = new Outpost(a_targetTile, a_empire); //create new city
 
-        a_targetTile.hasStructure = new Outpost(a_targetTile, empire); //create new city
-
-        Debug.Log($"now owned by{empire.empireName}");
+        Debug.Log($"outpost built by by{a_empire.empireName}");
     }
 }

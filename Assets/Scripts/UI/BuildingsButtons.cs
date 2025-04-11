@@ -11,37 +11,52 @@ public class BuildingsButtons : MonoBehaviour
     [SerializeField] private Button _settleButton;
     [SerializeField] private Button _outpostButton;
 
-    private CitySettle _settleReference;
-    private OutpostSettle _outpostReference;
+    private CitySettle _citySettleReference;
+    private OutpostSettle _outpostSettleReference;
+    private FarmSettle _farmSettleReference;
 
-    private void Start()
+    Empire PlayersEmpire;
+
+    private void Awake()
     {
-        _settleReference = GameObject.FindAnyObjectByType<CitySettle>();
-        _outpostReference = GameObject.FindAnyObjectByType<OutpostSettle>();
+        _citySettleReference = GameObject.FindAnyObjectByType<CitySettle>();
+        _outpostSettleReference = GameObject.FindAnyObjectByType<OutpostSettle>();
+        _farmSettleReference = GameObject.FindAnyObjectByType<FarmSettle>();
+        PlayersEmpire = GameObject.FindAnyObjectByType<Player>().playersEmprie; //TODO with more players will need to change how we get this value
     }
 
     //settle button
     public void CreateACity()
     {
         Tile _targetTile = GameObject.FindAnyObjectByType<MouseClick>().currentlySeleceted.GetComponent<Tile>();
-        _settleReference.SettleCity(_targetTile);
-        UpdateButtonsToIfCanBuild(_targetTile);
+        _citySettleReference.SettleCity(_targetTile, PlayersEmpire);
+        AfterBuildUpdate(_targetTile);
     }
 
     //outpost button
     public void CreateAnOutpost()
     {
         Tile _targetTile = GameObject.FindAnyObjectByType<MouseClick>().currentlySeleceted.GetComponent<Tile>();
-        _outpostReference.SettleOutPost(_targetTile);
-        UpdateButtonsToIfCanBuild(_targetTile);
+        _outpostSettleReference.SettleOutPost(_targetTile, PlayersEmpire);
+        AfterBuildUpdate(_targetTile);
     }
 
     //farm button
     public void CreateAFarm()
     {
-        Debug.Log("farm created");
+        Tile _targetTile = GameObject.FindAnyObjectByType<MouseClick>().currentlySeleceted.GetComponent<Tile>();
+        _farmSettleReference.SettleFarm(_targetTile, PlayersEmpire);
+        AfterBuildUpdate(_targetTile);
     }
 
+    private void AfterBuildUpdate(Tile a_targetTile)
+    {
+        //update model
+        TileManager _tileManagerReference = GameObject.FindAnyObjectByType<TileManager>();
+        _tileManagerReference.ReplaceTileModel(a_targetTile);
+        //updateButton
+        UpdateButtonsToIfCanBuild(a_targetTile);
+    }
 
     //update the bottom left menu
     //are the buttons clickable

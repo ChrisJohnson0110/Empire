@@ -15,15 +15,15 @@ using UnityEngine;
 /// </summary>
 public class CitySettle : MonoBehaviour
 {
-    public void SettleCity(Tile a_targetTile)
+    public void SettleCity(Tile a_targetTile, Empire a_empire)
     {
-        Empire _empire = a_targetTile.ownedByXempire = GameObject.FindAnyObjectByType<Player>().playersEmprie;  // assign empire //TODO replace with getting the correct player
+        a_targetTile.ownedByXempire = a_empire; 
         
-        a_targetTile.hasStructure = new City(a_targetTile, _empire); // create new city
+        a_targetTile.hasStructure = new City(a_targetTile, a_empire);
 
         TileManager _tileManagerReference = GameObject.FindAnyObjectByType<TileManager>();
-        _tileManagerReference.UpdateTile(a_targetTile);
+        _tileManagerReference.DrawBorder();
 
-        Debug.Log($"now owned by{_empire.empireName}"); //temp
+        Debug.Log($"new city settled by {a_empire.empireName}");
     }
 }

@@ -49,9 +49,7 @@ public class Tile : MonoBehaviour
                 YieldTypes.yieldTypes[] yields = (YieldTypes.yieldTypes[])System.Enum.GetValues(typeof(YieldTypes.yieldTypes)); //all yield tpyes as array
                 Resource.type[] resources = (Resource.type[])System.Enum.GetValues(typeof(Resource.type)); //all yield tpyes as array
 
-                YieldTypes randomYield = new YieldTypes();
-                randomYield.yieldType = yields[Random.Range(0, yields.Length)];
-                randomYield.yieldAmount = Random.Range(1, 3);
+                YieldTypes randomYield = new YieldTypes(yields[Random.Range(0, yields.Length)], Random.Range(1, 3));
 
 
                 resourceOnTile = new Resource();
@@ -59,5 +57,10 @@ public class Tile : MonoBehaviour
                 resourceOnTile.tileYieldType.Add(randomYield);
             }
         }
+    }
+
+    public void UpdateTile()
+    {
+        
     }
 }

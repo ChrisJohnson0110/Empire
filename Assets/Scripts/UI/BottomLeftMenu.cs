@@ -34,16 +34,21 @@ public class BottomLeftMenu : MonoBehaviour
 
     private void Start()
     {
-        HideMenus();
+        HideMenus(false);
     }
 
-    public void HideMenus()
+    public void HideMenus(bool a_shouldRemoveLastButton)
     {
         _buildingsButton.gameObject.SetActive(false);
         _movementButton.gameObject.SetActive(false);
         _combatButton.gameObject.SetActive(false);
         _researchButton.gameObject.SetActive(false);
         _explorationButton.gameObject.SetActive(false);
+
+        if (a_shouldRemoveLastButton == true)
+        {
+            _lastButton = null;
+        }
     }
     public void ToggleBuildingsButton()
     {

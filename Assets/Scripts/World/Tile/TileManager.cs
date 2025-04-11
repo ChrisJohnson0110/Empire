@@ -73,7 +73,7 @@ public class TileManager : MonoBehaviour
         return tilesAdjAdj;
     }
 
-    public void UpdateTile(Tile tile)
+    public void ReplaceTileModel(Tile tile)
     {
         //check for and add city
         if (tile.hasStructure.GetType() == typeof(City))
@@ -84,8 +84,6 @@ public class TileManager : MonoBehaviour
             }
             AddObjectToTile(tile, _cityPrefab);
         }
-
-        DrawBorder();
     }
 
     public void SetupTileManager()
@@ -187,7 +185,7 @@ public class TileManager : MonoBehaviour
     }
 
 
-    void DrawBorder()
+    public void DrawBorder()
     {
         foreach (GameObject line in _lines) //TODO probably able to reuse lines to avoid destroying all // not sure if it would be more efficient to check them agaisnt/with-- existing
         {
