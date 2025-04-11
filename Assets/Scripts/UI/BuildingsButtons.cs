@@ -10,26 +10,26 @@ public class BuildingsButtons : MonoBehaviour
 {
     [SerializeField] private Button _settleButton;
     [SerializeField] private Button _outpostButton;
+    [SerializeField] private Button _farmButton;
 
     private CitySettle _citySettleReference;
     private OutpostSettle _outpostSettleReference;
     private FarmSettle _farmSettleReference;
+    private Empire _playersEmpire;
 
-    Empire PlayersEmpire;
-
-    private void Awake()
+    private void Start()
     {
         _citySettleReference = GameObject.FindAnyObjectByType<CitySettle>();
         _outpostSettleReference = GameObject.FindAnyObjectByType<OutpostSettle>();
         _farmSettleReference = GameObject.FindAnyObjectByType<FarmSettle>();
-        PlayersEmpire = GameObject.FindAnyObjectByType<Player>().playersEmprie; //TODO with more players will need to change how we get this value
+        _playersEmpire = GameObject.FindAnyObjectByType<Player>().playersEmprie; //TODO with more players will need to change how we get this value
     }
 
     //settle button
     public void CreateACity()
     {
         Tile _targetTile = GameObject.FindAnyObjectByType<MouseClick>().currentlySeleceted.GetComponent<Tile>();
-        _citySettleReference.SettleCity(_targetTile, PlayersEmpire);
+        _citySettleReference.SettleCity(_targetTile, _playersEmpire);
         AfterBuildUpdate(_targetTile);
     }
 
@@ -37,7 +37,7 @@ public class BuildingsButtons : MonoBehaviour
     public void CreateAnOutpost()
     {
         Tile _targetTile = GameObject.FindAnyObjectByType<MouseClick>().currentlySeleceted.GetComponent<Tile>();
-        _outpostSettleReference.SettleOutPost(_targetTile, PlayersEmpire);
+        _outpostSettleReference.SettleOutPost(_targetTile, _playersEmpire);
         AfterBuildUpdate(_targetTile);
     }
 
@@ -45,7 +45,7 @@ public class BuildingsButtons : MonoBehaviour
     public void CreateAFarm()
     {
         Tile _targetTile = GameObject.FindAnyObjectByType<MouseClick>().currentlySeleceted.GetComponent<Tile>();
-        _farmSettleReference.SettleFarm(_targetTile, PlayersEmpire);
+        _farmSettleReference.SettleFarm(_targetTile, _playersEmpire);
         AfterBuildUpdate(_targetTile);
     }
 
@@ -62,7 +62,10 @@ public class BuildingsButtons : MonoBehaviour
     //are the buttons clickable
     public void UpdateButtonsToIfCanBuild(Tile tile)
     {
+        //checks for nearby owned land of anyone
         _settleButton.interactable = TileManager.CheckForNearByEmpiresLand(tile);
         _outpostButton.interactable = TileManager.CheckForNearByEmpiresLand(tile);
+        //check for being on owned land
+        _farmButton.interactable = TileManager.CheckForOwned(tile, _playersEmpire);
     }
 }

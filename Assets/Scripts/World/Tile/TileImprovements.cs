@@ -6,7 +6,7 @@ using UnityEngine;
 /// store the improvements on the tile and what increase the improvement gets
 /// along with any other data todo with the improvement 
 /// </summary>
-public class TileImprovements : MonoBehaviour
+public class TileImprovements
 {
     public enum improvements
     {

@@ -341,4 +341,23 @@ public class TileManager : MonoBehaviour
 
         return true; // if not owned
     }
+
+    public static bool CheckForOwned(Tile a_tileToCheck, Empire a_EmpireToCheck)
+    {
+        if (a_tileToCheck.ownedByXempire == a_EmpireToCheck)
+        {
+            if (a_tileToCheck.hasStructure == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
