@@ -2995,6 +2995,7 @@ GameObject:
   - component: {fileID: 1101106162}
   - component: {fileID: 1101106164}
   - component: {fileID: 1101106163}
+  - component: {fileID: 1101106165}
   m_Layer: 5
   m_Name: PopUps
   m_TagString: Untagged
@@ -3041,6 +3042,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _settleButton: {fileID: 171982685}
   _outpostButton: {fileID: 1324183873}
+  _farmButton: {fileID: 1427436764}
 --- !u!114 &1101106163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3063,6 +3065,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2c861482c4e1db42b1ee02077cac41b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1101106165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1101106160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf5958fa9606d8647906ef3c5a5f3ba5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1138984477
