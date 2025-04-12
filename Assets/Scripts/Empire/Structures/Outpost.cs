@@ -9,6 +9,8 @@ using UnityEngine;
 /// </summary>
 public class Outpost : Structure
 {
+    //public string state = "Destoryed";
+
     public Outpost(Tile a_tile, Empire a_ownedByEmpire) : base(a_ownedByEmpire, a_tile)
     {
         a_ownedByEmpire.structures.Add(this);

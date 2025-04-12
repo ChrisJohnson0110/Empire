@@ -16,4 +16,9 @@ public class OutpostSettle : MonoBehaviour
 
         Debug.Log($"outpost built by by{a_empire.empireName}");
     }
+
+    //public void ConquerOutpost(Tile a_targetTile, Empire a_empire)
+    //{
+        
+    //}
 }
