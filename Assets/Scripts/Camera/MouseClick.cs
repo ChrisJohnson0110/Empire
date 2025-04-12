@@ -13,8 +13,6 @@ public class MouseClick : MonoBehaviour
 
     private CitySettle _settleRef;
 
-    
-
     private void Start()
     {
         currentlySeleceted = new GameObject();
@@ -52,6 +50,7 @@ public class MouseClick : MonoBehaviour
                         target.OnClickTile();
 
                         SetTileOptions(target.gameObject.GetComponent<Tile>()); //move this func to tile manager //IMPORTANT
+
                     }
 
                 }

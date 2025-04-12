@@ -149,5 +149,4 @@ public class HexRenderer : MonoBehaviour
     {
         TileManager.instance.OnHoverTile(this);
     }
-
 }
