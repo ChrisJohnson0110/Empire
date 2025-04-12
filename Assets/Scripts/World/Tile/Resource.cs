@@ -15,45 +15,12 @@ public class Resource
     //yield
     public enum type
     {
-        wheat,
-        banana,
-        cattle,
-        sheep,
-        bison,
-        deer,
-        stone,
-        fish,
-
-
-        horses,
-        iron,
-        coal,
-        oil,
-        aluminum,
-        uranium,
-
-
-        Cotton,
-        spices,
-        sugar,
-        furs,
-        ivory,
-        silk,
-        dyes,
-        incense,
-        wine,
-        copper,
-        gold,
-        silver,
-        marble,
-        pearls,
-        truffles,
-        crab,
-        salt,
-        whales,
-        citrus,
-        cocoa,
-        gems
+        Wood,
+        Clay,
+        Stone,
+        Wheat,
+        Sheep,
+        Fish
     }
 
     public type resourceType;

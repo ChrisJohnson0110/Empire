@@ -8,6 +8,8 @@ using UnityEngine;
 /// </summary>
 public class Empire
 {
+    public Player playerOwner;
+
     public string empireName;
     public Material ownedMaterial; //material for land owned by this empire
     public Material buildingMaterial; //material for building owned by this empire
@@ -21,8 +23,11 @@ public class Empire
     //values from owned
     //number of worked resources
 
-    public Empire(string a_empireName, Material a_material)
+    public Empire(Player a_player, string a_empireName, Material a_material)
     {
+        playerOwner = a_player;
+        a_player.playersEmprie = this;
+        
         empireName = a_empireName;
         ownedMaterial = a_material;
     }

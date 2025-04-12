@@ -10,9 +10,13 @@ public class TileImprovements
 {
     public enum improvements
     {
-        farm,
-        quarry,
-
+        wheatFarm, //wheat
+        clayQuarry, //clay
+        stoneQuarry, //stone
+        sheepPen, //sheep
+        lumberMill, //wood
+        fishingBoat, //fish
+        unassigned //forced to return a type, special case
     }
 
     public improvements resourceType;

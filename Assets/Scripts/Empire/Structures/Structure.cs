@@ -21,6 +21,6 @@ public class Structure
 
         //claim tile that structure is on
         a_structureTile.ownedByXempire = a_ownedByEmpire;
-        a_structureTile.gameObject.GetComponent<Renderer>().material = a_ownedByEmpire.buildingMaterial; //set mat for tile structure is on
+        //a_structureTile.gameObject.GetComponent<Renderer>().material = a_ownedByEmpire.buildingMaterial; //set mat for tile structure is on
     }
 }

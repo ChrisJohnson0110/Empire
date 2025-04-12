@@ -11,6 +11,8 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager instance; // Singleton instance
     private List<Empire> _allEmpires = new List<Empire>(); //all empires in the game
 
+    public List<Player> players = new List<Player>();
+
     [SerializeField] private Material _playerOne;
     [SerializeField] private Material _playerTwo;
     [SerializeField] private Material _playerThree;
@@ -36,19 +38,15 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
-        _allEmpires.Add(new Empire("PlayerOne", _playerOne));
-        _allEmpires.Add(new Empire("PlayerTwo", _playerTwo));
-        _allEmpires.Add(new Empire("PlayerThree", _playerThree));
-        _allEmpires.Add(new Empire("PlayerFour", _playerFour));
-         
-        //temp adding city material
-        foreach (Empire empire in _allEmpires)
+        foreach (Player player in GameObject.FindObjectsOfType<Player>())
         {
-            empire.buildingMaterial = _buildingMaterial;
+            players.Add(player);
         }
 
-        GameObject.FindAnyObjectByType<Player>().playersEmprie = _allEmpires[0];
-
+        _allEmpires.Add(new Empire(players[0], "PlayerOne", _playerOne));
+        //_allEmpires.Add(new Empire(players[0], "PlayerTwo", _playerTwo));
+        //_allEmpires.Add(new Empire(players[0], "PlayerThree", _playerThree));
+        //_allEmpires.Add(new Empire(players[0], "PlayerFour", _playerFour));
     }
 
     

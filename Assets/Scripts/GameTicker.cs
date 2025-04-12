@@ -24,7 +24,10 @@ public class GameTicker : MonoBehaviour
     {
         rm.IncreaseResources();
 
+        foreach (Player player in GameObject.FindObjectsOfType<Player>())
+        {
 
+        }
         //resources
         //border expansion
         //unit movement

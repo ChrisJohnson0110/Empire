@@ -11,7 +11,7 @@ public class City : Structure
 {
     public string cityName;
     public List<Tile> claimedTiles = new List<Tile>(); //claimed tiles that belong to the city
-    public List<Resource> workedResources = new List<Resource>(); //resources within the city that are being worked
+    public List<Tile> workedResources = new List<Tile>(); //resources within the city that are being worked
 
     private static string[] _cityNames = { "Metropolis", "New Haven", "Skyview", "Rivertown", "Evergreen", "Sunset Bay", "Stormhold" };
 
@@ -20,8 +20,6 @@ public class City : Structure
         a_ownedByEmpire.structures.Add(this); //add this structure to the empire
 
         ClaimNeigbours(a_tile, a_ownedByEmpire); 
-
-        a_tile.gameObject.GetComponent<Renderer>().material = a_ownedByEmpire.buildingMaterial; //set mat for city
         cityName = _cityNames[Random.Range(0, _cityNames.Length)]; //assign random name
     }
 
