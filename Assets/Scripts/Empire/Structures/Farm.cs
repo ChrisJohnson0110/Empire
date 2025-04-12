@@ -18,6 +18,8 @@ public class Farm : Structure
         tileImprovement.improvementYieldType.Add(new YieldTypes(YieldTypes.yieldTypes.food,5));
         City c = GetNearestCity(a_tile);
         c.workedResources.Add(a_tile);
+        Debug.Log($"nearest city : {c.cityName}");
+        FloatingText.instance.CreateFloatingText(a_tile.gameObject, tileImprovement.resourceType.ToString(), new Vector3(0, 0.5f, 0), Color.black, 3);
     }
 
     //the type of farm that a tile needs
@@ -56,6 +58,7 @@ public class Farm : Structure
     {
         foreach (Tile t in a_tile.neighbours)
         {
+            if (t.hasStructure == null) { continue; }
             if (t.hasStructure.GetType() == typeof(City))
             {
                 return (City)t.hasStructure;
@@ -66,9 +69,10 @@ public class Farm : Structure
         {
             foreach (Tile tn in t.neighbours)
             {
-                if (t.hasStructure.GetType() == typeof(City))
+                if (tn.hasStructure == null) { continue; }
+                if (tn.hasStructure.GetType() == typeof(City))
                 {
-                    return (City)t.hasStructure;
+                    return (City)tn.hasStructure;
                 }
             }
         }
@@ -79,9 +83,10 @@ public class Farm : Structure
             {
                 foreach (Tile tnn in tn.neighbours)
                 {
-                    if (t.hasStructure.GetType() == typeof(City))
+                    if (tnn.hasStructure == null) { continue; }
+                    if (tnn.hasStructure.GetType() == typeof(City))
                     {
-                        return (City)t.hasStructure;
+                        return (City)tnn.hasStructure;
                     }
                 }
             }

@@ -1,6 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// has functions relative to interacting with tiles
+/// might be worth splitting some functions into other scripts e.g. a script for tile info functions or one for mouse functions
+/// </summary>
 public class TileManager : MonoBehaviour
 {
     private Dictionary<Vector3Int, Tile> _tiles;
@@ -109,7 +113,7 @@ public class TileManager : MonoBehaviour
             }
         }
     }
-
+    
     void CreateDictionary()
     {
         Tile[] hextiles = gameObject.GetComponentsInChildren<Tile>();
@@ -125,12 +129,12 @@ public class TileManager : MonoBehaviour
             tile.neighbours = neighbours;
         }
     }
-
+    //register the tile with cube coord
     void RegisterTile(Tile a_tile)
     {
         _tiles.Add(a_tile.cubeCoord, a_tile);
     }
-
+    //get the neighbours of the tile
     List<Tile> GetNeighbours(Tile a_tile)
     {
         List<Tile> neighbours = new List<Tile>();
@@ -159,23 +163,23 @@ public class TileManager : MonoBehaviour
 
         return neighbours;
     }
-
+    //when clicking a tile
     public void OnClickTile(HexRenderer a_hexRenderer)
     {
         _clickObject.transform.position = a_hexRenderer.transform.position; //move the hightlight
     }
-    
+    //when hovering a tile
     public void OnHoverTile(HexRenderer a_hexRenderer)
     {
         _hoverObject.transform.position = a_hexRenderer.transform.position; //move the select
     }
-
+    //add a model to the tile
     public void AddObjectToTile(Tile a_tile, GameObject a_modelPrefab)
     {
         a_tile.ObjectOnTileModel = Instantiate(a_modelPrefab, a_tile.gameObject.transform.position + _objectOffset, a_tile.gameObject.transform.rotation);
         a_tile.ObjectOnTileModel.transform.SetParent(a_tile.gameObject.transform);
     }
-
+    //remove the model on a tile
     public void RemoveObjectOnTile(Tile a_tile)
     {
         if (a_tile.ObjectOnTileModel)
@@ -183,8 +187,7 @@ public class TileManager : MonoBehaviour
             Destroy(a_tile.ObjectOnTileModel);
         }
     }
-
-
+    //draw the borders of all tiles
     public void DrawBorder()
     {
         foreach (GameObject line in _lines) //TODO probably able to reuse lines to avoid destroying all // not sure if it would be more efficient to check them agaisnt/with-- existing
@@ -235,7 +238,6 @@ public class TileManager : MonoBehaviour
             }
         }
     }
-
     List<GameObject> ShowBorderOfSelected(List<Tile> a_tiles)
     {
         List<GameObject> VisonRange = new List<GameObject>();
@@ -278,7 +280,6 @@ public class TileManager : MonoBehaviour
         }
         return VisonRange;
     }
-
     //check tiles surrounding the given tile
     //if any are owned return false
     public static bool CheckForNearByEmpiresLand(Tile a_tileToCheck)
@@ -341,7 +342,7 @@ public class TileManager : MonoBehaviour
 
         return true; // if not owned
     }
-
+    //is the tile owned by the givn empire
     public static bool CheckForOwned(Tile a_tileToCheck, Empire a_EmpireToCheck)
     {
         if (a_tileToCheck.ownedByXempire == a_EmpireToCheck)
@@ -354,6 +355,18 @@ public class TileManager : MonoBehaviour
             {
                 return false;
             }
+        }
+        else
+        {
+            return false;
+        }
+    }
+    //is there a resource on the tile
+    public static bool CheckForResource(Tile a_tile)
+    {
+        if (a_tile.resourceOnTile != null)
+        {
+            return true;
         }
         else
         {

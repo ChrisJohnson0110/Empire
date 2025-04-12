@@ -21,6 +21,9 @@ public class City : Structure
 
         ClaimNeigbours(a_tile, a_ownedByEmpire); 
         cityName = _cityNames[Random.Range(0, _cityNames.Length)]; //assign random name
+
+
+        FloatingText.instance.CreateFloatingText(a_tile.gameObject, cityName, new Vector3(0, 0.5f, 0), Color.black, 4);
     }
 
     void ClaimNeigbours(Tile a_tile, Empire a_ownedByEmpire)
@@ -33,5 +36,14 @@ public class City : Structure
             //add claim info to tile
             tile.ownedByXempire = ownedByEmpire;
         }
+    }
+
+    public void GetWorkedResources()
+    {
+        //combine
+        
+        //return all owned tiles yeild
+
+        //return all worked resources yeild
     }
 }

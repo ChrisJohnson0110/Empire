@@ -40,7 +40,7 @@ public class TileInfo : MonoBehaviour
             // Display Resource Text
             if (tile.resourceOnTile != null)
             {
-                CreateFloatingText(yo, $" {tile.resourceOnTile.resourceType} ", new Vector3(0,0,0), Color.black, 3);
+                FloatingText.instance.CreateFloatingText(yo, $" {tile.resourceOnTile.resourceType} ", new Vector3(0,0,0), Color.black, 3);
             }
 
 
@@ -105,28 +105,8 @@ public class TileInfo : MonoBehaviour
                 {
                     textColor = Color.black;
                 }
-
-                CreateFloatingText(yieldObject, $" {yt.yieldAmount} ", _offsetYields, textColor, 5);
+                FloatingText.instance.CreateFloatingText(yieldObject, $" {yt.yieldAmount} ", _offsetYields, textColor, 5);
             }
         }
-    }
-
-    //create the tile info box above the tile
-    public void CreateFloatingText(GameObject parent, string textContent, Vector3 offset, Color color, float fontSize)
-    {
-        GameObject textObject = new GameObject("TileInfoText");
-        textObject.transform.SetParent(parent.transform);
-        textObject.transform.localPosition = offset;
-        textObject.transform.localRotation = Quaternion.identity;
-
-        TextMeshPro textMesh = textObject.AddComponent<TextMeshPro>();
-        textMesh.text = textContent;
-
-        textMesh.fontSize = fontSize;
-        textMesh.alignment = TextAlignmentOptions.Center;
-        textMesh.color = color;
-        textMesh.enableAutoSizing = true;
-        textMesh.fontSizeMin = 2f;
-        textMesh.fontSizeMax = fontSize;
     }
 }

@@ -14,5 +14,7 @@ public class Outpost : Structure
     public Outpost(Tile a_tile, Empire a_ownedByEmpire) : base(a_ownedByEmpire, a_tile)
     {
         a_ownedByEmpire.structures.Add(this);
+
+        FloatingText.instance.CreateFloatingText(a_tile.gameObject, "Outpost" , new Vector3(0, 0.5f, 0), Color.black, 4);
     }
 }

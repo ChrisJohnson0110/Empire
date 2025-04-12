@@ -2302,6 +2302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ed4f86a989e90444a38366d5a511947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  players: []
   _playerOne: {fileID: 2100000, guid: 9ab1aa78afcfd3c48845b09451777687, type: 2}
   _playerTwo: {fileID: 2100000, guid: aa48772e302518343977a74ef43e682e, type: 2}
   _playerThree: {fileID: 2100000, guid: d5351e4a7ea502541bc333764118d63f, type: 2}
@@ -2469,6 +2470,7 @@ GameObject:
   - component: {fileID: 926934275}
   - component: {fileID: 926934274}
   - component: {fileID: 926934273}
+  - component: {fileID: 926934277}
   m_Layer: 5
   m_Name: UI_Canvas
   m_TagString: Untagged
@@ -2560,6 +2562,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &926934277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926934272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83a01c2c8d456f149aae8b57f9bc4336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &940769231
 GameObject:
   m_ObjectHideFlags: 0

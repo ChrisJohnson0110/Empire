@@ -66,6 +66,13 @@ public class BuildingsButtons : MonoBehaviour
         _settleButton.interactable = TileManager.CheckForNearByEmpiresLand(tile);
         _outpostButton.interactable = TileManager.CheckForNearByEmpiresLand(tile);
         //check for being on owned land
-        _farmButton.interactable = TileManager.CheckForOwned(tile, _playersEmpire);
+        if (TileManager.CheckForOwned(tile, _playersEmpire) && TileManager.CheckForResource(tile))
+        {
+            _farmButton.interactable = true;
+        }
+        else
+        {
+            _farmButton.interactable = false;
+        }
     }
 }
