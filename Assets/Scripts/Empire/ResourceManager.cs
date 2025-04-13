@@ -13,6 +13,9 @@ public class ResourceManager : MonoBehaviour
     //TODO
     //make sure infomation is somwhow tied to correct player
 
+    //TODO
+    //add fish to display
+
     //display
     [SerializeField] private TextMeshProUGUI _woodDisplay;
     [SerializeField] private TextMeshProUGUI _stoneDisplay;
@@ -34,12 +37,12 @@ public class ResourceManager : MonoBehaviour
     public delegate void OnChanged(int value);
 
     //events
-    public event OnChanged woodChanged;
-    public event OnChanged stoneChanged;
-    public event OnChanged clayChanged;
-    public event OnChanged sheepChanged;
-    public event OnChanged wheatChanged;
-    public event OnChanged goldChanged;
+    private event OnChanged woodChanged;
+    private event OnChanged stoneChanged;
+    private event OnChanged clayChanged;
+    private event OnChanged sheepChanged;
+    private event OnChanged wheatChanged;
+    private event OnChanged goldChanged;
 
     //public variables
     public int woodOwned
@@ -117,12 +120,12 @@ public class ResourceManager : MonoBehaviour
 
     private void Start()
     {
-        _wood.yieldType = YieldTypes.yieldTypes.gold;
-        _stone.yieldType = YieldTypes.yieldTypes.gold;
-        _clay.yieldType = YieldTypes.yieldTypes.gold;
-        _sheep.yieldType = YieldTypes.yieldTypes.gold;
-        _wheat.yieldType = YieldTypes.yieldTypes.gold;
-        _gold.yieldType = YieldTypes.yieldTypes.gold;
+        _wood.yieldType = YieldTypes.yieldTypes.Wood;
+        _stone.yieldType = YieldTypes.yieldTypes.Stone;
+        _clay.yieldType = YieldTypes.yieldTypes.Clay;
+        _sheep.yieldType = YieldTypes.yieldTypes.Sheep;
+        _wheat.yieldType = YieldTypes.yieldTypes.Wheat;
+        _gold.yieldType = YieldTypes.yieldTypes.Gold;
 
         woodChanged += HandleWoodChanged;
         stoneChanged += HandleStoneChanged;

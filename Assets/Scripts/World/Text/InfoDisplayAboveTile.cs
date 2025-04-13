@@ -9,8 +9,10 @@ using UnityEngine.UI;
 /// used to display tile info within the game such as:
 /// yeild tpyes and amount, resources the tile has
 /// </summary>
-public class TileInfo : MonoBehaviour
+public class InfoDisplayAboveTile : MonoBehaviour
 {
+    //TODO neaten script
+
     [Header("Offsets")]
     [SerializeField] private Vector3 _offsetYields = new Vector3(0, 0.3f, 0);
     [SerializeField] private Vector3 _offsetResources = new Vector3(0, 0.3f, 0.3f);
@@ -43,8 +45,6 @@ public class TileInfo : MonoBehaviour
                 FloatingText.instance.CreateFloatingText(yo, $" {tile.resourceOnTile.resourceType} ", new Vector3(0,0,0), Color.black, 3);
             }
 
-
-
             // Create a Parent Object
             GameObject yieldObject = new GameObject("TileInfo");
             yieldObject.transform.SetParent(tile.transform);
@@ -55,8 +55,6 @@ public class TileInfo : MonoBehaviour
             RectTransform rectTransform = yieldObject.AddComponent<RectTransform>();
             rectTransform.sizeDelta = new Vector2(2f, 0.5f); // Adjust size to fit text
             rectTransform.localScale = Vector3.one * 0.1f; // Scale down the text
-
-            
 
             // Add GridLayoutGroup for Horizontal Layout
             GridLayoutGroup gridLayout = yieldObject.AddComponent<GridLayoutGroup>();
@@ -73,40 +71,46 @@ public class TileInfo : MonoBehaviour
                 foreach (YieldTypes yt in tile.resourceOnTile.tileYieldType) yields.Add(yt);
             }
 
-            Color textColor;
-
             foreach (YieldTypes yt in yields)
             {
-                if (yt.yieldType == YieldTypes.yieldTypes.food)
-                {
-                    textColor = Color.green;
-                }
-                else if (yt.yieldType == YieldTypes.yieldTypes.production)
-                {
-                    textColor = Color.red;
-                }
-                else if (yt.yieldType == YieldTypes.yieldTypes.science)
-                {
-                    textColor = Color.blue;
-                }
-                else if (yt.yieldType == YieldTypes.yieldTypes.faith)
-                {
-                    textColor = Color.white;
-                }
-                else if (yt.yieldType == YieldTypes.yieldTypes.culture)
-                {
-                    textColor = Color.magenta;
-                }
-                else if (yt.yieldType == YieldTypes.yieldTypes.gold)
-                {
-                    textColor = Color.yellow;
-                }
-                else
-                {
-                    textColor = Color.black;
-                }
-                FloatingText.instance.CreateFloatingText(yieldObject, $" {yt.yieldAmount} ", _offsetYields, textColor, 5);
+                FloatingText.instance.CreateFloatingText(yieldObject, $" {yt.yieldAmount} ", _offsetYields, GetColor(yt), 5);
             }
+        }
+    }
+
+    private Color32 GetColor(YieldTypes a_yield)
+    {
+        if (a_yield.yieldType == YieldTypes.yieldTypes.Wood)
+        {
+            return new Color32(64, 46, 8, 255);
+        }
+        else if (a_yield.yieldType == YieldTypes.yieldTypes.Clay)
+        {
+            return new Color32(176, 92, 28, 255);
+        }
+        else if (a_yield.yieldType == YieldTypes.yieldTypes.Stone)
+        {
+            return new Color32(85, 92, 91, 255);
+        }
+        else if (a_yield.yieldType == YieldTypes.yieldTypes.Wheat)
+        {
+            return new Color32(255, 247, 25, 255);
+        }
+        else if (a_yield.yieldType == YieldTypes.yieldTypes.Sheep)
+        {
+            return new Color32(237, 236, 223, 255);
+        }
+        else if (a_yield.yieldType == YieldTypes.yieldTypes.Fish)
+        {
+            return new Color32(42, 219, 204, 255);
+        }
+        else if (a_yield.yieldType == YieldTypes.yieldTypes.Gold)
+        {
+            return new Color32(224, 212, 36, 255);
+        }
+        else
+        {
+            return Color.black;
         }
     }
 }

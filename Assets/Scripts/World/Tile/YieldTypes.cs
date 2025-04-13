@@ -16,12 +16,13 @@ public class YieldTypes
     }
     public enum yieldTypes
     {
-        food,
-        production,
-        gold,
-        faith,
-        science,
-        culture
+        Wood,
+        Clay,
+        Stone,
+        Wheat,
+        Sheep,
+        Fish,
+        Gold
     }
 
     public yieldTypes yieldType;

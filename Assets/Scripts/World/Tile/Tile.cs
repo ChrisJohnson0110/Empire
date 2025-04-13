@@ -21,7 +21,6 @@ public class Tile : MonoBehaviour
 
     TileImprovements.improvements improvement;
 
-
     //bool isTouchingRiver; //on creation
 
     bool hasBarbarianCamp; //barbs on spawn edit tile value // bard on destroy edit value
@@ -38,29 +37,4 @@ public class Tile : MonoBehaviour
     // modifiers from religion
 
     //from policy
-
-
-    public void Start()
-    {
-        if (baseTileType.baseTileType != BaseTile.BaseTileTypes.ocean)
-        {
-            if (Random.Range(0, 100) > 80)
-            {
-                YieldTypes.yieldTypes[] yields = (YieldTypes.yieldTypes[])System.Enum.GetValues(typeof(YieldTypes.yieldTypes)); //all yield tpyes as array
-                Resource.type[] resources = (Resource.type[])System.Enum.GetValues(typeof(Resource.type)); //all yield tpyes as array
-
-                YieldTypes randomYield = new YieldTypes(yields[Random.Range(0, yields.Length)], Random.Range(1, 3));
-
-
-                resourceOnTile = new Resource();
-                resourceOnTile.resourceType = resources[Random.Range(0, resources.Length)];
-                resourceOnTile.tileYieldType.Add(randomYield);
-            }
-        }
-    }
-
-    public void UpdateTile()
-    {
-        
-    }
 }

@@ -26,6 +26,8 @@ public class City : Structure
         FloatingText.instance.CreateFloatingText(a_tile.gameObject, cityName, new Vector3(0, 0.5f, 0), Color.black, 4);
     }
 
+    //claim the neighbours of the tile given tile, assinging them to the given empire
+    //
     void ClaimNeigbours(Tile a_tile, Empire a_ownedByEmpire)
     {
         foreach (Tile tile in a_tile.neighbours)
@@ -36,14 +38,33 @@ public class City : Structure
             //add claim info to tile
             tile.ownedByXempire = ownedByEmpire;
         }
+        a_ownedByEmpire.CalculateYieldPerTurn(); //calculate the empires total yield perturn
     }
 
+    //get all of the worked tiles this city has
     public void GetWorkedResources()
     {
-        //combine
-        
-        //return all owned tiles yeild
+        workedResources.Clear();
 
-        //return all worked resources yeild
+        foreach (Tile t in claimedTiles)
+        {
+            if (t.hasStructure is Farm city)
+            {
+                workedResources.Add(t);
+            }
+        }
     }
+
+    //border growth
+    public void ExpandBorders()
+    {
+        //for each owned tile
+        //check the neighbours
+        //if the neighbour isnt over 3 tiles away from city
+        //and the tile isnt owned by another empire
+        //claim that tile
+
+        ownedByEmpire.CalculateYieldPerTurn(); //calculate the empires total yield perturn
+    }
+
 }

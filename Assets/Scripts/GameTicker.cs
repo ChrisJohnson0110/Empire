@@ -22,11 +22,11 @@ public class GameTicker : MonoBehaviour
 
     void GameTickUpdate()
     {
-        rm.IncreaseResources();
+        //rm.IncreaseResources();
 
         foreach (Player player in GameObject.FindObjectsOfType<Player>())
         {
-
+            rm.woodOwned += player.playersEmprie.CondensedYieldPerTurn(YieldTypes.yieldTypes.Wood);
         }
         //resources
         //border expansion

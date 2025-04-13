@@ -96,7 +96,6 @@ public class TileManager : MonoBehaviour
         CreateDictionary();
         CreateTileModels();
 
-
         //https://www.youtube.com/watch?v=wxVgIH0j8Wg
         //8:35
         //adding a player to add pathfinding //dont need but want to finish video for potential better optimisation 
@@ -372,5 +371,53 @@ public class TileManager : MonoBehaviour
         {
             return false;
         }
+    }
+
+    //return the nearest city within 3 iterations of neighbours
+    public City GetNearestCity(Tile a_tile)
+    {
+        //TODO
+        //get empires list of structures
+        //get all cities
+        //get distance to each
+        //return closest
+
+        foreach (Tile t in a_tile.neighbours)
+        {
+            if (t.hasStructure == null) { continue; }
+            if (t.hasStructure.GetType() == typeof(City))
+            {
+                return (City)t.hasStructure;
+            }
+        }
+
+        foreach (Tile t in a_tile.neighbours)
+        {
+            foreach (Tile tn in t.neighbours)
+            {
+                if (tn.hasStructure == null) { continue; }
+                if (tn.hasStructure.GetType() == typeof(City))
+                {
+                    return (City)tn.hasStructure;
+                }
+            }
+        }
+
+        foreach (Tile t in a_tile.neighbours)
+        {
+            foreach (Tile tn in t.neighbours)
+            {
+                foreach (Tile tnn in tn.neighbours)
+                {
+                    if (tnn.hasStructure == null) { continue; }
+                    if (tnn.hasStructure.GetType() == typeof(City))
+                    {
+                        return (City)tnn.hasStructure;
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 }

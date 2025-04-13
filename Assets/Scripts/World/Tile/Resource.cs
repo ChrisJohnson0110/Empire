@@ -6,7 +6,8 @@ using UnityEngine;
 /// data tpye to store resource types and yield
 /// along with any other specific infomation to do with a resource
 /// </summary>
-public class Resource
+[CreateAssetMenu(fileName = "Types", menuName = "ScriptableObjects/Tiles/Resources", order = 1)]
+public class Resource : ScriptableObject
 {
     //bool isHidden; //is the resource shown //client side later maybe
     //Tech techRequiredToSee = new Tech();

@@ -14,11 +14,13 @@ public class Farm : Structure
     public Farm(Tile a_tile, Empire a_ownedByEmpire) : base(a_ownedByEmpire, a_tile)
     {
         a_ownedByEmpire.structures.Add(this);
+
+        //TODO tile improvements need to be refined
         tileImprovement.resourceType = WhatImprovementShouldBeAddedToTile(a_tile);
-        tileImprovement.improvementYieldType.Add(new YieldTypes(YieldTypes.yieldTypes.food,5));
-        City c = GetNearestCity(a_tile);
-        c.workedResources.Add(a_tile);
-        Debug.Log($"nearest city : {c.cityName}");
+        tileImprovement.improvementYieldType.Add(new YieldTypes(YieldTypes.yieldTypes.Wood,5));
+
+        Debug.Log($"nearest city : {TileManager.instance.GetNearestCity(a_tile).cityName}");
+
         FloatingText.instance.CreateFloatingText(a_tile.gameObject, tileImprovement.resourceType.ToString(), new Vector3(0, 0.5f, 0), Color.black, 3);
     }
 
@@ -51,47 +53,5 @@ public class Farm : Structure
         }
 
         return TileImprovements.improvements.unassigned;
-    }
-
-    //return the nearest city within 3 iterations of neighbours
-    private City GetNearestCity(Tile a_tile)
-    {
-        foreach (Tile t in a_tile.neighbours)
-        {
-            if (t.hasStructure == null) { continue; }
-            if (t.hasStructure.GetType() == typeof(City))
-            {
-                return (City)t.hasStructure;
-            }
-        }
-
-        foreach (Tile t in a_tile.neighbours)
-        {
-            foreach (Tile tn in t.neighbours)
-            {
-                if (tn.hasStructure == null) { continue; }
-                if (tn.hasStructure.GetType() == typeof(City))
-                {
-                    return (City)tn.hasStructure;
-                }
-            }
-        }
-
-        foreach (Tile t in a_tile.neighbours)
-        {
-            foreach (Tile tn in t.neighbours)
-            {
-                foreach (Tile tnn in tn.neighbours)
-                {
-                    if (tnn.hasStructure == null) { continue; }
-                    if (tnn.hasStructure.GetType() == typeof(City))
-                    {
-                        return (City)tnn.hasStructure;
-                    }
-                }
-            }
-        }
-
-        return null;
     }
 }

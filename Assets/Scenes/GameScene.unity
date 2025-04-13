@@ -2776,6 +2776,8 @@ GameObject:
   - component: {fileID: 431546664}
   - component: {fileID: 431546671}
   - component: {fileID: 431546667}
+  - component: {fileID: 431546673}
+  - component: {fileID: 431546672}
   - component: {fileID: 431546668}
   - component: {fileID: 431546669}
   - component: {fileID: 431546670}
@@ -2864,13 +2866,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gridSize: {x: 100, y: 50}
-  _baseTiless:
-  - {fileID: 11400000, guid: 162830b2c7f45e64db545c31c03aeadc, type: 2}
-  - {fileID: 11400000, guid: 31c0fd2969b7bd44a99f58ea733cb537, type: 2}
-  - {fileID: 11400000, guid: a5e6a30dde407694caed8c73912ac043, type: 2}
-  _noiseSeed: -1
-  _noiseFrequency: 5
-  _noiseThreshhold: 0.28
 --- !u!114 &431546668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2934,6 +2929,47 @@ MonoBehaviour:
   _cityPrefab: {fileID: 2383300950308339794, guid: ec58e2c32720de741b3d5452c23bc300, type: 3}
   _lineRendererPrefab: {fileID: 6677192600035215608, guid: cd8e227bcf121944b96aee31d9b3241c, type: 3}
   _lineBorderOffset: {x: 0, y: 0.5, z: 0}
+--- !u!114 &431546672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431546662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a7e53d5413b67a49b187bac4cb5bf30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseTiless:
+  - {fileID: 11400000, guid: 31c0fd2969b7bd44a99f58ea733cb537, type: 2}
+  - {fileID: 11400000, guid: 162830b2c7f45e64db545c31c03aeadc, type: 2}
+  - {fileID: 11400000, guid: a5e6a30dde407694caed8c73912ac043, type: 2}
+  _materials: {fileID: 431546668}
+  _noiseSeed: -1
+  _noiseFrequency: 5
+  _noiseThreshhold: 0.28
+--- !u!114 &431546673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431546662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79c2f13d2113038468f6a79c4237e494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _landResources:
+  - {fileID: 11400000, guid: 60fef125d5ae0384da50b54fba232aa2, type: 2}
+  - {fileID: 11400000, guid: c361435e2e0efad4781e231635711962, type: 2}
+  - {fileID: 11400000, guid: 70eca1b42d92339418fa18fa4a3197a0, type: 2}
+  - {fileID: 11400000, guid: 5da2755c9ffd45c4cb31823ba62bf3c4, type: 2}
+  - {fileID: 11400000, guid: f478fd1d813066f4faa2f53ffcda95db, type: 2}
+  _seaResources:
+  - {fileID: 11400000, guid: 1ba452ad7c65bac4ba2360d6f630262a, type: 2}
+  _chanceForResourceOnTile: 20
 --- !u!1 &457791810
 GameObject:
   m_ObjectHideFlags: 0

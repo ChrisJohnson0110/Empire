@@ -9,16 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9073babdc23dc8d4bb9be48024770d76, type: 3}
-  m_Name: The Great Barrier Reef
+  m_Script: {fileID: 11500000, guid: b5575f6737608b947bccfc9f0b212801, type: 3}
+  m_Name: Clay
   m_EditorClassIdentifier: 
-  baseTileType: 9
-  tileYield:
-  - yieldType: 0
-    yieldAmount: 1
+  resourceType: 1
+  tileYieldType:
   - yieldType: 1
     yieldAmount: 1
-  - yieldType: 2
-    yieldAmount: 1
-  isHilly: 0
-  cannotTraverse: 1
