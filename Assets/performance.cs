@@ -10,7 +10,34 @@ using UnityEngine;
 /// https://hotreload.net
 /// will allow for code to be instantly playable in some cases
 /// however does cost - one time fee of $70
+/// 
+/// 
+/// TODO
+/// 
+/// multiplayer
+/// need to figure out how to add multiplayer
+/// will have to send updates of tile x,y, now owned by, add model at index 2 (list of models can then send a int (32 ?) to pick which lower bandwidth)
+/// score will need to only update from the owned players things
+/// 
+/// other
+/// fog of war
+/// path finding for creating roads / creating roads
+/// turn system / button to cycle to next
+/// add fish too resources
+/// refine resources per turn
+/// 
+/// models
+/// city, outpost
+/// enviroment tiles
+/// farms - quarry - clay stone - wheat field - fishing boat - sheep pen
+/// 
+/// 
 /// </summary>
+/// 
+
+
+
+
 public class performance : MonoBehaviour
 {
 }
