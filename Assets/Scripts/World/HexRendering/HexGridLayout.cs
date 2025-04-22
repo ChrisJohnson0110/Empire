@@ -38,9 +38,10 @@ public class HexGridLayout : MonoBehaviour
        
                 //add collider - for raycast
                 tile.AddComponent<MeshCollider>();
+                tile.AddComponent<Tile>();
 
-                //tile for tile details
-                Tile t = tile.AddComponent<Tile>();
+                Tile t = tile.GetComponent<Tile>();
+
                 t.offSetCoord = new Vector2Int(x,y);
                 t.cubeCoord = OffsetCube(t.offSetCoord);
 
